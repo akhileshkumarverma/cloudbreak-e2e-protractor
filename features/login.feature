@@ -1,8 +1,9 @@
-Feature: Log in to Cloudbreak Dashboard
+Feature: Cloudbreak login
 
   @CucumberScenario
-  Scenario: User logs in to Cloudbreak Dashboard
-    Given I am on Cloudbreak Login page
-    When I give my username "auto.teszt.elek@mailinator.com"
-      And I give my password "Teszt123"
-    Then I click on Login button
+  Scenario: Valid user successfully logs in to Cloudbreak
+    Given I am on the Cloudbreak Login page
+    When I give my username
+      And I give my password
+      And I click on Login button
+    Then I should be logged in

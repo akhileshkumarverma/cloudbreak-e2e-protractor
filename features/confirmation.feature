@@ -1,7 +1,8 @@
 Feature: Agree Cloudbreak Terms of Use
 
   @CucumberScenario
-  Scenario: User agrees the Terms of Use on Confirmation page
-    Given I am on Confirmation page
+  Scenario: User agrees the Terms of Use
+    Given I am on the Confirmation page
     When I check to agree the Terms of Use
-    Then I click on agree button
+      And I click on agree button
+    Then I should get to Dashboard page

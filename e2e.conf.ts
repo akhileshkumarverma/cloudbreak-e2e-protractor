@@ -1,4 +1,4 @@
-import { ProtractorBrowser, Config, ElementFinder, by, element } from 'protractor';
+import { Config } from 'protractor';
 
 export let config: Config = {
     directConnect: true,
@@ -13,7 +13,7 @@ export let config: Config = {
 
     specs: [
         '../features/login.feature',
-        '../features/confirmation.feature'
+        '../features/dashboard.feature'
     ],
 
     /**
@@ -40,7 +40,8 @@ export let config: Config = {
         // https://github.com/angular/protractor/issues/3009
         //browser.executeScript('window.name = "NG_ENABLE_DEBUG_INFO!"');
         // https://github.com/angular/protractor/issues/3611
-        browser.ignoreSynchronization = true;
+        //browser.ignoreSynchronization = true; - This property is deprecated - please use waitForAngularEnabled instead.
+        browser.waitForAngularEnabled(false);
 
         // WebDriver general settings for browsers.
         browser.manage().deleteAllCookies();
@@ -60,7 +61,7 @@ export let config: Config = {
         compiler: "ts:ts-node/register",
         strict: true,
         format: ['pretty'],
-        require: ['../stepdefinitions/*.ts', '../support/*.ts'],
+        require: ['../stepdefinitions/*/*.ts', '../support/*.ts'],
         tags: '@TypeScriptScenario or @CucumberScenario or @ProtractorScenario'
     }
 };

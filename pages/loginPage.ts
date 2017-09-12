@@ -1,4 +1,4 @@
-import { $ } from 'protractor';
+import { $, by, element } from 'protractor';
 
 export class LoginPageObject {
     public usernameBox: any;
@@ -8,6 +8,6 @@ export class LoginPageObject {
     constructor() {
         this.usernameBox = $("input[id='username']");
         this.passwordBox = $("input[id='password']");
-        this.loginButton = $("button[class='btn btn-primary']");
+        this.loginButton = element(by.cssContainingText('.btn.btn-primary','Login'));
     }
 }
