@@ -1,0 +1,33 @@
+{
+  "name": "cloud-e2e-protractor",
+  "version": "1.0.0",
+  "description": "Cloud web application functional end-to-end test project",
+  "repository": "https://github.com/hortonworks/cloud-e2e-protractor.git",
+  "keywords": [
+    "protractor",
+    "typescript",
+    "testing",
+    "automation testing"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
+    "test": "protractor typescript/e2e.conf.js"
+  },
+  "devDependencies": {
+    "@types/cucumber": "0.0.38",
+    "@types/node": "^8.0.3",
+    "@types/selenium-webdriver": "^3.0.0",
+    "chai": "^4.0.2",
+    "chai-as-promised": "^7.0.0",
+    "cucumber": "^2.3.0",
+    "mkdirp": "^0.5.1",
+    "protractor-cucumber-framework": "^3.1.1"
+  },
+  "dependencies": {
+    "cucumber-html-reporter": "^2.0.0",
+    "protractor": "5.0.0",
+    "ts-node": "^3.1.0",
+    "typescript": "^2.2.1"
+  }
+}
