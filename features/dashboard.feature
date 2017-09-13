@@ -1,6 +1,6 @@
 Feature: Cloudbreak Dashboard page available
 
-  @CucumberScenario
+  @DashboardScenario
   Scenario: User navigates over Dashboard page
     Given I am on the Cloudbreak Dashboard page
     When I click on the Credentials menu item

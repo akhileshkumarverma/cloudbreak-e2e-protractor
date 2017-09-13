@@ -1,6 +1,6 @@
 Feature: Cloudbreak login
 
-  @CucumberScenario
+  @LoginScenario
   Scenario: Valid user successfully logs in to Cloudbreak
     Given I am on the Cloudbreak Login page
     When I give my username

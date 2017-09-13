@@ -1,6 +1,6 @@
 Feature: Agree Cloudbreak Terms of Use
 
-  @CucumberScenario
+  @ConfirmationScenario
   Scenario: User agrees the Terms of Use
     Given I am on the Confirmation page
     When I check to agree the Terms of Use
