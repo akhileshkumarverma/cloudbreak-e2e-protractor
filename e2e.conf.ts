@@ -63,12 +63,6 @@ export let config: Config = {
         //browser.driver.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(20000);
         browser.manage().timeouts().pageLoadTimeout(60000);
-
-        browser.getCapabilities().then(function (browserCapabilities) {
-            console.log("Browser name is: " + browserCapabilities.get('browserName'));
-            console.log("Browser version is: " + browserCapabilities.get('version'));
-            console.log("Browser version is: " + browserCapabilities.get('platform'));
-        });
     },
     cucumberOpts: {
         compiler: "ts:ts-node/register",

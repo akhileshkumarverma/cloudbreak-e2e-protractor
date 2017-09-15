@@ -1,5 +1,5 @@
 const Cucumber = require('cucumber');
-import { browser, protractor, element, by } from 'protractor';
+import { browser } from 'protractor';
 import * as fs from 'fs';
 import { defineSupportCode } from "cucumber";
 import * as reporter from 'cucumber-html-reporter';
@@ -11,8 +11,12 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
     let htmlReports = process.cwd() + "/reports/html";
     let targetJson = jsonReports + "/cucumber_report.json";
 
-    registerHandler('BeforeAll', async function () {
-        await console.log('Features are starting!');
+    registerHandler('BeforeFeatures', async function () {
+        await browser.getCapabilities().then(function (browserCapabilities) {
+            console.log("Browser name is: " + browserCapabilities.get('browserName'));
+            console.log("Browser version is: " + browserCapabilities.get('version'));
+            console.log("Browser version is: " + browserCapabilities.get('platform'));
+        });
     });
 
     After(async function (scenarioResult) {
