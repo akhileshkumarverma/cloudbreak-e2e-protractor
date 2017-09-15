@@ -13,7 +13,9 @@ export let config: Config = {
 
     specs: [
         '../features/login.feature',
-        '../features/dashboard.feature'
+        '../features/dashboard.feature',
+        '../features/credential.feature',
+        '../features/logout.feature'
     ],
 
     /**
@@ -21,6 +23,17 @@ export let config: Config = {
      * BASE_URL is environment variable.
      */
     baseUrl: process.env.BASE_URL,
+
+    allScriptsTimeout: 60000,
+    getPageTimeout: 60000,
+
+    /**
+     * https://github.com/angular/protractor/blob/2bde92b3e745e09ad3876932b2d187365e9aaa31/spec/angular2Conf.js
+     *
+     * Special option for Angular2, to test against all Angular2 applications on the page.
+     * This means that Protractor will wait for every app to be stable before each action, and search within all apps when finding elements.
+     */
+    useAllAngular2AppRoots: true,
 
     onPrepare: () => {
         let globals = require('protractor');
@@ -62,6 +75,6 @@ export let config: Config = {
         strict: true,
         format: ['pretty'],
         require: ['../stepdefinitions/*/*.ts', '../support/*.ts'],
-        tags: '@LoginScenario or @DashboardScenario'
+        tags: '@LoginScenario or @DashboardScenario or @CredentialScenario or @LogoutScenario'
     }
 };

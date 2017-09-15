@@ -1,6 +1,6 @@
-import { ConfirmationPageObject } from '../../pages/confirmationPage';
-import { defineSupportCode } from 'cucumber';
-import { $ } from 'protractor';
+import { ConfirmationPageObject } from '../../pages/confirmationPage'
+import { defineSupportCode } from 'cucumber'
+import { $ } from 'protractor'
 
 let chai = require('chai').use(require('chai-smoothie'));
 let expect = chai.expect;

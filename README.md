@@ -59,9 +59,9 @@
 
 ### Executing Protractor tests
 > If your Protractor test environment has just cloned, you should set up its Node environment first (install every needed packages and tools). The easiest way to get all the needed Node packages in one round to use `npm install`. Please check the [npm-install](https://docs.npmjs.com/cli/install) documentation. Beyond these please check the [Protractor Tutorial](https://angular.github.io/protractor/#/tutorial).
-> You do not need to launch the `webdriver-manager` for these tests, because of the `directConnect` is `true` by default in the [Protractor configuration](e2e.conf.js). In this case the Protractor works directly with Chrome or Firefox Driver, bypassing any Selenium Server.
+> You do not need to launch the `webdriver-manager` for these tests, because of the `directConnect` is `true` by default in the [Protractor configuration](e2e.conf.ts). In this case the Protractor works directly with Chrome or Firefox Driver, bypassing any Selenium Server.
 
-* Compile your .ts files to .js to 'typeScript' based on the project's TypeScript configuration:
+* Compile your .ts files to .js to 'typeScript' folder based on the project's TypeScript configuration:
 ```
 npm run tsc
 ```
@@ -89,7 +89,7 @@ directConnect: true
 > * lazy loading of elements and
 > * encapsulation of methods and actions
 >
-> "The goal behind page objects is to abstract any page information away from the actual tests. Ideally you should store all selectors or specific instructions that are unique for a certain page in a page object, so that you still can run your test after you’ve completely redesigned your page." by [WebDriverIO](http://webdriver.io/guide/testrunner/pageobjects.html)
+> The goal behind page objects is to abstract any page information away from the actual tests. Ideally you should store all selectors or specific instructions that are unique for a certain page in a page object, so that you still can run your test after you’ve completely redesigned your page." by [WebDriverIO](http://webdriver.io/guide/testrunner/pageobjects.html)
 
 ### Sample Page Object
 

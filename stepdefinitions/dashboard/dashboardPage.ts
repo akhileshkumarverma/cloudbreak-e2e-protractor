@@ -1,5 +1,5 @@
-import { DashboardPageObject } from '../../pages/dashboardPage';
-import { defineSupportCode } from 'cucumber';
+import { DashboardPageObject } from '../../pages/dashboardPage'
+import { defineSupportCode } from 'cucumber'
 
 let chai = require('chai').use(require('chai-smoothie'));
 let expect = chai.expect;

@@ -1,9 +1,17 @@
-import { $, by, element } from 'protractor';
+import { $, by, element } from 'protractor'
 
 export class CredentialSetupWizardPageObject {
-    public credentialCreateButton: any;
+    public providerSelector: any;
 
     constructor() {
-        this.credentialCreateButton = $("button[id='btnCreateCredential']");
+        this.providerSelector = $("div[class='selected-option']");
+    }
+
+    async selectOpenstack() {
+        await $("div[class='other-options'] img[src*='openstack.png']").click();
+    }
+
+    getSelectedProvider(provider: string) {
+        return $("div[ng-reflect-ng-switch=\'" + provider + "\']");
     }
 }
