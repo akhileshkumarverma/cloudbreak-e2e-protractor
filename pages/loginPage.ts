@@ -1,15 +1,10 @@
 import { $, by, element, protractor } from 'protractor'
+import { BasePageObject } from "./basePage";
 
-export class LoginPageObject {
-    public usernameBox: any;
-    public passwordBox: any;
-    public loginButton: any;
-
-    constructor() {
-        this.usernameBox = $("input[id='username']");
-        this.passwordBox = $("input[id='password']");
-        this.loginButton = element(by.cssContainingText('.btn.btn-primary','Login'));
-    }
+export class LoginPageObject extends BasePageObject {
+    public usernameBox: any = $("input[id='username']");
+    public passwordBox: any = $("input[id='password']");
+    public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
 
     async login() {
         let dashboardURL;
@@ -26,7 +21,6 @@ export class LoginPageObject {
                 return protractor.browser.wait(EC.visibilityOf(yesButton), 20000, 'I Agree button is NOT visible').then(() => {
                     return yesButton.click().then(() => {
                         return protractor.browser.getCurrentUrl().then((url) => {
-                            console.log(url);
                             return dashboardURL == url;
                         });
                     });

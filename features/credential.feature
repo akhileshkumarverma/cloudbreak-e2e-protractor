@@ -9,5 +9,11 @@ Feature: Create new credential
   @CredentialScenario
   Scenario: User creates a new OpenStack credential
     Given I am on the Cloudbreak Credential Setup Wizard
-    When I click on the Cloud provider
-    Then I should see OpenStack as selected provider
+    When I submit my OpenStack credentials
+    Then I should see Cluster Create Wizard
+
+  @CredentialScenario
+  Scenario: User deletes the previously created OpenStack credential
+    Given I am opened Cloudbreak Credential page
+    When I delete my previously created OpenStack credential
+    Then I should NOT see my previously created credential on the page

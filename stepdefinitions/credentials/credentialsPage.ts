@@ -10,4 +10,8 @@ defineSupportCode(function ({ Given }) {
     Given(/^I am on the Cloudbreak Credentials page$/, async () => {
         await expect(credentials.credentialCreateButton).to.be.displayed;
     });
+
+    Given(/^I am opened Cloudbreak Credential page$/, async () => {
+        await credentials.openCredentials();
+    });
 });

@@ -1,17 +1,61 @@
-import { $, by, element } from 'protractor'
+import { $, by, element, protractor } from 'protractor'
+import { CredentialsPageObject } from "../pages/credentialsPage";
 
-export class CredentialSetupWizardPageObject {
-    public providerSelector: any;
-
-    constructor() {
-        this.providerSelector = $("div[class='selected-option']");
-    }
+export class CredentialSetupWizardPageObject extends CredentialsPageObject {
+    public providerSelector: any = element(by.cssContainingText('span', 'Please select your cloud provider'));
 
     async selectOpenstack() {
-        await $("div[class='other-options'] img[src*='openstack.png']").click();
+        const EC = protractor.ExpectedConditions;
+
+        await this.providerSelector.click().then(() => {
+            const openstackButton = $("div[class='option'] img[src*='openstack.png']");
+
+            protractor.browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
+                return openstackButton.click();
+            });
+
+        });
     }
 
     getSelectedProvider(provider: string) {
         return $("div[ng-reflect-ng-switch=\'" + provider + "\']");
+    }
+
+    createOpenStackCredential(keystoneVersion: string, name: string, description: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
+        const EC = protractor.ExpectedConditions;
+
+        const keystoneSelector = $("md-select[placeholder='Please choose a type']");
+        const nameField = $("input[id='name']");
+        const descriptionField = $("input[id='description']");
+        const userField = $("input[id='user']");
+        const passwordField = $("input[id='password']");
+        const tenantField = $("input[id='tenantName']");
+        const endpointField = $("input[id='endpoint']");
+        const apiSelector = $("md-select[formcontrolname='apiFacing']");
+        const createButton = element(by.cssContainingText('button', ' Create'));
+
+        return this.providerSelector.click().then(() => {
+            const openstackButton = $("div[class='option'] img[src*='openstack.png']");
+
+            protractor.browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
+                return openstackButton.click();
+            });
+
+            keystoneSelector.click().then(async () => {
+                await $("md-option[value=\'" + keystoneVersion + "\']").click();
+            });
+
+            nameField.sendKeys(name);
+            descriptionField.sendKeys(description);
+            userField.sendKeys(user);
+            passwordField.sendKeys(password);
+            tenantField.sendKeys(tenantName);
+            endpointField.sendKeys(endpoint);
+            apiSelector.click().then(async () => {
+                await $("md-option[ng-reflect-value=\'" + apiFacing + "\']").click();
+            });
+
+            return createButton.click();
+        });
     }
 }

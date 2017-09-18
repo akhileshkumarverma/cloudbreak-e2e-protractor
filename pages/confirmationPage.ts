@@ -1,4 +1,4 @@
-import { $ } from 'protractor'
+import { $ } from 'protractor';
 
 export class ConfirmationPageObject {
     public optCheckBox: any;
