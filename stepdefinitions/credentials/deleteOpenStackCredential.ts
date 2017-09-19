@@ -1,8 +1,7 @@
-import { CredentialsPageObject } from "../../pages/credentialsPage";
+import { CredentialsPageObject } from "../../pages/credentialsPage"
 import { defineSupportCode } from 'cucumber'
 
-let chai = require('chai').use(require('chai-as-promised'));
-let expect = chai.expect;
+let expect = require('chai').expect;
 
 defineSupportCode(function ({ When, Then }) {
     let credentials: CredentialsPageObject = new CredentialsPageObject();
@@ -12,8 +11,8 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should NOT see my previously created credential on the page$/, async () => {
-       await expect(credentials.isCredentialExist('openstack-autotesting')).fail();
+       await credentials.isCredentialDeleted('openstack-autotesting').then((result) => {
+           return expect(result).to.equal(false);
+       });
     });
-
-
 });

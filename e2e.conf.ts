@@ -5,7 +5,8 @@ export let config: Config = {
 
     capabilities: {
         browserName: 'firefox',
-        marionette: false
+        marionette: false,
+        idleTimeout: 120
     },
 
     framework: 'custom',
@@ -15,6 +16,7 @@ export let config: Config = {
         '../features/login.feature',
         '../features/dashboard.feature',
         '../features/credential.feature',
+//        '../features/cluster.feature',
         '../features/logout.feature'
     ],
 
@@ -26,6 +28,7 @@ export let config: Config = {
 
     allScriptsTimeout: 60000,
     getPageTimeout: 60000,
+    ScriptTimeoutError: 60000,
 
     /**
      * https://github.com/angular/protractor/blob/2bde92b3e745e09ad3876932b2d187365e9aaa31/spec/angular2Conf.js
@@ -69,6 +72,10 @@ export let config: Config = {
         strict: true,
         format: ['pretty'],
         require: ['../stepdefinitions/*/*.ts', '../support/*.ts'],
-        tags: '@LoginScenario or @DashboardScenario or @CredentialScenario or @LogoutScenario'
+        tags: '@LoginScenario ' +
+        'or @DashboardScenario ' +
+        'or @CredentialScenario ' +
+//        'or @ClusterScenario ' +
+        'or @LogoutScenario'
     }
 };

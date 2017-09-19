@@ -1,4 +1,4 @@
-import { $, by, element, protractor } from 'protractor'
+import { browser, $, by, element, protractor } from 'protractor'
 import { BasePageObject } from "./basePage";
 
 export class LoginPageObject extends BasePageObject {
@@ -8,25 +8,25 @@ export class LoginPageObject extends BasePageObject {
 
     async login() {
         let dashboardURL;
-        const EC = protractor.ExpectedConditions;
+        const EC = browser.ExpectedConditions;
 
         await this.usernameBox.sendKeys(process.env.USERNAME);
         await this.passwordBox.sendKeys(process.env.PASSWORD);
 
         await this.loginButton.click().then(() => {
             $("input[id='settingsOpted']").click().then(() => {
-                protractor.browser.waitForAngular();
+                browser.waitForAngular();
                 let yesButton = $("form[id='confirm-yes'] a");
 
-                return protractor.browser.wait(EC.visibilityOf(yesButton), 20000, 'I Agree button is NOT visible').then(() => {
+                return browser.wait(EC.visibilityOf(yesButton), 20000, 'I Agree button is NOT visible').then(() => {
                     return yesButton.click().then(() => {
-                        return protractor.browser.getCurrentUrl().then((url) => {
+                        return browser.getCurrentUrl().then((url) => {
                             return dashboardURL == url;
                         });
                     });
                 });
             }, error => {
-                return protractor.browser.getCurrentUrl().then((url) => {
+                return browser.getCurrentUrl().then((url) => {
                     console.log(url);
                     return dashboardURL == url;
                 });

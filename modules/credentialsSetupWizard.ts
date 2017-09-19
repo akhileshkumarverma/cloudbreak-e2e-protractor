@@ -1,16 +1,16 @@
-import { $, by, element, protractor } from 'protractor'
+import { browser, $, by, element, protractor } from 'protractor'
 import { CredentialsPageObject } from "../pages/credentialsPage";
 
 export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     public providerSelector: any = element(by.cssContainingText('span', 'Please select your cloud provider'));
 
     async selectOpenstack() {
-        const EC = protractor.ExpectedConditions;
+        const EC = browser.ExpectedConditions;
 
         await this.providerSelector.click().then(() => {
             const openstackButton = $("div[class='option'] img[src*='openstack.png']");
 
-            protractor.browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
+            browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
                 return openstackButton.click();
             });
 
@@ -22,7 +22,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     }
 
     createOpenStackCredential(keystoneVersion: string, name: string, description: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
-        const EC = protractor.ExpectedConditions;
+        const EC = browser.ExpectedConditions;
 
         const keystoneSelector = $("md-select[placeholder='Please choose a type']");
         const nameField = $("input[id='name']");
@@ -37,7 +37,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         return this.providerSelector.click().then(() => {
             const openstackButton = $("div[class='option'] img[src*='openstack.png']");
 
-            protractor.browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
+            browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
                 return openstackButton.click();
             });
 

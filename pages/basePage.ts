@@ -1,4 +1,4 @@
-import { $, by, element } from 'protractor';
+import { browser, $, by, element } from 'protractor';
 
 export class BasePageObject {
     public notificationsToggle: any;
@@ -6,15 +6,22 @@ export class BasePageObject {
 
     constructor() {
         this.notificationsToggle = $("div[class='notification-toggle'] i");
-        this.logoutToggle = $("div i[class='fa fa-sign-out']");
+        this.logoutToggle = $("i[id='logoutBtn']");
     }
 
     openCredentials() {
         return element(by.cssContainingText('a span', 'Credentials')).click();
     }
 
-    async logOut() {
-        await this.logoutToggle.click();
-        await element(by.cssContainingText('button.btn.btn-primary.pull-right.text-uppercase', 'Yes')).click();
+    logOut() {
+        const EC = browser.ExpectedConditions;
+
+        return this.logoutToggle.click().then(() => {
+            const confirmationYes = element(by.cssContainingText('button.btn.btn-primary.pull-right.text-uppercase', 'Yes'));
+
+            return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Logout Confirmation is NOT visible').then(() => {
+                return confirmationYes.click();
+            });
+        });
     }
 }

@@ -12,8 +12,8 @@ Feature: Create new credential
     When I submit my OpenStack credentials
     Then I should see Cluster Create Wizard
 
-  @CredentialScenario
-  Scenario: User deletes the previously created OpenStack credential
-    Given I am opened Cloudbreak Credential page
-    When I delete my previously created OpenStack credential
-    Then I should NOT see my previously created credential on the page
+#  @CredentialScenario
+#  Scenario: User deletes the previously created OpenStack credential
+#    Given I am opened Cloudbreak Credential page
+#    When I delete my previously created OpenStack credential
+#    Then I should NOT see my previously created credential on the page

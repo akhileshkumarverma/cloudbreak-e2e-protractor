@@ -1,12 +1,12 @@
 const Cucumber = require('cucumber');
-import { browser } from 'protractor';
+import { browser, protractor } from 'protractor';
 import * as fs from 'fs';
 import { defineSupportCode } from "cucumber";
 import * as reporter from 'cucumber-html-reporter';
 import { mkdirp } from 'mkdirp';
 
 defineSupportCode(function ({ registerHandler, registerListener, After, setDefaultTimeout }) {
-    setDefaultTimeout(10 * 1000);
+    setDefaultTimeout(60 * 1000);
     let jsonReports = process.cwd() + "/reports/json";
     let htmlReports = process.cwd() + "/reports/html";
     let targetJson = jsonReports + "/cucumber_report.json";
@@ -17,6 +17,21 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
             console.log("Browser version is: " + browserCapabilities.get('version'));
             console.log("Browser version is: " + browserCapabilities.get('platform'));
         });
+/*
+
+        let origFn = browser.driver.controlFlow().execute;
+
+        browser.driver.controlFlow().execute = function() {
+            let args = arguments;
+
+            // queue 100ms wait
+            origFn.call(browser.driver.controlFlow(), function() {
+                return protractor.promise.delayed(100);
+            });
+
+            return origFn.apply(browser.driver.controlFlow(), args);
+        };
+*/
     });
 
     After(async function (scenarioResult) {
