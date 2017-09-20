@@ -17,7 +17,6 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
             console.log("Browser version is: " + browserCapabilities.get('version'));
             console.log("Browser version is: " + browserCapabilities.get('platform'));
         });
-/*
 
         let origFn = browser.driver.controlFlow().execute;
 
@@ -31,7 +30,6 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
 
             return origFn.apply(browser.driver.controlFlow(), args);
         };
-*/
     });
 
     After(async function (scenarioResult) {

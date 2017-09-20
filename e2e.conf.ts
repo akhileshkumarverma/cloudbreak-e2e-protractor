@@ -14,9 +14,8 @@ export let config: Config = {
 
     specs: [
         '../features/login.feature',
-        '../features/dashboard.feature',
         '../features/credential.feature',
-//        '../features/cluster.feature',
+        '../features/cluster.feature',
         '../features/logout.feature'
     ],
 
@@ -70,12 +69,14 @@ export let config: Config = {
     cucumberOpts: {
         compiler: "ts:ts-node/register",
         strict: true,
-        format: ['pretty'],
-        require: ['../stepdefinitions/*/*.ts', '../support/*.ts'],
-        tags: '@LoginScenario ' +
-        'or @DashboardScenario ' +
-        'or @CredentialScenario ' +
-//        'or @ClusterScenario ' +
-        'or @LogoutScenario'
+        format: [
+            'pretty'
+        ],
+        backtrace: true,
+        require: [
+            '../stepdefinitions/*/*.ts',
+            '../support/*.ts'
+        ],
+        tags: '@LoginScenario or @CredentialScenario or @ClusterScenario or @LogoutScenario'
     }
 };

@@ -1,6 +1,6 @@
 import { CredentialSetupWizardPageObject } from "../../modules/credentialsSetupWizard"
-import { ClusterCreateWizardPageObject } from "../../modules/clusterCreateWizard";
 import { defineSupportCode } from 'cucumber'
+import { $ } from 'protractor'
 
 let chai = require('chai').use(require('chai-smoothie'));
 let expect = chai.expect;
@@ -19,11 +19,4 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I submit my OpenStack credentials$/, async () => {
         await credentialSetupWizard.createOpenStackCredential(keystoneVersion, name, description, user, password, tenantName, endpoint, apiFacing);
     });
-
-    Then(/^I should see Cluster Create Wizard$/, async () => {
-       let clusterCreateSetupWizard: ClusterCreateWizardPageObject = new ClusterCreateWizardPageObject();
-
-       await expect(clusterCreateSetupWizard.clusterSetupBar).to.be.displayed;
-    })
-
 });

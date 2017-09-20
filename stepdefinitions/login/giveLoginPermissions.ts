@@ -1,5 +1,5 @@
 import { LoginPageObject } from '../../pages/loginPage'
-import { DashboardPageObject } from '../../pages/dashboardPage'
+import { ClustersPageObject } from '../../pages/clustersPage'
 import { defineSupportCode } from 'cucumber'
 
 let chai = require('chai').use(require('chai-smoothie'));
@@ -13,7 +13,7 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should be logged in$/, async () => {
-        let dashboard: DashboardPageObject = new DashboardPageObject();
+        let dashboard: ClustersPageObject = new ClustersPageObject();
 
         await expect(dashboard.cloudbreakBody).to.be.displayed;
     });

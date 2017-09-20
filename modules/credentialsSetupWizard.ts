@@ -1,5 +1,6 @@
 import { browser, $, by, element, protractor } from 'protractor'
 import { CredentialsPageObject } from "../pages/credentialsPage";
+import {async} from "q";
 
 export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     public providerSelector: any = element(by.cssContainingText('span', 'Please select your cloud provider'));
@@ -41,8 +42,8 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                 return openstackButton.click();
             });
 
-            keystoneSelector.click().then(async () => {
-                await $("md-option[value=\'" + keystoneVersion + "\']").click();
+            keystoneSelector.click().then(() => {
+                return $("md-option[value=\'" + keystoneVersion + "\']").click();
             });
 
             nameField.sendKeys(name);
@@ -51,11 +52,17 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
             passwordField.sendKeys(password);
             tenantField.sendKeys(tenantName);
             endpointField.sendKeys(endpoint);
-            apiSelector.click().then(async () => {
-                await $("md-option[ng-reflect-value=\'" + apiFacing + "\']").click();
+            apiSelector.click().then( () => {
+                return $("md-option[ng-reflect-value=\'" + apiFacing + "\']").click();
             });
 
-            return createButton.click();
+            return createButton.click().then(() => {
+                return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
+                    return present;
+                }, error => {
+                    return false;
+                });
+            });
         });
     }
 }

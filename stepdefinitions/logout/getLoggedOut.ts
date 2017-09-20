@@ -12,6 +12,6 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should be logged out$/, async () => {
-        await expect(base.logoutToggle).not.to.be.displayed;
+        await base.isLoggedOut();
     });
 });

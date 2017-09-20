@@ -12,6 +12,6 @@ defineSupportCode(function ({ Given }) {
     });
 
     Given(/^I am opened Cloudbreak Credential page$/, async () => {
-        await credentials.openCredentials();
+        await credentials.openPage('Credentials');
     });
 });
