@@ -21,7 +21,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         const securityGroupSelectors = $$("md-select[placeholder='Please select security group']");
 
         credentialSelector.click().then(() => {
-            return $("md-option[ng-reflect-value=\'" + credentialName + "\']").click();
+            return element(by.cssContainingText('md-option', credentialName)).click();
         });
 
         clusterNameField.sendKeys(clusterName).then(() => {
@@ -40,16 +40,31 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
             return instanceTypeField.sendKeys(instanceType);
         });
 
-        ambariMasterCheckbox.click().then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
+        ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
+            console.log(elementClass);
+            if (!elementClass.includes('mat-checkbox-checked')) {
+                return ambariMasterCheckbox.click().then(() => {
+                    const nextButton = element(by.cssContainingText('button', 'Next'));
 
-            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                        return true;
+                    return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                        return nextButton.click().then(() => {
+                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
+                                return true;
+                            });
+                        });
                     });
                 });
-            });
+            } else {
+                const nextButton = element(by.cssContainingText('button', 'Next'));
+
+                return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                    return nextButton.click().then(() => {
+                        return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
+                            return true;
+                        });
+                    });
+                });
+            }
         });
 
         fileSystemSelector.isDisplayed().then(() => {
@@ -61,6 +76,12 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                         return true;
                     });
                 });
+            });
+        });
+
+        securityGroupSelectors.map((securityGroupSelector) => {
+            return securityGroupSelector.click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + securityGroup + "\']").click();
             });
         });
 
@@ -91,12 +112,6 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
         confirmPasswordField.clear().then(() => {
             confirmPasswordField.sendKeys(user);
-        });
-
-        securityGroupSelectors.map((securityGroupSelector) => {
-            return securityGroupSelector.click().then(() => {
-                return $("md-option[ng-reflect-value=\'" + securityGroup + "\']").click();
-            });
         });
 
         return sshTextarea.sendKeys(sshKey).then(() => {

@@ -1,6 +1,9 @@
 import { Config } from 'protractor';
 
 export let config: Config = {
+    params: {
+        nameTag: process.env.CBD_VERSION.replace(/\./g,'')
+    },
     directConnect: true,
 
     capabilities: {
