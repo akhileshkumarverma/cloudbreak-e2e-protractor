@@ -25,7 +25,7 @@ export class CredentialsPageObject extends BasePageObject {
         const EC = browser.ExpectedConditions;
         const credential = $("div[data-credential-name=\'" + name + "\']");
 
-        return browser.wait(EC.invisibilityOf(credential), 10000, 'Deleted credential is STILL visible').then(() => {
+        return browser.wait(EC.stalenessOf(credential), 10000, 'Deleted credential is STILL visible').then(() => {
             return credential.isDisplayed().then((displayed) => {
                 console.log('Is Displayed PASSING' + displayed);
                 return displayed;

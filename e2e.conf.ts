@@ -19,6 +19,7 @@ export let config: Config = {
         '../features/login.feature',
         '../features/credential.feature',
         '../features/cluster.feature',
+        '../features/teardown.feature',
         '../features/logout.feature'
     ],
 
@@ -80,6 +81,6 @@ export let config: Config = {
             '../stepdefinitions/*/*.ts',
             '../support/*.ts'
         ],
-        tags: '@LoginScenario or @CredentialScenario or @ClusterScenario or @LogoutScenario'
+        tags: '@LoginScenario or @CredentialScenario or @ClusterScenario or @TeardownScenario or @LogoutScenario'
     }
 };

@@ -8,4 +8,8 @@ export class ClustersPageObject extends BasePageObject {
         return element(by.cssContainingText('app-cluster-item-card div', name));
     }
 
+    openClusterDetails(name: string) {
+        return element(by.cssContainingText('a div', name)).click();
+    }
+
 }
