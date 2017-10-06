@@ -7,7 +7,7 @@ Feature: Create new credential
     Then I should see Credential Setup Wizard
 
   @CredentialScenario
-  Scenario: User creates a new OpenStack credential
+  Scenario: User creates a new credential
     Given I am on the Cloudbreak Credential Setup Wizard
-    When I submit my OpenStack credentials
+    When I submit my provider related credentials
     Then I should see Create Cluster Wizard

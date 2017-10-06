@@ -8,14 +8,17 @@ export class ClustersPageObject extends BasePageObject {
         const EC = browser.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.elementToBeClickable(widgetLink), 5000, 'Cluster widget is NOT visible').then(() => {
+        return browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT visible').then(() => {
             return widgetLink.isDisplayed().then((displayed) => {
+                console.log('IsDisplayed passed');
                 return displayed;
             }, error => {
+                console.log('IsDisplayed failed');
                 return false;
             });
         }, error => {
-          return false;
+            console.log('WidgetWait failed for: ' + name);
+            return false;
         });
     }
 

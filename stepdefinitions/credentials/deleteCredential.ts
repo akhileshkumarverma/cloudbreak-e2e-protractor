@@ -10,7 +10,7 @@ defineSupportCode(function ({ When, Then }) {
 
     const name = process.env.CREDENTIAL_NAME + browser.params.nameTag;
 
-    When(/^I delete my previously created OpenStack credential$/, async () => {
+    When(/^I delete my previously created provider related credential$/, async () => {
         await credentials.deleteCredential(name);
     });
 

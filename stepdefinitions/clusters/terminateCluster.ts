@@ -10,11 +10,11 @@ defineSupportCode(function ({ When, Then }) {
 
     const clusterName = process.env.CLUSTER_NAME + browser.params.nameTag;
 
-    When(/^I terminate my previously created OpenStack cluster$/, async () => {
+    When(/^I terminate my previously created provider related cluster$/, async () => {
         await clusterDetails.terminateCluster();
     });
 
-    Then(/^I should NOT see my previously created cluster on the Clousbreak Dashboard$/, async () => {
+    Then(/^I should NOT see my previously created cluster on the Cloudbreak Dashboard$/, async () => {
         await expect(clusterDetails.waitForClusterTermination(clusterName)).to.eventually.be.true;
     })
 

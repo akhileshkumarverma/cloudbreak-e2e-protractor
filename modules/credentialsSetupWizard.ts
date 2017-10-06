@@ -65,4 +65,39 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
             });
         });
     }
+
+    createAWSCredential(credentialType: string, name: string, description: string, iamRoleARN: string) {
+        const EC = browser.ExpectedConditions;
+
+        const typeSelector = $("md-select[id='type']");
+        const nameField = $("input[id='name']");
+        const descriptionField = $("input[id='description']");
+        const roleField = $("input[id='roleArn']");
+        const createButton = element(by.cssContainingText('button', ' Create'));
+
+        return this.providerSelector.click().then(() => {
+            const awsButton = $("div[class='option'] img[src*='aws.png']");
+
+            browser.wait(EC.visibilityOf(awsButton), 5000, 'AWS Credential Type option is NOT visible').then(() => {
+                return awsButton.click();
+            });
+
+            typeSelector.click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+            });
+
+            nameField.sendKeys(name);
+            descriptionField.sendKeys(description);
+            roleField.sendKeys(iamRoleARN);
+
+            return createButton.click().then(() => {
+                return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
+                    return present;
+                }, error => {
+                    return false;
+                });
+            });
+        });
+    }
+
 }

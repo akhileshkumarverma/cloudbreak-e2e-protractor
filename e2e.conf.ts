@@ -48,7 +48,7 @@ export let config: Config = {
         console.log("The Base URL is: " + process.env.BASE_URL);
         console.log("The Username is: " + process.env.USERNAME);
         console.log("The Password is: " + process.env.PASSWORD);
-
+        console.log("The Provider is: " + process.env.PROVIDER);
         /**
          * Open the base URL that defined above.
          * OR
