@@ -7,22 +7,22 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     createOpenStackCluster(credentialName: string, clusterName: string, instanceType: string, network: string, subnet: string, user: string, password: string, sshKey: string, securityGroup: string) {
         const EC = browser.ExpectedConditions;
 
-        const credentialSelector = $("md-select[placeholder='Please select credential']");
+        //const credentialSelector = $("md-select[placeholder='Please select credential']");
         const clusterNameField = $("input[id='clusterName']");
         const instanceTypeFields = $$("input[placeholder='Please select instance type']");
         const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
-        const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
+        //const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
+        //const securityGroupSelectors = $$("md-select[placeholder='Please select security group']");
         const networkSelector = $("md-select[placeholder='Please select a network']");
         const subnetSelector = $("md-select[placeholder='Please select a subnet']");
         const userField = $("input[formcontrolname='username']");
         const passwordField = $("input[formcontrolname='password']");
         const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
         const sshTextarea = $("textarea[formcontrolname='publicKey']");
-        const securityGroupSelectors = $$("md-select[placeholder='Please select security group']");
 
-        credentialSelector.click().then(() => {
-            return element(by.cssContainingText('md-option', credentialName)).click();
-        });
+        // credentialSelector.click().then(() => {
+        //     return element(by.cssContainingText('md-option', credentialName)).click();
+        // });
 
         clusterNameField.sendKeys(clusterName).then(() => {
             const nextButton = element(by.cssContainingText('button', 'Next'));
@@ -41,14 +41,14 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
 
         ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
-            console.log(elementClass);
+            //console.log(elementClass);
             if (!elementClass.includes('mat-checkbox-checked')) {
                 return ambariMasterCheckbox.click().then(() => {
                     const nextButton = element(by.cssContainingText('button', 'Next'));
 
                     return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                         return nextButton.click().then(() => {
-                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
+                            return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
                                 return true;
                             });
                         });
@@ -59,7 +59,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
                 return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                     return nextButton.click().then(() => {
-                        return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
+                        return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
                             return true;
                         });
                     });
@@ -67,23 +67,23 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
             }
         });
 
-        fileSystemSelector.isDisplayed().then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
+        // fileSystemSelector.isDisplayed().then(() => {
+        //     const nextButton = element(by.cssContainingText('button', 'Next'));
+        //
+        //     return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+        //         return nextButton.click().then(() => {
+        //             return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+        //                 return true;
+        //             });
+        //         });
+        //     });
+        // });
 
-            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        securityGroupSelectors.map((securityGroupSelector) => {
-            return securityGroupSelector.click().then(() => {
-                return $("md-option[ng-reflect-value=\'" + securityGroup + "\']").click();
-            });
-        });
+        // securityGroupSelectors.map((securityGroupSelector) => {
+        //     return securityGroupSelector.click().then(() => {
+        //         return $("md-option[ng-reflect-value=\'" + securityGroup + "\']").click();
+        //     });
+        // });
 
         networkSelector.click().then(() => {
             return $("md-option[ng-reflect-value=\'" + network + "\']").click();
@@ -119,7 +119,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
             return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
                 return createButton.click().then(() => {
-                    const widget = element(by.cssContainingText('div', clusterName));
+                    const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
                     return browser.wait(EC.visibilityOf(widget), 5000, 'User field is NOT visible').then(() => {
                         return true;

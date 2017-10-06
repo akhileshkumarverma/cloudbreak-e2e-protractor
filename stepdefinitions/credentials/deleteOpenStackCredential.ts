@@ -2,7 +2,8 @@ import { CredentialsPageObject } from "../../pages/credentialsPage"
 import { defineSupportCode } from 'cucumber'
 import { browser } from "protractor";
 
-let expect = require('chai').expect;
+let chai = require('chai').use(require('chai-smoothie'));
+let expect = chai.expect;
 
 defineSupportCode(function ({ When, Then }) {
     let credentials: CredentialsPageObject = new CredentialsPageObject();
@@ -14,8 +15,6 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should NOT see my previously created credential on the page$/, async () => {
-       await credentials.isCredentialDeleted(name).then((result) => {
-           return expect(result).to.equal(false);
-       });
+       await expect(credentials.isCredentialDeleted(name)).to.eventually.be.true;
     });
 });

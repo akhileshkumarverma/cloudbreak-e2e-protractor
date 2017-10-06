@@ -18,18 +18,18 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
             console.log("Browser version is: " + browserCapabilities.get('platform'));
         });
 
-        let origFn = browser.driver.controlFlow().execute;
-
-        browser.driver.controlFlow().execute = function() {
-            let args = arguments;
-
-            // queue 100ms wait
-            origFn.call(browser.driver.controlFlow(), function() {
-                return protractor.promise.delayed(100);
-            });
-
-            return origFn.apply(browser.driver.controlFlow(), args);
-        };
+        // let origFn = browser.driver.controlFlow().execute;
+        //
+        // browser.driver.controlFlow().execute = function() {
+        //     let args = arguments;
+        //
+        //     // queue 100ms wait
+        //     origFn.call(browser.driver.controlFlow(), function() {
+        //         return protractor.promise.delayed(100);
+        //     });
+        //
+        //     return origFn.apply(browser.driver.controlFlow(), args);
+        // };
     });
 
     After(async function (scenarioResult) {

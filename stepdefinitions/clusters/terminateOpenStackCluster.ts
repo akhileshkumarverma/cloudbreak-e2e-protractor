@@ -15,7 +15,7 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should NOT see my previously created cluster on the Clousbreak Dashboard$/, async () => {
-       await expect(clusterDetails.getClusterWidget(clusterName)).not.to.be.displayed;
+        await expect(clusterDetails.waitForClusterTermination(clusterName)).to.eventually.be.true;
     })
 
 });

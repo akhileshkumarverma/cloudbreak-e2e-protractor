@@ -23,7 +23,7 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should see my new cluster's widget$/, async () => {
-       await expect(clusterCreateSetupWizard.getClusterWidget(clusterName)).to.be.displayed;
+       await expect(clusterCreateSetupWizard.getClusterWidget(clusterName)).to.eventually.be.true;
     })
 
 });

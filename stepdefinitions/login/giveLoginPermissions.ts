@@ -12,6 +12,10 @@ defineSupportCode(function ({ When, Then }) {
         await login.login();
     });
 
+    When(/^Close Default Credential warning dialog if it is present$/, async () => {
+        await login.closeDefaultCredentialWarning();
+    });
+
     Then(/^I should be logged in$/, async () => {
         let dashboard: ClustersPageObject = new ClustersPageObject();
 

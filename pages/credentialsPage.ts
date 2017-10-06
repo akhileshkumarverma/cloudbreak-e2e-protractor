@@ -26,16 +26,11 @@ export class CredentialsPageObject extends BasePageObject {
         const credential = $("div[data-credential-name=\'" + name + "\']");
 
         return browser.wait(EC.stalenessOf(credential), 10000, 'Deleted credential is STILL visible').then(() => {
-            return credential.isDisplayed().then((displayed) => {
-                console.log('Is Displayed PASSING' + displayed);
-                return displayed;
-            }, error => {
-                console.log('Is Displayed FAILING');
-                return false;
-            });
-        }, error => {
-            console.log('Invisibility Wait FAILING');
+            //console.log('Credential has been deleted');
             return true;
+        }, error => {
+            //console.log('Credential has NOT been deleted');
+            return false;
         });
     }
 }
