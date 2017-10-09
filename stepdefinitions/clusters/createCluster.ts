@@ -13,7 +13,6 @@ defineSupportCode(function ({ When, Then }) {
 
     When(/^I submit my provider related configurations$/, async () => {
         if(provider.toLocaleLowerCase() == 'openstack') {
-            const credentialName = process.env.CREDENTIAL_NAME + browser.params.nameTag;
             const instanceType = process.env.INSTANCE_TYPE;
             const network = process.env.OS_NETWORK;
             const subnet = process.env.OS_SUBNET;
@@ -22,15 +21,14 @@ defineSupportCode(function ({ When, Then }) {
             const sshKey = process.env.SSH_KEY;
             const securityGroup = process.env.OS_SECURITYGROUP;
 
-            await clusterCreateSetupWizard.createOpenStackCluster(credentialName, clusterName, instanceType, network, subnet, user, password, sshKey, securityGroup);
+            await clusterCreateSetupWizard.createOpenStackCluster(clusterName, instanceType, network, subnet, user, password, sshKey, securityGroup);
         } else {
             const credentialName = process.env.CREDENTIAL_NAME + browser.params.nameTag;
-            const instanceType = 'm4.large';
             const user = process.env.AMBARI_USER;
             const password = process.env.AMBARI_PASSWORD;
             const sshKey = process.env.SSH_KEY;
 
-            await clusterCreateSetupWizard.createAWSCluster(credentialName, clusterName, instanceType, user, password, sshKey);
+            await clusterCreateSetupWizard.createAWSCluster(credentialName, clusterName, user, password, sshKey);
         }
     });
 

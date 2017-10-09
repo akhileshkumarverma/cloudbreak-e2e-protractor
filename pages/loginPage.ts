@@ -27,7 +27,7 @@ export class LoginPageObject extends BasePageObject {
                 });
             }, error => {
                 return browser.getCurrentUrl().then((url) => {
-                    console.log(url);
+                    //console.log(url);
                     return dashboardURL == url;
                 });
             })

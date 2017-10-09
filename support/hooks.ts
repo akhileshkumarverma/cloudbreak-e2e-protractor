@@ -1,14 +1,18 @@
-const Cucumber = require('cucumber');
 import { browser, protractor } from 'protractor';
 import * as fs from 'fs';
 import { defineSupportCode } from "cucumber";
 import * as reporter from 'cucumber-html-reporter';
 import { mkdirp } from 'mkdirp';
 
+const Cucumber = require('cucumber');
+const report = require('cucumber-html-report');
+
 defineSupportCode(function ({ registerHandler, registerListener, After, setDefaultTimeout }) {
     setDefaultTimeout(60 * 1000);
     let jsonReports = process.cwd() + "/reports/json";
     let htmlReports = process.cwd() + "/reports/html";
+    let screenshots = process.cwd() + "/reports/screenshots";
+    let mustacheReports = process.cwd() + "/reports/mustache";
     let targetJson = jsonReports + "/cucumber_report.json";
 
     registerHandler('BeforeFeatures', async function () {
@@ -45,7 +49,10 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
         theme: "bootstrap",
         jsonFile: targetJson,
         output: htmlReports + "/cucumber_reporter.html",
-        reportSuiteAsScenarios: true
+        reportSuiteAsScenarios: true,
+        launchReport: true,
+        storeScreenshots: false,
+        screenshotsDirectory: screenshots
     };
 
     let logFn = string => {
@@ -55,11 +62,19 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
         try {
             fs.writeFileSync(targetJson, string);
             reporter.generate(cucumberReporterOptions); // invoke cucumber-html-reporter
+
+            report.create({
+                source:       './reports/json/cucumber_report.json',  // source json
+                dest:         './reports/mustache',                   // target directory (will create if not exists)
+                name:         'mustache_report.html'                  // report file name (will be index.html if not exists)
+            })
+                .then(console.log)
+                .catch(console.error);
+
         } catch (err) {
             if (err) {
                 console.log(`Failed to save cucumber test results to json file. 
-                             Failed to create html report.
-                             `);
+                             Failed to create html report.`);
                 console.log(err);
             }
         }

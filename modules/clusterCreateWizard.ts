@@ -5,25 +5,19 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     public generalConfiguarationSideItem: any = $("div[ng-reflect-router-link='/clusters/create']");
     public templateSwitch: any = $("div[class='setup-wizard-title-bar'] i[class='fa fa-toggle-off']");
 
-    createOpenStackCluster(credentialName: string, clusterName: string, instanceType: string, network: string, subnet: string, user: string, password: string, sshKey: string, securityGroup: string) {
+    // Basic Template
+    createOpenStackCluster(clusterName: string, instanceType: string, network: string, subnet: string, user: string, password: string, sshKey: string, securityGroup: string) {
         const EC = browser.ExpectedConditions;
 
-        //const credentialSelector = $("md-select[placeholder='Please select credential']");
         const clusterNameField = $("input[id='clusterName']");
         const instanceTypeFields = $$("input[placeholder='Please select instance type']");
         const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
-        //const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
-        //const securityGroupSelectors = $$("md-select[placeholder='Please select security group']");
         const networkSelector = $("md-select[placeholder='Please select a network']");
         const subnetSelector = $("md-select[placeholder='Please select a subnet']");
         const userField = $("input[formcontrolname='username']");
         const passwordField = $("input[formcontrolname='password']");
         const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
         const sshTextarea = $("textarea[formcontrolname='publicKey']");
-
-        // credentialSelector.click().then(() => {
-        //     return element(by.cssContainingText('md-option', credentialName)).click();
-        // });
 
         clusterNameField.sendKeys(clusterName).then(() => {
             const nextButton = element(by.cssContainingText('button', 'Next'));
@@ -67,25 +61,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 });
             }
         });
-
-        // fileSystemSelector.isDisplayed().then(() => {
-        //     const nextButton = element(by.cssContainingText('button', 'Next'));
-        //
-        //     return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-        //         return nextButton.click().then(() => {
-        //             return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
-        //                 return true;
-        //             });
-        //         });
-        //     });
-        // });
-
-        // securityGroupSelectors.map((securityGroupSelector) => {
-        //     return securityGroupSelector.click().then(() => {
-        //         return $("md-option[ng-reflect-value=\'" + securityGroup + "\']").click();
-        //     });
-        // });
-
+        
         networkSelector.click().then(() => {
             return $("md-option[ng-reflect-value=\'" + network + "\']").click();
         });
@@ -131,12 +107,12 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
     }
 
-    createAWSCluster(credentialName: string, clusterName: string, instanceType: string, user: string, password: string, sshKey: string) {
+    // Advanced Template
+    createAWSCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
         const EC = browser.ExpectedConditions;
 
         const credentialSelector = $("md-select[placeholder='Please select credential']");
         const clusterNameField = $("input[id='clusterName']");
-        const instanceTypeFields = $$("input[placeholder='Please select instance type']");
         const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
         const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
         const networkSelector = $("md-select[placeholder='Please select a network']");
@@ -158,17 +134,9 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
             return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                 return nextButton.click().then(() => {
-                    return browser.wait(EC.elementToBeClickable(ambariMasterCheckbox), 5000, 'Ambari checkbox is NOT clickable').then(() => {
+                    return browser.wait(EC.visibilityOf(ambariMasterCheckbox), 5000, 'Ambari checkbox is NOT clickable').then(() => {
                         return true;
                     });
-                });
-            });
-        });
-
-        instanceTypeFields.map((instanceTypeField) => {
-            return instanceTypeField.sendKeys(instanceType).then(() => {
-                return instanceTypeField.clear().then(() => {
-                    return instanceTypeField.sendKeys(instanceType);
                 });
             });
         });
@@ -181,7 +149,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
                     return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                         return nextButton.click().then(() => {
-                            return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
                                 return true;
                             });
                         });
@@ -236,7 +204,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 return createButton.click().then(() => {
                     const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
-                    return browser.wait(EC.visibilityOf(widget), 5000, 'User field is NOT visible').then(() => {
+                    return browser.wait(EC.visibilityOf(widget), 5000, 'Cluster widget is NOT visible').then(() => {
                         return true;
                     });
                 });
