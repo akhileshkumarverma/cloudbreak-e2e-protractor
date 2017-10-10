@@ -14,7 +14,16 @@ defineSupportCode(function ({ Given }) {
         await expect(clusterDetails.terminateButton).to.be.displayed;
     });
 
-    Given(/^I am opened Cluster Details/, async () => {
-        await clusterDetails.openClusterDetails(clusterName);
+    Given(/^I am opened "([^"]*)" Cluster Details/, async (provider) => {
+        switch (provider) {
+            case "OpenStack":
+                await clusterDetails.openClusterDetails(clusterName + 'os');
+                break;
+            case "AWS":
+                await clusterDetails.openClusterDetails(clusterName + 'aws');
+                break;
+            default:
+                console.log('No such provider!');
+        }
     });
 });

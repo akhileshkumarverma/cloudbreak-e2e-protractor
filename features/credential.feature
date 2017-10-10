@@ -1,4 +1,5 @@
-Feature: Create new credential
+Feature: Credential
+  Azure, AWS, Google Cloud and OpenStack credentials can be managed here for cluster creation on these providers
 
   @CredentialScenario
   Scenario: User opens Cloudbreak Credential Setup Wizard
@@ -7,7 +8,12 @@ Feature: Create new credential
     Then I should see Credential Setup Wizard
 
   @CredentialScenario
-  Scenario: User creates a new credential
+  Scenario Outline: User creates a new credential
     Given I am on the Cloudbreak Credential Setup Wizard
-    When I submit my provider related credentials
+    When I create my new Credential for the following "<Provider>"
     Then I should see Create Cluster Wizard
+
+    Examples:
+      | Provider  |
+      | OpenStack |
+      | AWS       |

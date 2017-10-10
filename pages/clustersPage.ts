@@ -10,10 +10,10 @@ export class ClustersPageObject extends BasePageObject {
 
         return browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT visible').then(() => {
             return widgetLink.isDisplayed().then((displayed) => {
-                console.log('IsDisplayed passed');
+                //console.log('IsDisplayed passed');
                 return displayed;
             }, error => {
-                console.log('IsDisplayed failed');
+                //console.log('IsDisplayed failed');
                 return false;
             });
         }, error => {

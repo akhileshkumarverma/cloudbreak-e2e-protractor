@@ -10,12 +10,29 @@ defineSupportCode(function ({ When, Then }) {
 
     const clusterName = process.env.CLUSTER_NAME + browser.params.nameTag;
 
-    When(/^I terminate my previously created provider related cluster$/, async () => {
-        await clusterDetails.terminateCluster();
+    When(/^I terminate my Cluster on "([^"]*)"$/, async (provider) => {
+        switch (provider) {
+            case "OpenStack":
+                await clusterDetails.terminateCluster();
+                break;
+            case "AWS":
+                await clusterDetails.terminateCluster();
+                break;
+            default:
+                console.log('No such provider!');
+        }
     });
 
-    Then(/^I should NOT see my previously created cluster on the Cloudbreak Dashboard$/, async () => {
-        await expect(clusterDetails.waitForClusterTermination(clusterName)).to.eventually.be.true;
+    Then(/^I should NOT see my "([^"]*)" cluster on the Cloudbreak Dashboard$/, async (provider) => {
+        switch (provider) {
+            case "OpenStack":
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'os')).to.eventually.be.true;
+                break;
+            case "AWS":
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'aws')).to.eventually.be.true;
+                break;
+            default:
+                console.log('No such provider!');
+        }
     })
-
 });

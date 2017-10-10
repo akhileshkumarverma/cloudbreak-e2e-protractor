@@ -50,7 +50,7 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
         jsonFile: targetJson,
         output: htmlReports + "/cucumber_reporter.html",
         reportSuiteAsScenarios: true,
-        launchReport: true,
+        launchReport: false,
         storeScreenshots: false,
         screenshotsDirectory: screenshots
     };

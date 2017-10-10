@@ -1,9 +1,31 @@
 import { browser, $, by, element, protractor } from 'protractor'
 import { CredentialsPageObject } from "../pages/credentialsPage";
-import {async} from "q";
 
 export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     public providerSelector: any = element(by.cssContainingText('span', 'Please select your cloud provider'));
+
+    onTheCreateCredentialWizard() {
+        return browser.getCurrentUrl().then((url) => {
+            //console.log('Actual URL: ' + url);
+            //console.log(url.includes('/getstarted'));
+            return url.includes('/getstarted');
+        }, error => {
+            console.log('Error get current URL');
+            return false;
+        }).then((result) => {
+            if (!result) {
+                browser.get(browser.baseUrl + '/getstarted').then(() => {
+                    return browser.wait(() => {
+                        return browser.getCurrentUrl().then((url) => {
+                            return /getstarted/.test(url);
+                        });
+                    }, 5000, 'Cannot open Create Credential Wizard');
+                })
+            } else {
+                return result;
+            }
+        });
+    }
 
     async selectOpenstack() {
         const EC = browser.ExpectedConditions;
@@ -22,12 +44,11 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         return $("div[ng-reflect-ng-switch=\'" + provider + "\']");
     }
 
-    createOpenStackCredential(keystoneVersion: string, name: string, description: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
+    createOpenStackCredential(keystoneVersion: string, name: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
         const EC = browser.ExpectedConditions;
 
         const keystoneSelector = $("md-select[placeholder='Please choose a type']");
         const nameField = $("input[id='name']");
-        const descriptionField = $("input[id='description']");
         const userField = $("input[id='user']");
         const passwordField = $("input[id='password']");
         const tenantField = $("input[id='tenantName']");
@@ -47,7 +68,6 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
             });
 
             nameField.sendKeys(name);
-            descriptionField.sendKeys(description);
             userField.sendKeys(user);
             passwordField.sendKeys(password);
             tenantField.sendKeys(tenantName);
@@ -66,12 +86,11 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         });
     }
 
-    createAWSCredential(credentialType: string, name: string, description: string, iamRoleARN: string) {
+    createAWSCredential(credentialType: string, name: string, iamRoleARN: string) {
         const EC = browser.ExpectedConditions;
 
         const typeSelector = $("md-select[id='type']");
         const nameField = $("input[id='name']");
-        const descriptionField = $("input[id='description']");
         const roleField = $("input[id='roleArn']");
         const createButton = element(by.cssContainingText('button', ' Create'));
 
@@ -87,7 +106,6 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
             });
 
             nameField.sendKeys(name);
-            descriptionField.sendKeys(description);
             roleField.sendKeys(iamRoleARN);
 
             return createButton.click().then(() => {

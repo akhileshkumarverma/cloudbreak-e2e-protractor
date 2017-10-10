@@ -1,7 +1,12 @@
 Feature: Clean up after tests have done
 
   @TeardownScenario
-  Scenario: User delete the previously created credential
+  Scenario Outline: User delete the previously created credential
     Given I am opened Cloudbreak Credential page
-    When I delete my previously created provider related credential
+    When I delete my Credential for "<Provider>"
     Then I should NOT see my previously created credential on the page
+
+    Examples:
+    | Provider  |
+    | OpenStack |
+    | AWS       |

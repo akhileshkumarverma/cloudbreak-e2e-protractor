@@ -10,8 +10,17 @@ defineSupportCode(function ({ When, Then }) {
 
     const name = process.env.CREDENTIAL_NAME + browser.params.nameTag;
 
-    When(/^I delete my previously created provider related credential$/, async () => {
-        await credentials.deleteCredential(name);
+    When(/^I delete my Credential for "([^"]*)"$/, async (provider) => {
+        switch (provider) {
+            case "OpenStack":
+                await credentials.deleteCredential(name + 'os');
+                break;
+            case "AWS":
+                await credentials.deleteCredential(name + 'aws');
+                break;
+            default:
+                console.log('No such provider!');
+        }
     });
 
     Then(/^I should NOT see my previously created credential on the page$/, async () => {

@@ -1,4 +1,5 @@
-Feature: Cloudbreak login
+Feature: Login
+  Cloudbreak login
 
   @LoginScenario
   Scenario: Valid user successfully logs in to Cloudbreak
