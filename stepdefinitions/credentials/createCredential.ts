@@ -1,13 +1,10 @@
 import { CredentialSetupWizardPageObject } from "../../modules/credentialsSetupWizard"
 import { defineSupportCode } from 'cucumber'
 import { browser } from 'protractor'
-
-let chai = require('chai').use(require('chai-smoothie'));
-let expect = chai.expect;
+import {async} from "q";
 
 defineSupportCode(function ({ When, Then }) {
     let credentialSetupWizard: CredentialSetupWizardPageObject = new CredentialSetupWizardPageObject();
-    let provider = process.env.PROVIDER;
 
     const name = process.env.CREDENTIAL_NAME + browser.params.nameTag;
 
@@ -24,10 +21,19 @@ defineSupportCode(function ({ When, Then }) {
                 await credentialSetupWizard.createOpenStackCredential(keystoneVersion, name + 'os', user, password, tenantName, endpoint, apiFacing);
                 break;
             case "AWS":
-                const type = 'role-based';
+                const awsType = 'role-based';
                 const role = process.env.AWS_ROLE_ARN;
 
-                await credentialSetupWizard.createAWSCredential(type, name + 'aws', role);
+                await credentialSetupWizard.createAWSCredential(awsType, name + 'aws', role);
+                break;
+            case "Azure":
+                const azureType = 'app-based';
+                const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
+                const tenantId = process.env.AZURE_TENANT_ID;
+                const appId = process.env.AZURE_APP_ID;
+                const appPassword = process.env.AZURE_PASSWORD;
+
+                await credentialSetupWizard.createAzureCredential(azureType, name + 'azure', subscriptionId, tenantId, appId, appPassword);
                 break;
             default:
                 console.log('No such provider!');

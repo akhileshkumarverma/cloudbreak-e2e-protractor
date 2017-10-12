@@ -18,6 +18,9 @@ defineSupportCode(function ({ When, Then }) {
             case "AWS":
                 await clusterDetails.terminateCluster();
                 break;
+            case "Azure":
+                await clusterDetails.terminateCluster();
+                break;
             default:
                 console.log('No such provider!');
         }
@@ -30,6 +33,9 @@ defineSupportCode(function ({ When, Then }) {
                 break;
             case "AWS":
                 await expect(clusterDetails.waitForClusterTermination(clusterName + 'aws')).to.eventually.be.true;
+                break;
+            case "Azure":
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'azure')).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');

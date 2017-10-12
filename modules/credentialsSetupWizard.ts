@@ -44,6 +44,15 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         return $("div[ng-reflect-ng-switch=\'" + provider + "\']");
     }
 
+    closeDocumentationSlide() {
+        const EC = browser.ExpectedConditions;
+        const closeIcon = $("i[class='fa fa-remove pull-right']");
+
+        return browser.wait(EC.elementToBeClickable(closeIcon), 5000, 'Close icon is NOT clickable').then(() => {
+            return closeIcon.click();
+        });
+    }
+
     createOpenStackCredential(keystoneVersion: string, name: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
         const EC = browser.ExpectedConditions;
 
@@ -101,6 +110,8 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                 return awsButton.click();
             });
 
+            this.closeDocumentationSlide();
+
             typeSelector.click().then(() => {
                 return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
             });
@@ -118,4 +129,41 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         });
     }
 
+    createAzureCredential(credentialType: string, name: string, subscription: string, tenant: string, app: string, password: string) {
+        const EC = browser.ExpectedConditions;
+
+        const typeSelector = $("md-select[name='type']");
+        const nameField = $("input[id='name']");
+        const subscriptionField = $("input[id='subscriptionId']");
+        const tenantField = $("input[id='tenantId']");
+        const appField = $("input[id='appId']");
+        const appPasswordField = $("input[id='password']");
+        const createButton = element(by.cssContainingText('button', ' Create'));
+
+        return this.providerSelector.click().then(() => {
+            const azureButton = $("div[class='option'] img[src*='msa.png']");
+
+            browser.wait(EC.visibilityOf(azureButton), 5000, 'Azure Credential Type option is NOT visible').then(() => {
+                return azureButton.click();
+            });
+
+            typeSelector.click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+            });
+
+            nameField.sendKeys(name);
+            subscriptionField.sendKeys(subscription);
+            tenantField.sendKeys(tenant);
+            appField.sendKeys(app);
+            appPasswordField.sendKeys(password);
+
+            return createButton.click().then(() => {
+                return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
+                    return present;
+                }, error => {
+                    return false;
+                });
+            });
+        });
+    }
 }

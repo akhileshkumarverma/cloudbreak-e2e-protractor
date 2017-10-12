@@ -18,6 +18,9 @@ defineSupportCode(function ({ When, Then }) {
             case "AWS":
                 await credentials.deleteCredential(name + 'aws');
                 break;
+            case "Azure":
+                await credentials.deleteCredential(name + 'azure');
+                break;
             default:
                 console.log('No such provider!');
         }

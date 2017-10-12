@@ -7,7 +7,6 @@ let expect = chai.expect;
 
 defineSupportCode(function ({ When, Then }) {
     let clusterCreateSetupWizard: ClusterCreateWizardPageObject = new ClusterCreateWizardPageObject();
-    let provider = process.env.PROVIDER;
 
     const credentialName = process.env.CREDENTIAL_NAME + browser.params.nameTag;
     const clusterName = process.env.CLUSTER_NAME + browser.params.nameTag;
@@ -18,15 +17,20 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I create my new Cluster for the following "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                const instanceType = process.env.INSTANCE_TYPE;
+                const instanceTypeOS = process.env.OS_INSTANCE_TYPE;
                 const network = process.env.OS_NETWORK;
                 const subnet = process.env.OS_SUBNET;
                 const securityGroup = process.env.OS_SECURITYGROUP;
 
-                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', instanceType, network, subnet, user, password, sshKey, securityGroup);
+                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', instanceTypeOS, network, subnet, user, password, sshKey, securityGroup);
                 break;
             case "AWS":
                 await clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKey);
+                break;
+            case "Azure":
+                const instanceTypeAzure = process.env.AZURE_INSTANCE_TYPE;
+
+                await clusterCreateSetupWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', instanceTypeAzure, user, password, sshKey);
                 break;
             default:
                 console.log('No such provider!');
@@ -40,6 +44,8 @@ defineSupportCode(function ({ When, Then }) {
                 break;
             case "AWS":
                 await expect(clusterCreateSetupWizard.getClusterWidget(clusterName + 'aws')).to.eventually.be.true;
+                break;
+            case "Azure":
                 break;
             default:
                 console.log('No such provider!');

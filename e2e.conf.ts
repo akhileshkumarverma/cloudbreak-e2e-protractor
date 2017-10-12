@@ -4,12 +4,33 @@ export let config: Config = {
     params: {
         nameTag: process.env.CBD_VERSION.replace(/\./g,'')
     },
+    plugins: [{
+        path: '../node_modules/protractor-console',
+        package: 'protractor-console',
+        logLevels: ['severe']
+    }],
     directConnect: true,
-
+    troubleshoot: true,
     capabilities: {
-        browserName: 'firefox',
+        browserName: (process.env.BROWSER || 'firefox'),
         marionette: false,
-        idleTimeout: 120
+        chromeOptions: {
+            'args': [
+                '--no-sandbox',
+                '--disable-web-security',
+                '--headless',
+                '--disable-gpu'
+            ]
+        },
+        locationContextEnabled: true,
+        javascriptEnabled: true,
+        acceptSslCerts: true,
+        trustAllSSLCertificates: true,
+        acceptInsecureCerts: true,
+        idleTimeout: 120,
+        ignoreUncaughtExceptions: true,
+        handlesAlerts: true,
+        loggingPrefs: { browser: 'SEVERE', driver: 'ALL' }
     },
 
     framework: 'custom',
@@ -48,7 +69,7 @@ export let config: Config = {
         console.log("The Base URL is: " + process.env.BASE_URL);
         console.log("The Username is: " + process.env.USERNAME);
         console.log("The Password is: " + process.env.PASSWORD);
-        console.log("The Provider is: " + process.env.PROVIDER);
+
         /**
          * Open the base URL that defined above.
          * OR

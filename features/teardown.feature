@@ -7,6 +7,7 @@ Feature: Clean up after tests have done
     Then I should NOT see my previously created credential on the page
 
     Examples:
-    | Provider  |
-    | OpenStack |
-    | AWS       |
+      | Provider  |
+      | AWS       |
+      | Azure     |
+      | OpenStack |
