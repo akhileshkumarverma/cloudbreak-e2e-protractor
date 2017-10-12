@@ -125,7 +125,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
         return browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
             return sshSelector.click().then(() => {
-                return element.all(by.cssContainingText('md-option', 'seq-master')).first().click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
                     const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
                     return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
@@ -235,7 +235,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
         return browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
             return sshSelector.click().then(() => {
-                return element.all(by.cssContainingText('md-option', 'seq-master')).first().click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
                     const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
                     return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
@@ -349,7 +349,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
         return browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
             return sshSelector.click().then(() => {
-                return element.all(by.cssContainingText('md-option', 'seq-master')).first().click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
                     const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
                     return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {

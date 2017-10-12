@@ -11,9 +11,13 @@
     "automation testing"
   ],
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
+    "clean": "rimraf typeScript/",
+    "clean-build": "npm run clean && npm run build",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
-    "test": "protractor typescript/e2e.conf.js"
+    "webdriver-start": "node ./node_modules/protractor/bin/webdriver-manager start",
+    "test": "npm run build && protractor typescript/e2e.conf.js",
+    "clean-test": "npm run clean-build && protractor typescript/e2e.conf.js"
   },
   "devDependencies": {
     "@types/cucumber": "0.0.38",
