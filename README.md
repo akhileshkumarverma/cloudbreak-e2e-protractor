@@ -3,6 +3,7 @@
 ### Pre-requisites
 1. Please install followings if these have not installed for you:
       * NodeJS
+      * Google Chrome
       * Firefox
     
     > You can check Protractor browser compatibility at [Protractor Browser Support](https://github.com/angular/protractor/blob/master/docs/browser-support.md)
@@ -59,11 +60,11 @@
 
 ### Executing Protractor tests
 > If your Protractor test environment has just cloned, you should set up its Node environment first (install every needed packages and tools). The easiest way to get all the needed Node packages in one round to use `npm install`. Please check the [npm-install](https://docs.npmjs.com/cli/install) documentation. Beyond these please check the [Protractor Tutorial](https://angular.github.io/protractor/#/tutorial).
-> You do not need to launch the `webdriver-manager` for these tests, because of the `directConnect` is `true` by default in the [Protractor configuration](e2e.conf.ts). In this case the Protractor works directly with Chrome or Firefox Driver, bypassing any Selenium Server.
+> You do not need to launch the `webdriver-manager` for these tests, because of the `directConnect` is `true` by default in the [Protractor configuration](protractor.conf.ts). In this case the Protractor works directly with Chrome or Firefox Driver, bypassing any Selenium Server.
 
 * Compile your .ts files to .js to 'typeScript' folder based on the project's TypeScript configuration:
 ```
-npm run tsc
+npm run clean-build
 ```
 
 * Run the test command:
@@ -94,26 +95,21 @@ directConnect: true
 ### Sample Page Object
 
 ```
-// login.page.js
-"use strict";
+import { browser, $, by, element, protractor } from 'protractor'
+import { BasePageObject } from "./basePage";
 
-var Page = require('./page')
-
-class LoginPage extends Page {
-    get username()  { return browser.element('#username'); }
-    get password()  { return browser.element('#password'); }
-    get form()      { return browser.element('#login'); }
-    get flash()     { return browser.element('#flash'); }
+export class LoginPageObject extends BasePageObject {
+    public usernameBox: any = $("input[id='username']");
+    public passwordBox: any = $("input[id='password']");
+    public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
     
-    open() {
-        super.open('login');
+    async login() {
+    ...etc.
     }
     
-    submit() {
-        this.form.submitForm();
-    }   
+    ...etc.
+
 }
-module.exports = new LoginPage();
 ```
 ### Rule of Thumb
 1. Define page selectors in getter functions

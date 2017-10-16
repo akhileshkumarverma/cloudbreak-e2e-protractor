@@ -14,7 +14,7 @@
 HOST=${BASE_URL#*//}
 export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $HWQE_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)
 
-export TESTCONF=/protractor/project/typeScript/e2e.conf.js
+export TESTCONF=/protractor/project/typeScript/protractor.conf.js
 export ARTIFACT_POSTFIX=info
 
 TARGET_CBD_VERSION=$(curl -sk $BASE_URL/cb/info | grep -oP "(?<=\"version\":\")[^\"]*")
@@ -52,7 +52,7 @@ else
     --env-file $ENVFILE \
     -v $(pwd):/protractor/project \
     -v /dev/shm:/dev/shm \
-    hortonworks/docker-e2e-cloud protractor typescript e2e.conf.js
+    hortonworks/docker-e2e-cloud:1.0 npm test
     RESULT=$?
 fi
 

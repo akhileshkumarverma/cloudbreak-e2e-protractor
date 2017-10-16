@@ -9,17 +9,46 @@ export let config: Config = {
         package: 'protractor-console',
         logLevels: ['severe']
     }],
-    directConnect: true,
+
     troubleshoot: true,
+
+    directConnect: true,
     capabilities: {
+        /**
+         * https://github.com/angular/protractor/blob/master/docs/browser-support.md
+         * recommend testing against FireFox 47
+         * in case of Firefox testing the: ["protractor": "5.0.0",] should be in package.json. So need to do an `npm install` again.
+         */
         browserName: (process.env.BROWSER || 'firefox'),
+
         marionette: false,
+        /**
+         * Headless Firefox
+         * https://github.com/mozilla/geckodriver/blob/master/README.md#capabilities-example
+         */
+        // alwaysMatch: {
+        //     'moz:firefoxOptions': {
+        //         'args': ['-headless'],
+        //         'prefs': {
+        //             'dom.ipc.processCount': 8
+        //         },
+        //         'log': {
+        //             'level': 'trace'
+        //         }
+        //     }
+        // },
+
+        /**
+         * Using headless Chrome
+         * https://github.com/angular/protractor/blob/master/docs/browser-setup.md#using-headless-chrome
+         */
         chromeOptions: {
             'args': [
                 '--no-sandbox',
                 '--disable-web-security',
-                '--headless',
-                '--disable-gpu'
+                // '--headless',
+                // '--disable-gpu',
+                // '--remote-debugging-port=9222'
             ]
         },
         locationContextEnabled: true,
@@ -73,7 +102,7 @@ export let config: Config = {
         /**
          * Open the base URL that defined above.
          * OR
-         * You can use parameter 'browser.params.baseUrl' with 'protractor e2e.conf.js --params.baseUrl=https://123.12.123.12:3000/'.
+         * You can use parameter 'browser.params.baseUrl' with 'protractor protractor.conf.js --params.baseUrl=https://123.12.123.12:3000/'.
          */
         browser.driver.get(browser.baseUrl);
 

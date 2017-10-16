@@ -3,7 +3,10 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
+.config
+.npm
+.bash_history
+.yarnrc
 *.iml
 typeScript
 reports
