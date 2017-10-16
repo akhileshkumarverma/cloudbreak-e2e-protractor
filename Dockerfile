@@ -44,6 +44,14 @@ RUN wget -q -O - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
   && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 
+# Firefox 47.0.2 install
+RUN apt-get purge firefox
+RUN wget https://ftp.mozilla.org/pub/firefox/releases/47.0.2/linux-$(uname -m)/en-US/firefox-47.0.2.tar.bz2 \
+  && tar -xjf firefox-47.0.2.tar.bz2 \
+  && mv firefox /opt/ \
+  && ln -s /opt/firefox/firefox /usr/bin/firefox
+RUN apt-mark hold firefox
+
 # Latest Ubuntu Google Chrome, XVFB and JRE installs
 RUN apt-get update -qqy \
   && apt-get -qqy install \
@@ -63,7 +71,7 @@ RUN rm -fr /root/tmp
 # 2. Step to fixing the error for Node.js native addon build tool (node-gyp)
 # https://github.com/nodejs/node-gyp/issues/454
 RUN npm install --unsafe-perm --save-exact -g \
-    protractor \
+    protractor@5.0.0 \
     typescript \
 # Get the latest Google Chrome driver
   && npm update \
@@ -75,20 +83,25 @@ RUN npm install --unsafe-perm --save-exact -g \
 # https://docs.npmjs.com/getting-started/fixing-npm-permissions
 ENV NODE_PATH /usr/lib/node_modules
 
+# Create new user for protractor testing. This is vital for Google Chrome to can launch with WebDriver
 RUN mkdir -p /protractor
 RUN useradd -d /protractor/project -m protractor
+RUN echo 'protractor:protractor' | chpasswd
 RUN chown -R protractor /protractor
 RUN chgrp -R protractor /protractor
 
+# Change to Protractor user
 USER protractor
-
 # Set the working directory
 WORKDIR /protractor/
+
 # Copy the run sript/s from local folder to the container's related folder
 COPY /scripts/run-e2e-tests.sh /entrypoint.sh
+
 # Set the HOME environment variable for the test project
 ENV HOME=/protractor/project
 # Set the file access permissions (read, write and access) recursively for the new folders
 RUN chmod -Rf 777 .
+
 # Container entry point
 ENTRYPOINT ["/entrypoint.sh"]

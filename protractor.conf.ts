@@ -17,7 +17,7 @@ export let config: Config = {
         /**
          * https://github.com/angular/protractor/blob/master/docs/browser-support.md
          * recommend testing against FireFox 47
-         * in case of Firefox testing the: ["protractor": "5.0.0",] should be in package.json. So need to do an `npm install` again.
+         * in case of Firefox testing the: ["protractor": "5.0.0",] should be in package.json.
          */
         browserName: (process.env.BROWSER || 'firefox'),
 
@@ -41,14 +41,14 @@ export let config: Config = {
         /**
          * Using headless Chrome
          * https://github.com/angular/protractor/blob/master/docs/browser-setup.md#using-headless-chrome
+         * This is supported only with Protractor 5.1.2+ should be in package.json. So need to do an `npm install` again.
          */
         chromeOptions: {
             'args': [
                 '--no-sandbox',
                 '--disable-web-security',
                 // '--headless',
-                // '--disable-gpu',
-                // '--remote-debugging-port=9222'
+                // '--disable-gpu'
             ]
         },
         locationContextEnabled: true,

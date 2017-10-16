@@ -16,8 +16,8 @@
     "clean-build": "npm run clean && npm run build",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "webdriver-start": "node ./node_modules/protractor/bin/webdriver-manager start",
-    "test": "npm run build && protractor typescript/protractor.conf.js",
-    "clean-test": "npm run clean-build && protractor typescript/protractor.conf.js"
+    "test": "npm run build && protractor typeScript/protractor.conf.js",
+    "clean-test": "npm run clean-build && protractor typeScript/protractor.conf.js"
   },
   "devDependencies": {
     "@types/cucumber": "0.0.38",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "cucumber-html-reporter": "^2.0.0",
-    "protractor": "^5.1.2",
+    "protractor": "5.0.0",
     "ts-node": "^3.1.0",
     "typescript": "^2.2.1"
   }
