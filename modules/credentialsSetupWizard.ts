@@ -50,6 +50,8 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
         return browser.wait(EC.elementToBeClickable(closeIcon), 5000, 'Close icon is NOT clickable').then(() => {
             return closeIcon.click();
+        }, error => {
+            return console.log('User has already created credential. So Documentation slide is not visible.');
         });
     }
 

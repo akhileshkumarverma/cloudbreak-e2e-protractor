@@ -10,6 +10,8 @@ echo "User ID (UID): " $(id -u)
 echo "Home folder is: " $(pwd)
 echo "Node version: " $(node --version)
 echo "NPM version: " $(npm --version)
+
+echo "NPM directory: " $(npm config get prefix)
 echo "Typescript version: " $(tsc --version) " and the TSC path: " $(which tsc)
 echo "Protractor version: " $(protractor --version)
 echo "WebDriver version: " $(webdriver-manager version)
