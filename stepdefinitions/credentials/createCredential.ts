@@ -35,6 +35,13 @@ defineSupportCode(function ({ When, Then }) {
 
                 await credentialSetupWizard.createAzureCredential(azureType, name + 'azure', subscriptionId, tenantId, appId, appPassword);
                 break;
+            case "GCP":
+                const projectId = process.env.GCP_PROJECT_ID;
+                const serviceAccountEmail = process.env.GCP_ACCOUNT_EMAIL;
+                const p12Path = process.env.P12_PATH;
+
+                await credentialSetupWizard.createGCPCredential(name + 'gcp', projectId, serviceAccountEmail, p12Path);
+                break;
             default:
                 console.log('No such provider!');
         }

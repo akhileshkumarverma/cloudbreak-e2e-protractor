@@ -25,6 +25,9 @@ defineSupportCode(function ({ Given }) {
             case "Azure":
                 await clusterDetails.openClusterDetails(clusterName + 'azure');
                 break;
+            case "GCP":
+                await clusterDetails.openClusterDetails(clusterName + 'gcp');
+                break;
             default:
                 console.log('No such provider!');
         }

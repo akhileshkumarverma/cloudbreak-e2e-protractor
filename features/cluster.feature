@@ -9,7 +9,10 @@ Feature: Cluster
 
     Examples:
       | Provider  |
+      | OpenStack |
       | AWS       |
+      | Azure     |
+      | GCP       |
 
   @ClusterScenario
   Scenario Outline: User deletes the previously created cluster
@@ -19,4 +22,7 @@ Feature: Cluster
 
     Examples:
       | Provider  |
+      | OpenStack |
       | AWS       |
+      | Azure     |
+      | GCP       |

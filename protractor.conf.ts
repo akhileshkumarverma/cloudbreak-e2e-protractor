@@ -19,7 +19,7 @@ export let config: Config = {
          * recommend testing against FireFox 47
          * in case of Firefox testing the: ["protractor": "5.0.0",] should be in package.json.
          */
-        browserName: (process.env.BROWSER || 'firefox'),
+        browserName: (process.env.BROWSER || 'chrome'),
 
         marionette: false,
         /**
@@ -45,6 +45,7 @@ export let config: Config = {
          */
         chromeOptions: {
             'args': [
+                '--test-type',
                 '--no-sandbox',
                 '--disable-web-security',
                 // '--headless',
@@ -116,7 +117,7 @@ export let config: Config = {
         browser.manage().deleteAllCookies();
         // https://github.com/angular/protractor/issues/1467
         browser.manage().window().setSize(1280, 1024);
-        //browser.driver.manage().window().maximize();
+        //browser.manage().window().maximize();
         browser.manage().timeouts().implicitlyWait(20000);
         browser.manage().timeouts().pageLoadTimeout(60000);
     },

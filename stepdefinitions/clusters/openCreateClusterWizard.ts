@@ -12,10 +12,4 @@ defineSupportCode(function ({ When, Then }) {
         await clusters.clusterCreateButton.click();
     });
 
-    Then(/^I should see Create Cluster Wizard$/, async () => {
-        let clusterCreateWizard: ClusterCreateWizardPageObject = new ClusterCreateWizardPageObject();
-
-        await expect(clusterCreateWizard.generalConfiguarationSideItem).to.be.displayed;
-    });
-
 });

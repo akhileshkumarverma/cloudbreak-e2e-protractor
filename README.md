@@ -4,7 +4,6 @@
 1. Please install followings if these have not installed for you:
       * NodeJS
       * Google Chrome
-      * Firefox
     
     > You can check Protractor browser compatibility at [Protractor Browser Support](https://github.com/angular/protractor/blob/master/docs/browser-support.md)
 
@@ -62,19 +61,13 @@
 > If your Protractor test environment has just cloned, you should set up its Node environment first (install every needed packages and tools). The easiest way to get all the needed Node packages in one round to use `npm install`. Please check the [npm-install](https://docs.npmjs.com/cli/install) documentation. Beyond these please check the [Protractor Tutorial](https://angular.github.io/protractor/#/tutorial).
 > You do not need to launch the `webdriver-manager` for these tests, because of the `directConnect` is `true` by default in the [Protractor configuration](protractor.conf.ts). In this case the Protractor works directly with Chrome or Firefox Driver, bypassing any Selenium Server.
 
-* Compile your .ts files to .js to 'typeScript' folder based on the project's TypeScript configuration:
-```
-npm run clean-build
-```
-
-* Run the test command:
 ```
 npm test
 ```
-> Above command launches the Browser and executes tests based on the project configuration.
+> Above command compiles the project then launches tests in the Browser based on the project configuration.
 
 ### Protractor direct connect
-Protractor can test directly using Chrome Driver or Firefox Driver, [bypassing any Selenium Server](https://github.com/angular/protractor/blob/master/docs/server-setup.md#connecting-directly-to-browser-drivers). **The advantage of direct connect is that your test project start up and run faster.**
+Protractor can test directly using Chrome Driver, [bypassing any Selenium Server](https://github.com/angular/protractor/blob/master/docs/server-setup.md#connecting-directly-to-browser-drivers). **The advantage of direct connect is that your test project start up and run faster.**
 
 To use this, you should change your config file:
 ```
@@ -141,3 +134,45 @@ export class LoginPageObject extends BasePageObject {
 
 > "**value**: Can be any valid JavaScript value (number, object, function, etc)." by [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)
 
+## Docker image
+
+**Docker image for executing headless Google Chrome Protractor e2e test cases in Docker container.**
+
+The [Dockerfile](Dockerfile) is available here. 
+
+### Makefile
+
+We created a very simple Makefile to be able build and run easily our Docker image:
+```
+make build
+```
+then
+```
+make run
+```
+or you can run the above commands in one round:
+
+### To run tests in this container
+
+1. Clone this repository to your local folder.
+2. Provide valid and appropriate values for base test parameters in the [environment file](support/testenv), for example:
+      ```
+      export BASE_URL=your.url
+      export USERNAME=your@mail.address
+      export PASSWORD=your.password
+      ...etc.
+      ```
+4. Build the image with Make:
+      ```
+      make build
+      ```
+5. Execute Protractor tests in [Docker container](https://docs.docker.com/engine/installation/), for example:
+    ```
+    make run
+    ```
+  - `cloud-e2e-runner` name of the new Docker container (created from `hortonworks/docker-e2e-protractor` Docker image).
+  - `utils/testenv` the location (full path) of the `testenv` file on your machine.
+  - `$(PWD)` or `$pwd` the root folder of your Protractor test project.
+      - For example the local folder where the test project has been cloned from GitHub.
+      - The use of **PWD is optional**, you do not need to navigate to the Protractor test project root. If it is the case, you should add the full path of the root folder instead of the `$(PWD)`.
+  - `npm test` launch tests.

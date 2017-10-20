@@ -21,6 +21,9 @@ defineSupportCode(function ({ When, Then }) {
             case "Azure":
                 await credentials.deleteCredential(name + 'azure');
                 break;
+            case "GCP":
+                await credentials.deleteCredential(name + 'gcp');
+                break;
             default:
                 console.log('No such provider!');
         }

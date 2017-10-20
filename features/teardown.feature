@@ -8,6 +8,7 @@ Feature: Clean up after tests have done
 
     Examples:
       | Provider  |
+      | OpenStack |
       | AWS       |
       | Azure     |
-      | OpenStack |
+      | GCP       |

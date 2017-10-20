@@ -16,6 +16,7 @@ run:
 				docker run -it \
                     --privileged \
                     --rm \
+                    --net=host \
                     --name cloud-e2e-runner \
                     --env-file $(ENVFILE) \
                     -v $(PWD):/protractor/project \

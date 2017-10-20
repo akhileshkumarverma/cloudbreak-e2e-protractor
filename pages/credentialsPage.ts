@@ -8,11 +8,11 @@ export class CredentialsPageObject extends BasePageObject {
         const EC = browser.ExpectedConditions;
 
         const checkbox = $("div[data-credential-name=\'" + name + "\'] md-checkbox");
-        const deleteButton = element(by.cssContainingText('button', 'Delete'));
+        const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
 
         return checkbox.click().then(() => {
             return deleteButton.click().then( () => {
-                const confirmationYes = element(by.cssContainingText('app-confirmation-dialog button[ng-reflect-dialog-result="yes"]', 'Yes'));
+                const confirmationYes = element(by.cssContainingText('app-confirmation-dialog button', 'Yes'));
 
                 return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
                     return confirmationYes.click();

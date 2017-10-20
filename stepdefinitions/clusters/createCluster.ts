@@ -13,6 +13,7 @@ defineSupportCode(function ({ When, Then }) {
     const user = process.env.AMBARI_USER;
     const password = process.env.AMBARI_PASSWORD;
     const sshKey = process.env.SSH_KEY;
+    const sshKeyName = process.env.SSH_KEY_NAME;
 
     When(/^I create my new Cluster for the following "([^"]*)"$/, async (provider) => {
         switch (provider) {
@@ -22,15 +23,16 @@ defineSupportCode(function ({ When, Then }) {
                 const subnet = process.env.OS_SUBNET;
                 const securityGroup = process.env.OS_SECURITYGROUP;
 
-                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', instanceTypeOS, network, subnet, user, password, sshKey, securityGroup);
+                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', instanceTypeOS, network, subnet, user, password, sshKeyName, securityGroup);
                 break;
             case "AWS":
-                await clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKey);
+                await clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName);
                 break;
             case "Azure":
-                const instanceTypeAzure = process.env.AZURE_INSTANCE_TYPE;
-
-                await clusterCreateSetupWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', instanceTypeAzure, user, password, sshKey);
+                await clusterCreateSetupWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey);
+                break;
+            case "GCP":
+                await clusterCreateSetupWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey);
                 break;
             default:
                 console.log('No such provider!');
@@ -46,10 +48,19 @@ defineSupportCode(function ({ When, Then }) {
                 await expect(clusterCreateSetupWizard.getClusterWidget(clusterName + 'aws')).to.eventually.be.true;
                 break;
             case "Azure":
+                await expect(clusterCreateSetupWizard.getClusterWidget(clusterName + 'azure')).to.eventually.be.true;
+                break;
+            case "GCP":
+                await expect(clusterCreateSetupWizard.getClusterWidget(clusterName + 'gcp')).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');
         }
-    })
+    });
 
+    Then(/^I should see Create Cluster Wizard$/, async () => {
+        let clusterCreateWizard: ClusterCreateWizardPageObject = new ClusterCreateWizardPageObject();
+
+        await expect(clusterCreateWizard.generalConfiguarationSideItem).to.be.displayed;
+    });
 });
