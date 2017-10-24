@@ -5,25 +5,27 @@
 : ${BASE_URL:? required}
 : ${USERNAME:? required}
 : ${PASSWORD:? required}
-: ${SSH_KEY_NAME:? required}
-: ${SSH_KEY_PATH:? required}
+: ${MASTER_SSH_KEY:? required}
 : ${CLOUDBREAK_CLOUDBREAK_SSH_USER:? required}
 : ${BROWSER:? required}
 : ${ENVFILE:=./support/testenv}
 
 HOST=${BASE_URL#*//}
-export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $HWQE_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)
+export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)
 
 export TESTCONF=/protractor/project/typeScript/protractor.conf.js
 export ARTIFACT_POSTFIX=info
 
-TARGET_CBD_VERSION=$(curl -sk $BASE_URL/cb/info | grep -oP "(?<=\"version\":\")[^\"]*")
-echo "CBD version: "$TARGET_CBD_VERSION
+CBD_VERSION=$(curl -sk $BASE_URL/cb/info | grep -oP "(?<=\"version\":\")[^\"]*")
+echo "CBD version: "$CBD_VERSION
 
-echo "Refresh the Test Runner Docker image"
-docker pull hortonworks/docker-e2e-cloud
+echo "Build the Test Runner Docker image if it does not present"
+if [[ -z "$(docker images -q hortonworks/docker-e2e-cloud:1.0)" ]]; then
+ echo docker build -t hortonworks/docker-e2e-cloud:1.0 .
+else
+ echo "hortonworks/docker-e2e-cloud:1.0 is already present"
 
-export TEST_CONTAINER_NAME=hdc-e2e-runner
+export TEST_CONTAINER_NAME=cloud-e2e-runner
 
 echo "Checking stopped containers"
 if [[ -n "$(docker ps -a -f status=exited -f status=dead -q)" ]]; then
@@ -60,6 +62,6 @@ echo " Get the runtime CBD logs!"
 mkdir -pv cloudbreak-logs
 sudo chown -R jenkins .
 
-ssh -tt -o StrictHostKeyChecking=no -i $HWQE_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST sudo docker logs cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$TARGET_CBD_VERSION.log
+ssh -tt -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST sudo docker logs cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$CBD_VERSION.log
 
 exit $RESULT

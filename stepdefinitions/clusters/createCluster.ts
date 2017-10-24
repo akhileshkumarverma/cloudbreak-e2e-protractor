@@ -18,12 +18,7 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I create my new Cluster for the following "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                const instanceTypeOS = process.env.OS_INSTANCE_TYPE;
-                const network = process.env.OS_NETWORK;
-                const subnet = process.env.OS_SUBNET;
-                const securityGroup = process.env.OS_SECURITYGROUP;
-
-                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', instanceTypeOS, network, subnet, user, password, sshKeyName, securityGroup);
+                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', user, password, sshKeyName);
                 break;
             case "AWS":
                 await clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName);

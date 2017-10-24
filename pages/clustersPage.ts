@@ -30,8 +30,14 @@ export class ClustersPageObject extends BasePageObject {
         const EC = browser.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.stalenessOf(widgetLink), 50000, 'Cluster has NOT been terminated').then(() => {
-            return true;
+        return browser.wait(EC.stalenessOf(widgetLink), 60 * 60000, 'Cluster has NOT been terminated').then(() => {
+            return widgetLink.isDisplayed().then((displayed) => {
+                //console.log('IsDisplayed passed');
+                return !displayed;
+            }, error => {
+                //console.log('IsDisplayed failed');
+                return true;
+            });
         }, error => {
             return false;
         });

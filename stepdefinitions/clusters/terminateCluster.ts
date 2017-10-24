@@ -10,7 +10,7 @@ defineSupportCode(function ({ When, Then }) {
 
     const clusterName = process.env.CLUSTER_NAME + browser.params.nameTag;
 
-    When(/^I terminate my Cluster on "([^"]*)"$/, async (provider) => {
+    When(/^I terminate my Cluster on "([^"]*)"$/, {timeout: 60 * 60000}, async (provider) => {
         switch (provider) {
             case "OpenStack":
                 await clusterDetails.terminateCluster();
@@ -29,7 +29,7 @@ defineSupportCode(function ({ When, Then }) {
         }
     });
 
-    Then(/^I should NOT see my "([^"]*)" cluster on the Cloudbreak Dashboard$/, async (provider) => {
+    Then(/^I should NOT see my "([^"]*)" cluster on the Cloudbreak Dashboard$/, {timeout: 60 * 60000}, async (provider) => {
         switch (provider) {
             case "OpenStack":
                 await expect(clusterDetails.waitForClusterTermination(clusterName + 'os')).to.eventually.be.true;
@@ -46,5 +46,5 @@ defineSupportCode(function ({ When, Then }) {
             default:
                 console.log('No such provider!');
         }
-    })
+    });
 });

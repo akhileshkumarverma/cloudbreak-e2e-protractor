@@ -29,7 +29,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
-    createOpenStackCluster(credentialName: string, clusterName: string, instanceType: string, network: string, subnet: string, user: string, password: string, sshKey: string, securityGroup: string) {
+    createOpenStackCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
         const EC = browser.ExpectedConditions;
 
         const credentialSelector = $("md-select[placeholder='Please select credential']");
