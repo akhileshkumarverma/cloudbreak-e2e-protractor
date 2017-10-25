@@ -38,6 +38,7 @@ if [[ $BROWSER == "chrome" ]]; then
   echo "User name: " $(id -u -n)
   echo "User ID (UID): " $(id -u)
 
+  chown -R protractor:$(id -gn protractor) /protractor/project/
   echo "Executing test suites with Google Chrome"
   sudo -u protractor xvfb-run --server-args="-screen 0 1920x1080x24" -a $@
 else
