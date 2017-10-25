@@ -38,9 +38,6 @@ RUN apt-get update -qqy \
     nodejs \
     build-essential
 
-# YARN installation package
-RUN wget -q -O - https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
- && sh -c 'echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list.d/yarn.list'
 # Latest Google Chrome installation package
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
   && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
@@ -51,8 +48,7 @@ RUN apt-get update -qqy \
     xvfb \
     google-chrome-stable \
     firefox \
-    default-jre \
-    yarn
+    default-jre
 
 RUN GECKODRIVER_VERSION=$(curl --silent "https://api.github.com/repos/mozilla/geckodriver/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') \
   && echo $GECKODRIVER_VERSION \
@@ -72,7 +68,6 @@ RUN rm -fr /root/tmp
 # 2. Step to fixing the error for Node.js native addon build tool (node-gyp)
 # https://github.com/nodejs/node-gyp/issues/454
 # https://docs.npmjs.com/getting-started/fixing-npm-permissions
-
 RUN npm install --unsafe-perm -g \
     protractor \
     typescript \
@@ -81,22 +76,6 @@ RUN npm install --unsafe-perm -g \
 # Get the latest WebDriver Manager
   && webdriver-manager update \
   && npm cache verify
-
-## Create new user for protractor testing. This is vital for Google Chrome to can launch with WebDriver
-#RUN mkdir -p /protractor
-#RUN useradd -d /protractor/project -m protractor
-#RUN usermod -aG sudo protractor
-#RUN echo 'protractor:protractor' | chpasswd
-#RUN chown -R protractor:$(id -gn protractor) /protractor
-#RUN chgrp -R protractor /protractor
-## https://docs.npmjs.com/getting-started/fixing-npm-permissions
-#RUN chown -R protractor:$(id -gn protractor) \
-#  $(npm config get prefix)/lib/node_modules \
-#  $(npm config get prefix)/bin \
-#  ~/.npm \
-#  /protractor/project
-# Change to Protractor user
-#USER protractor
 
 # Set the working directory
 WORKDIR /protractor/
