@@ -19,12 +19,12 @@ export ARTIFACT_POSTFIX=info
 CBD_VERSION=$(curl -sk $BASE_URL/cb/info | grep -oP "(?<=\"version\":\")[^\"]*")
 echo "CBD version: "$CBD_VERSION
 
-echo "Build the Test Runner Docker image if it does not present"
-if [[ -z "$(docker images -q hortonworks/docker-e2e-cloud:1.0)" ]]; then
+#echo "Build the Test Runner Docker image if it does not present"
+#if [[ -z "$(docker images -q hortonworks/docker-e2e-cloud:1.0)" ]]; then
  docker build -t hortonworks/docker-e2e-cloud:1.0 ./
-else
- echo "hortonworks/docker-e2e-cloud:1.0 is already present"
-fi
+#else
+# echo "hortonworks/docker-e2e-cloud:1.0 is already present"
+#fi
 
 export TEST_CONTAINER_NAME=cloud-e2e-runner
 

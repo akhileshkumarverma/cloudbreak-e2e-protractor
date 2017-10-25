@@ -73,16 +73,16 @@ RUN rm -fr /root/tmp
 # https://github.com/nodejs/node-gyp/issues/454
 # https://docs.npmjs.com/getting-started/fixing-npm-permissions
 
-RUN npm cache clean -f \
-  && apt-get purge npm
-
-RUN currentDirectory=$(pwd) \
-  && mkdir -p /tmp/npm-install-directory \
-  && cd /tmp/npm-install-directory \
-  && npm install npm@latest \
-  && rm -rf /usr/local/lib/node_modules \
-  && mv node_modules /usr/local/lib/ \
-  && cd $currentDirectory
+#RUN npm cache clean -f \
+#  && apt-get purge npm
+#
+#RUN currentDirectory=$(pwd) \
+#  && mkdir -p /tmp/npm-install-directory \
+#  && cd /tmp/npm-install-directory \
+#  && npm install npm@latest \
+#  && rm -rf /usr/local/lib/node_modules \
+#  && mv node_modules /usr/local/lib/ \
+#  && cd $currentDirectory
 
 RUN npm install --unsafe-perm -g \
     protractor \
@@ -93,22 +93,28 @@ RUN npm install --unsafe-perm -g \
   && webdriver-manager update \
   && npm cache verify
 
-# Create new user for protractor testing. This is vital for Google Chrome to can launch with WebDriver
-RUN mkdir -p /protractor
-RUN useradd -d /protractor/project -m protractor
-RUN echo 'protractor:protractor' | chpasswd
-RUN chown -R protractor:$(id -gn protractor) /protractor
-RUN chgrp -R protractor /protractor
+## Create new user for protractor testing. This is vital for Google Chrome to can launch with WebDriver
+#RUN mkdir -p /protractor
+#RUN useradd -d /protractor/project -m protractor
+#RUN usermod -aG sudo protractor
+#RUN echo 'protractor:protractor' | chpasswd
+#RUN chown -R protractor:$(id -gn protractor) /protractor
+#RUN chgrp -R protractor /protractor
 
-# https://docs.npmjs.com/getting-started/fixing-npm-permissions
-RUN chown -R protractor:$(id -gn protractor) \
-  $(npm config get prefix)/lib/node_modules \
-  $(npm config get prefix)/bin \
-  ~/.npm \
-  /protractor/project
+#RUN chown root:root /usr/bin/sudo \
+#  && chmod 4755 /usr/bin/sudo
+#RUN chown root:root /usr/lib/sudo/sudoers.so \
+#  && chmod 4755 /usr/lib/sudo/sudoers.so
+#
+## https://docs.npmjs.com/getting-started/fixing-npm-permissions
+#RUN chown -R protractor:$(id -gn protractor) \
+#  $(npm config get prefix)/lib/node_modules \
+#  $(npm config get prefix)/bin \
+#  ~/.npm \
+#  /protractor/project
 
 # Change to Protractor user
-USER protractor
+#USER protractor
 # Set the working directory
 WORKDIR /protractor/
 
