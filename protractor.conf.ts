@@ -19,9 +19,9 @@ export let config: Config = {
          * recommend testing against FireFox 47
          * in case of Firefox testing the: ["protractor": "5.0.0",] should be in package.json.
          */
-        browserName: (process.env.BROWSER || 'chrome'),
+        browserName: (process.env.BROWSER || 'firefox'),
 
-        marionette: false,
+        marionette: true,
         /**
          * Headless Firefox
          * https://github.com/mozilla/geckodriver/blob/master/README.md#capabilities-example
