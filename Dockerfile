@@ -97,14 +97,15 @@ RUN npm install --unsafe-perm -g \
 RUN mkdir -p /protractor
 RUN useradd -d /protractor/project -m protractor
 RUN echo 'protractor:protractor' | chpasswd
-RUN chown -R protractor /protractor
+RUN chown -R protractor:$(id -gn protractor) /protractor
 RUN chgrp -R protractor /protractor
 
 # https://docs.npmjs.com/getting-started/fixing-npm-permissions
-RUN chown -R protractor \
+RUN chown -R protractor:$(id -gn protractor) \
   $(npm config get prefix)/lib/node_modules \
   $(npm config get prefix)/bin \
-  ~/.npm
+  ~/.npm \
+  /protractor/project
 
 # Change to Protractor user
 USER protractor

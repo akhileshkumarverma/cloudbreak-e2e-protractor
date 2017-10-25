@@ -2,6 +2,7 @@
 # Move to the Protractor test project folder
 cd $HOME
 
+chmod -Rf 777 .
 # Remove previous results
 rm -rf reports
 
