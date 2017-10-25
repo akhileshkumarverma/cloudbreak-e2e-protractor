@@ -24,6 +24,7 @@ if [[ -z "$(docker images -q hortonworks/docker-e2e-cloud:1.0)" ]]; then
  echo docker build -t hortonworks/docker-e2e-cloud:1.0 .
 else
  echo "hortonworks/docker-e2e-cloud:1.0 is already present"
+fi
 
 export TEST_CONTAINER_NAME=cloud-e2e-runner
 
