@@ -72,6 +72,18 @@ RUN rm -fr /root/tmp
 # 2. Step to fixing the error for Node.js native addon build tool (node-gyp)
 # https://github.com/nodejs/node-gyp/issues/454
 # https://docs.npmjs.com/getting-started/fixing-npm-permissions
+
+RUN npm cache clean -f \
+  && apt-get purge npm
+
+RUN currentDirectory=$(pwd) \
+  && mkdir -p /tmp/npm-install-directory \
+  && cd /tmp/npm-install-directory \
+  && npm install npm@latest \
+  && rm -rf /usr/local/lib/node_modules \
+  && mv node_modules /usr/local/lib/ \
+  && cd $currentDirectory
+
 RUN npm install --unsafe-perm -g \
     protractor \
     typescript \
@@ -80,9 +92,6 @@ RUN npm install --unsafe-perm -g \
 # Get the latest WebDriver Manager
   && webdriver-manager update \
   && npm cache verify
-# Set the path to the global npm install directory. This is vital for Jasmine Reporters
-# http://stackoverflow.com/questions/31534698/cannot-find-module-jasmine-reporters
-ENV NODE_PATH /usr/lib/node_modules
 
 # Create new user for protractor testing. This is vital for Google Chrome to can launch with WebDriver
 RUN mkdir -p /protractor
@@ -94,7 +103,8 @@ RUN chgrp -R protractor /protractor
 # https://docs.npmjs.com/getting-started/fixing-npm-permissions
 RUN chown -R protractor \
   $(npm config get prefix)/lib/node_modules \
-  $(npm config get prefix)/bin
+  $(npm config get prefix)/bin \
+  ~/.npm
 
 # Change to Protractor user
 USER protractor
