@@ -10,8 +10,11 @@
     "testing",
     "automation testing"
   ],
+  "config": {
+    "unsafe-perm": true
+  },
   "scripts": {
-    "postinstall": "node ./node_modules/protractor/bin/webdriver-manager update",
+    "postinstall": "node ./node_modules/protractor/bin/webdriver-manager update --allow-root install",
     "build": "tsc",
     "clean": "rimraf typeScript/",
     "clean-build": "npm run clean && npm run build",
