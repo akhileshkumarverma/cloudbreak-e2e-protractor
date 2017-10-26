@@ -12,7 +12,7 @@ defineSupportCode(function ({ When, Then }) {
         await login.login();
     });
 
-    When(/^Close Default Credential warning dialog if it is present$/, async () => {
+    When(/^Close Credential warning dialog if it is present$/, async () => {
         await login.closeDefaultCredentialWarning();
     });
 

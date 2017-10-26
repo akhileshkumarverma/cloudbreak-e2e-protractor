@@ -19,7 +19,7 @@ export class BasePageObject {
 
     closeDefaultCredentialWarning() {
         const EC = browser.ExpectedConditions;
-        const confirmationOk = element(by.cssContainingText('button[aria-label="Close dialog"]', 'Ok'));
+        const confirmationOk = element(by.cssContainingText('button[aria-label="Close dialog"]', 'ok'));
 
         return browser.wait(EC.visibilityOf(confirmationOk), 5000, 'Default Credential Confirmation is NOT visible').then(() => {
             return confirmationOk.click();
@@ -32,7 +32,7 @@ export class BasePageObject {
         const EC = browser.ExpectedConditions;
 
         return this.logoutToggle.click().then(() => {
-            const confirmationYes = element(by.cssContainingText('button.btn.btn-primary.pull-right.text-uppercase', 'Yes'));
+            const confirmationYes = element(by.cssContainingText('app-confirmation-dialog button[aria-label="Close dialog"]', 'Yes'));
 
             return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Logout Confirmation is NOT visible').then(() => {
                 return confirmationYes.click();

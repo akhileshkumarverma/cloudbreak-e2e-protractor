@@ -75,14 +75,16 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
             return providerSelect.click().then(() => {
                 const openstackButton = $("div[class='option'] img[src*='openstack.png']");
 
-                browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
+                browser.wait(EC.elementToBeClickable(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
                     return openstackButton.click();
                 });
 
                 this.closeDocumentationSlide();
 
-                keystoneSelector.click().then(() => {
-                    return $("md-option[value=\'" + keystoneVersion + "\']").click();
+                browser.wait(EC.elementToBeClickable(keystoneSelector), 5000, 'Keystone option is NOT visible').then(() => {
+                    return keystoneSelector.click().then(() => {
+                        return $("md-option[value=\'" + keystoneVersion + "\']").click();
+                    });
                 });
 
                 nameField.sendKeys(name);
@@ -117,7 +119,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const createButton = element(by.cssContainingText('button', ' Create'));
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
-            return this.providerSelector.click().then(() => {
+            return providerSelect.click().then(() => {
                 const awsButton = $("div[class='option'] img[src*='aws.png']");
 
                 browser.wait(EC.visibilityOf(awsButton), 5000, 'AWS Credential Type option is NOT visible').then(() => {
@@ -126,8 +128,10 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 this.closeDocumentationSlide();
 
-                typeSelector.click().then(() => {
-                    return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                browser.wait(EC.elementToBeClickable(typeSelector), 5000, 'Type option is NOT visible').then(() => {
+                    return typeSelector.click().then(() => {
+                        return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                    });
                 });
 
                 nameField.sendKeys(name);
@@ -159,7 +163,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const createButton = element(by.cssContainingText('button', ' Create'));
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
-            return this.providerSelector.click().then(() => {
+            return providerSelect.click().then(() => {
                 const azureButton = $("div[class='option'] img[src*='msa.png']");
 
                 browser.wait(EC.visibilityOf(azureButton), 5000, 'Azure Credential Type option is NOT visible').then(() => {
@@ -168,9 +172,13 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 this.closeDocumentationSlide();
 
-                typeSelector.click().then(() => {
-                    return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                browser.wait(EC.elementToBeClickable(typeSelector), 5000, 'Type option is NOT visible').then(() => {
+                    return typeSelector.click().then(() => {
+                        return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                    });
                 });
+
+                this.closeDocumentationSlide();
 
                 nameField.sendKeys(name);
                 subscriptionField.sendKeys(subscription);
@@ -198,12 +206,11 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const nameField = $("input[id='name']");
         const projectIDField = $("input[id='projectId']");
         const serviceAccountEmail = $("input[id='serviceAccountEmail']");
-        const fileInput = $("input[type='file']");
         const uploadButton = element(by.cssContainingText('button', 'Upload file'));
         const createButton = element(by.cssContainingText('button', ' Create'));
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
-            return this.providerSelector.click().then(() => {
+            return providerSelect.click().then(() => {
                 const gcpButton = $("div[class='option'] img[src*='gcp.png']");
 
                 browser.wait(EC.visibilityOf(gcpButton), 5000, 'GCP Credential Type option is NOT visible').then(() => {
@@ -212,14 +219,20 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 this.closeDocumentationSlide();
 
-                nameField.sendKeys(name);
+                browser.wait(EC.visibilityOf(nameField), 5000, 'Name field is NOT visible').then(() => {
+                    return nameField.sendKeys(name);
+                });
                 projectIDField.sendKeys(project);
                 serviceAccountEmail.sendKeys(email);
 
-                const filePath = path.resolve(__dirname, p12Path);
+                browser.executeScript('document.querySelector("input[type=\'file\']").style.display = "inline";').then(async () => {
+                    const fileInput = $("input[type='file']");
 
-                browser.executeScript("return document.querySelector(\"input[type='file']\").style.display = 'inline';").then(() => {
-                    return fileInput.sendKeys(filePath);
+                    await browser.wait(EC.visibilityOf(fileInput), 5000, 'GCP P12 input is NOT visible').then(async () => {
+                        const filePath = path.resolve(__dirname, p12Path);
+
+                        await fileInput.sendKeys(filePath);
+                    });
                 });
 
                 return browser.wait(EC.elementToBeClickable(createButton), 5000, 'GCP credential Create button is NOT clickable').then(() => {

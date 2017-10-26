@@ -19,35 +19,22 @@ npm install
 # This script downloads the files required to run Selenium itself and build a start script and a directory with them.
 # When this script is finished, we can start the standalone version of Selenium with the Chrome driver by executing the start script.
 node ./node_modules/protractor/bin/webdriver-manager update
-
+# X11 for Ubuntu is not configured! The following configurations are needed for XVFB.
+# Make a new display :21 with virtual screen 0 with resolution 1024x768 24dpi
+Xvfb :10 -screen 0 1920x1080x24 2>&1 >/dev/null &
 # Right now this is not necessary, because of 'directConnect: true' in the 'protractor.conf.js'
 # echo "Starting webdriver"
 # node ./node_modules/protractor/bin/webdriver-manager start [OR webdriver-manager start] &"
 # echo "Finished starting webdriver"
+sleep 20
 
-echo "Running test scripts"
-# The test project launch configuration file (protractor.conf.js) with `protractor` command or a launch script should be passed here.
-if [[ $BROWSER == "chrome" ]]; then
-  echo "Creating Protractor user for Google Chrome"
-  uid=$(stat -c %u ${PWD})
-  gid=$(stat -c %g ${PWD})
-
-  groupadd -o -g $gid protractor
-  useradd -m -o -u $uid -g $gid protractor
-
-  echo "User name: " $(id -u -n)
-  echo "User ID (UID): " $(id -u)
-
-  chown -R protractor:$(id -gn protractor) /protractor/project/
-  echo "Executing test suites with Google Chrome"
-  sudo -u protractor xvfb-run --server-args="-screen 0 1920x1080x24" -a $@
-else
-  echo "Executing test suites with Firefox"
-  xvfb-run --server-args="-screen 0 1920x1080x24" -a $@
-fi
+echo "Running Protractor tests"
+DISPLAY=:10 $@
 export RESULT=$?
 
-echo "Script have done"
+echo "Protractor tests have done"
+# Close the XVFB display
+killall Xvfb
 # Remove temporary folders
 rm -rf .config .local .pki .cache .dbus .gconf .mozilla
 # Set the file access permissions (read, write and access) recursively for the result folders
