@@ -10,8 +10,8 @@ Feature: Cluster
     Examples:
       | Provider  |
       | OpenStack |
-      | AWS       |
-      | Azure     |
+#      | AWS       |
+#      | Azure     |
 #      | GCP       |
 
   @ClusterScenario
@@ -23,6 +23,6 @@ Feature: Cluster
     Examples:
       | Provider  |
       | OpenStack |
-      | AWS       |
-      | Azure     |
+#      | AWS       |
+#      | Azure     |
 #      | GCP       |
