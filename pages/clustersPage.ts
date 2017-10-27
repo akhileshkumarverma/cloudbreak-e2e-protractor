@@ -23,7 +23,20 @@ export class ClustersPageObject extends BasePageObject {
     }
 
     openClusterDetails(name: string) {
-        return $("a[data-stack-name=\'" + name + "\']").click();
+        const EC = browser.ExpectedConditions;
+        const widgetLink = $("a[data-stack-name=\'" + name + "\']");
+
+        return browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT clickable').then(() => {
+            return widgetLink.isDisplayed().then((displayed) => {
+                //console.log('IsDisplayed passed');
+                return widgetLink.click();
+            }, error => {
+                //console.log('IsDisplayed failed');
+                return false;
+            });
+        }, error => {
+            return false;
+        });
     }
 
     waitForClusterTermination(name: string) {
