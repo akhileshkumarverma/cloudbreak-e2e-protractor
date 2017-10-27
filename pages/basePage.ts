@@ -32,7 +32,7 @@ export class BasePageObject {
         const EC = browser.ExpectedConditions;
 
         return this.logoutToggle.click().then(() => {
-            const confirmationYes = element(by.cssContainingText('app-confirmation-dialog button[aria-label="Close dialog"]', 'Yes'));
+            const confirmationYes = element(by.cssContainingText('app-confirmation-dialog', 'Yes'));
 
             return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Logout Confirmation is NOT visible').then(() => {
                 return confirmationYes.click();

@@ -127,7 +127,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                         return createButton.click().then(() => {
                             const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
-                            return browser.wait(EC.visibilityOf(widget), 5000, 'Cluster widget is NOT visible').then(() => {
+                            return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
                                 return true;
                             });
                         });
@@ -236,7 +236,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                         return createButton.click().then(() => {
                             const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
-                            return browser.wait(EC.visibilityOf(widget), 5000, 'Cluster widget is NOT visible').then(() => {
+                            return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
                                 return true;
                             });
                         });
@@ -342,7 +342,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 return createButton.click().then(() => {
                     const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
-                    return browser.wait(EC.visibilityOf(widget), 5000, 'User field is NOT visible').then(() => {
+                    return browser.wait(EC.visibilityOf(widget), 10000, 'User field is NOT visible').then(() => {
                         return true;
                     });
                 });
@@ -446,7 +446,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 return createButton.click().then(() => {
                     const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
-                    return browser.wait(EC.visibilityOf(widget), 5000, 'User field is NOT visible').then(() => {
+                    return browser.wait(EC.visibilityOf(widget), 10000, 'User field is NOT visible').then(() => {
                         return true;
                     });
                 });

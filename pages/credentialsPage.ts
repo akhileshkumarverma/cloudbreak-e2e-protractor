@@ -12,7 +12,7 @@ export class CredentialsPageObject extends BasePageObject {
 
         return checkbox.click().then(() => {
             return deleteButton.click().then( () => {
-                const confirmationYes = element(by.cssContainingText('app-confirmation-dialog button', 'Yes'));
+                const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
 
                 return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
                     return confirmationYes.click();
