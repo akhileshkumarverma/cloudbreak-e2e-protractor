@@ -2,7 +2,7 @@ import { Config } from 'protractor';
 
 export let config: Config = {
     params: {
-        nameTag: process.env.CBD_VERSION.replace(/\./g,'')
+        nameTag: process.env.TARGET_CBD_VERSION.replace(/\./g,'')
     },
     plugins: [{
         path: '../node_modules/protractor-console',
