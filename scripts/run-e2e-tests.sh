@@ -28,7 +28,6 @@ echo "Running Protractor tests"
 # X11 for Ubuntu is not configured! The following configurations are needed for XVFB.
 # Make a new display :21 with virtual screen 0 with resolution 1024x768 24dpi
 xvfb-run --server-args="-screen 0 1920x1080x24" -a $@
-sleep 20
 export RESULT=$?
 
 echo "Protractor tests have done"
