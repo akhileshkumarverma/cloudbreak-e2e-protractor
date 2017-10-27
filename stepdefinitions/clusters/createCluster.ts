@@ -54,8 +54,6 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should see Create Cluster Wizard$/, async () => {
-        let clusterCreateWizard: ClusterCreateWizardPageObject = new ClusterCreateWizardPageObject();
-
-        await expect(clusterCreateWizard.generalConfiguarationSideItem).to.be.displayed;
+        await expect(clusterCreateSetupWizard.isCreateClusterWizardOpened()).to.eventually.be.true;
     });
 });

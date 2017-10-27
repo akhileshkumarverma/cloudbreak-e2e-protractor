@@ -5,6 +5,21 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     public generalConfiguarationSideItem: any = $("div[ng-reflect-router-link='/clusters/create']");
     public templateSwitch: any = $("div[class='setup-wizard-title-bar'] i[class='fa fa-toggle-off']");
 
+    isCreateClusterWizardOpened() {
+        const EC = browser.ExpectedConditions;
+        const generalConfigurations = this.generalConfiguarationSideItem;
+
+        return browser.wait(EC.visibilityOf(generalConfigurations), 5000, 'General Configurations is NOT visible').then(() => {
+            return generalConfigurations.isDisplayed().then((displayed) => {
+                return displayed;
+            }, error => {
+                return false;
+            });
+        }, error => {
+            return false;
+        });
+    }
+
     onTheCreateClusterWizard() {
         return browser.getCurrentUrl().then((url) => {
             //console.log('Actual URL: ' + url);
