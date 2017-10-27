@@ -6,12 +6,12 @@
 : ${USERNAME:? required}
 : ${PASSWORD:? required}
 : ${MASTER_SSH_KEY:? required}
-: ${CLOUDBREAK_CLOUDBREAK_SSH_USER:? required}
+: ${CLOUDBREAK_CENTOS_SSH_USER:? required}
 : ${BROWSER:? required}
 : ${ENVFILE:=./support/testenv}
 
 HOST=${BASE_URL#*//}
-export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)
+export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)
 
 export TESTCONF=/protractor/project/typeScript/protractor.conf.js
 export ARTIFACT_POSTFIX=info
@@ -63,6 +63,6 @@ echo " Get the runtime CBD logs!"
 mkdir -pv cloudbreak-logs
 sudo chown -R jenkins .
 
-ssh -tt -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CLOUDBREAK_SSH_USER@$HOST sudo docker logs cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$CBD_VERSION.log
+ssh -tt -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST sudo docker logs cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$CBD_VERSION.log
 
 exit $RESULT
