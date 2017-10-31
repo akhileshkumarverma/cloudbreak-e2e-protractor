@@ -5,6 +5,6 @@ defineSupportCode(function ({ Given }) {
     let credentialSetupWizard: CredentialSetupWizardPageObject = new CredentialSetupWizardPageObject();
 
     Given(/^I am on the Cloudbreak Credential Setup Wizard$/, async () => {
-        await credentialSetupWizard.onTheCreateCredentialWizard();
+        await credentialSetupWizard.amIOnTheCreateCredentialWizard();
     });
 });

@@ -5,22 +5,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     public generalConfiguarationSideItem: any = $("div[ng-reflect-router-link='/clusters/create']");
     public templateSwitch: any = $("div[class='setup-wizard-title-bar'] i[class='fa fa-toggle-off']");
 
-    isCreateClusterWizardOpened() {
-        const EC = browser.ExpectedConditions;
-        const generalConfigurations = this.generalConfiguarationSideItem;
-
-        return browser.wait(EC.visibilityOf(generalConfigurations), 5000, 'General Configurations is NOT visible').then(() => {
-            return generalConfigurations.isDisplayed().then((displayed) => {
-                return displayed;
-            }, error => {
-                return false;
-            });
-        }, error => {
-            return false;
-        });
-    }
-
-    onTheCreateClusterWizard() {
+    amIOnTheCreateClusterWizard() {
         return browser.getCurrentUrl().then((url) => {
             //console.log('Actual URL: ' + url);
             //console.log(url.includes('/getstarted'));
@@ -44,38 +29,54 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
-    createOpenStackCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
+    isCreateClusterWizardOpened() {
         const EC = browser.ExpectedConditions;
+        const generalConfigurations = this.generalConfiguarationSideItem;
 
+        return browser.wait(EC.visibilityOf(generalConfigurations), 5000, 'General Configurations is NOT visible').then(() => {
+            return generalConfigurations.isDisplayed().then((displayed) => {
+                return displayed;
+            }, error => {
+                return false;
+            });
+        }, error => {
+            return false;
+        });
+    }
+
+    selectCredential(name: string) {
+        const EC = browser.ExpectedConditions;
         const credentialSelector = $("md-select[placeholder='Please select credential']");
-        const clusterNameField = $("input[id='clusterName']");
-        const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
-        const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
-        const networkSelector = $("md-select[placeholder='Please select a network']");
-        const userField = $("input[formcontrolname='username']");
-        const passwordField = $("input[formcontrolname='password']");
-        const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
-        const sshSelector = $("md-select[placeholder='Please select ssh key']");
 
         this.templateSwitch.click().then(() => {
             return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
                 return credentialSelector.click().then(() => {
-                    return element(by.cssContainingText('md-option', credentialName)).click();
+                    return element(by.cssContainingText('md-option', name)).click();
                 });
             });
         });
+    }
 
-        clusterNameField.sendKeys(clusterName).then(() => {
+    setClusterName(name: string) {
+        const EC = browser.ExpectedConditions;
+        const clusterNameField = $("input[id='clusterName']");
+
+        clusterNameField.sendKeys(name).then(() => {
             const nextButton = element(by.cssContainingText('button', 'Next'));
 
             return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                 return nextButton.click().then(() => {
-                    return browser.wait(EC.elementToBeClickable(ambariMasterCheckbox), 5000, 'Ambari checkbox is NOT clickable').then(() => {
+                    return browser.wait(EC.urlContains('/clusters/create/hardware-and-storage'), 5000, 'Hardware and Storage page is NOT opened').then(() => {
                         return true;
                     });
                 });
             });
         });
+    }
+
+    setMasterAsAmbariServer() {
+        const EC = browser.ExpectedConditions;
+        const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
 
         ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
             //console.log(elementClass);
@@ -85,7 +86,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
                     return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                         return nextButton.click().then(() => {
-                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+                            return browser.wait(EC.urlContains('/clusters/create/recipes'), 5000, 'Recipes page is NOT visible').then(() => {
                                 return true;
                             });
                         });
@@ -96,376 +97,162 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
                 return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                     return nextButton.click().then(() => {
-                        return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+                        return browser.wait(EC.urlContains('/clusters/create/recipes'), 5000, 'Recipes page is NOT visible').then(() => {
                             return true;
                         });
                     });
                 });
             }
         });
+    }
 
-        fileSystemSelector.isDisplayed().then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
+    navigateFromRecipes() {
+        const EC = browser.ExpectedConditions;
+        const recipeActionContainer = $("app-config-recipes div[class='action-container']");
+
+        recipeActionContainer.isDisplayed().then(() => {
+            const nextButton = recipeActionContainer.element(by.cssContainingText('button', 'Next'));
 
             return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                 return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+                    return browser.wait(EC.urlContains('/clusters/create/network'), 5000, 'Network page is NOT visible').then(() => {
                         return true;
                     });
                 });
             });
         });
+    }
 
-        element(by.cssContainingText('button', 'Next')).click().then(() => {
-            return browser.wait(EC.visibilityOf(userField), 5000, 'Ambari User is NOT visible').then(() => {
-                return true;
+    navigateFromNetwork() {
+        const EC = browser.ExpectedConditions;
+        const networkActionContainer = $("app-network form div[class='action-container']");
+
+        networkActionContainer.isDisplayed().then(() => {
+            const nextButton = networkActionContainer.element(by.cssContainingText('button', 'Next'));
+
+            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                return nextButton.click().then(() => {
+                    return browser.wait(EC.urlContains('/clusters/create/security'), 5000, 'Security page is NOT visible').then(() => {
+                        return true;
+                    });
+                });
             });
         });
+    }
+
+    setAmbariCredentials(user: string, password: string) {
+        const userField = $("input[formcontrolname='username']");
+        const passwordField = $("input[formcontrolname='password']");
+        const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
 
         userField.clear().then(() => {
             userField.sendKeys(user);
         });
-
         passwordField.clear().then(() => {
             passwordField.sendKeys(password);
         });
         confirmPasswordField.clear().then(() => {
             confirmPasswordField.sendKeys(password);
         });
+    }
 
-        return browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
+    selectSSHKey(sshKey: string) {
+        const EC = browser.ExpectedConditions;
+        const sshSelector = $("md-select[placeholder='Please select ssh key']");
+
+        browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
             return sshSelector.click().then(() => {
                 return $("md-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
                     const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
                     return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
-                        return createButton.click().then(() => {
-                            const widget = $("a[data-stack-name=\'" + clusterName + "\']");
-
-                            return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
-                                return true;
-                            });
+                        return createButton.isEnabled().then((enabled) => {
+                           return enabled;
                         });
                     });
                 });
             });
         });
+    }
 
+    setSSHKey(sshKey: string) {
+        const EC = browser.ExpectedConditions;
+        const sshTextarea = $("textarea[formcontrolname='publicKey']");
+
+        sshTextarea.clear().then(() => {
+            sshTextarea.sendKeys(sshKey);
+        });
+    }
+
+    submitClusterCreate(clusterName: string) {
+        const EC = browser.ExpectedConditions;
+        const createButton = element(by.cssContainingText('button', 'Create cluster'));
+
+        return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(async () => {
+            await createButton.click().then(() => {
+                const widget = $("a[data-stack-name=\'" + clusterName + "\']");
+
+                return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
+                    console.log('Cluster widget is available');
+                    return true;
+                });
+            });
+        });
+    }
+
+    createOpenStackCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
+        this.selectCredential(credentialName);
+        this.setClusterName(clusterName);
+        this.setMasterAsAmbariServer();
+
+        this.navigateFromRecipes();
+        this.navigateFromNetwork();
+
+        this.setAmbariCredentials(user, password);
+        this.selectSSHKey(sshKey);
+
+        return this.submitClusterCreate(clusterName);
     }
 
     createAWSCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        const EC = browser.ExpectedConditions;
+        this.selectCredential(credentialName);
+        this.setClusterName(clusterName);
+        this.setMasterAsAmbariServer();
 
-        const credentialSelector = $("md-select[placeholder='Please select credential']");
-        const clusterNameField = $("input[id='clusterName']");
-        const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
-        const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
-        const networkSelector = $("md-select[placeholder='Please select a network']");
-        const userField = $("input[formcontrolname='username']");
-        const passwordField = $("input[formcontrolname='password']");
-        const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
-        const sshSelector = $("md-select[placeholder='Please select ssh key']");
+        this.navigateFromRecipes();
+        this.navigateFromNetwork();
 
-        this.templateSwitch.click().then(() => {
-            return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
-                return credentialSelector.click().then(() => {
-                    return element(by.cssContainingText('md-option', credentialName)).click();
-                });
-            });
-        });
+        this.setAmbariCredentials(user, password);
+        this.selectSSHKey(sshKey);
 
-        clusterNameField.sendKeys(clusterName).then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
-
-            return browser.wait(EC.elementToBeClickable(nextButton), 20000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(ambariMasterCheckbox), 20000, 'Ambari checkbox is NOT clickable').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
-            //console.log(elementClass);
-            if (!elementClass.includes('mat-checkbox-checked')) {
-                return ambariMasterCheckbox.click().then(() => {
-                    const nextButton = element(by.cssContainingText('button', 'Next'));
-
-                    return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                        return nextButton.click().then(() => {
-                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                                return true;
-                            });
-                        });
-                    });
-                });
-            } else {
-                const nextButton = element(by.cssContainingText('button', 'Next'));
-
-                return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                    return nextButton.click().then(() => {
-                        return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                            return true;
-                        });
-                    });
-                });
-            }
-        });
-
-        fileSystemSelector.isDisplayed().then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
-
-            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        element(by.cssContainingText('button', 'Next')).click().then(() => {
-            return browser.wait(EC.visibilityOf(userField), 5000, 'Ambari User is NOT visible').then(() => {
-                return true;
-            });
-        });
-
-        userField.clear().then(() => {
-            userField.sendKeys(user);
-        });
-
-        passwordField.clear().then(() => {
-            passwordField.sendKeys(password);
-        });
-        confirmPasswordField.clear().then(() => {
-            confirmPasswordField.sendKeys(password);
-        });
-
-        return browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
-            return sshSelector.click().then(() => {
-                return $("md-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
-                    const createButton = element(by.cssContainingText('button', 'Create cluster'));
-
-                    return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
-                        return createButton.click().then(() => {
-                            const widget = $("a[data-stack-name=\'" + clusterName + "\']");
-
-                            return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
-                                return true;
-                            });
-                        });
-                    });
-                });
-            });
-        });
+        return this.submitClusterCreate(clusterName);
     }
 
     createAzureCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        const EC = browser.ExpectedConditions;
+        this.selectCredential(credentialName);
+        this.setClusterName(clusterName);
+        this.setMasterAsAmbariServer();
 
-        const credentialSelector = $("md-select[placeholder='Please select credential']");
-        const clusterNameField = $("input[id='clusterName']");
-        const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
-        const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
-        const networkSelector = $("md-select[placeholder='Please select a network']");
-        const userField = $("input[formcontrolname='username']");
-        const passwordField = $("input[formcontrolname='password']");
-        const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
-        const sshTextarea = $("textarea[formcontrolname='publicKey']");
+        this.navigateFromRecipes();
+        this.navigateFromNetwork();
 
-        this.templateSwitch.click().then(() => {
-            return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
-                return credentialSelector.click().then(() => {
-                    return element(by.cssContainingText('md-option', credentialName)).click();
-                });
-            });
-        });
+        this.setAmbariCredentials(user, password);
+        this.setSSHKey(sshKey);
 
-        clusterNameField.sendKeys(clusterName).then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
-
-            return browser.wait(EC.elementToBeClickable(nextButton), 20000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(ambariMasterCheckbox), 20000, 'Ambari checkbox is NOT clickable').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
-            //console.log(elementClass);
-            if (!elementClass.includes('mat-checkbox-checked')) {
-                return ambariMasterCheckbox.click().then(() => {
-                    const nextButton = element(by.cssContainingText('button', 'Next'));
-
-                    return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                        return nextButton.click().then(() => {
-                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                                return true;
-                            });
-                        });
-                    });
-                });
-            } else {
-                const nextButton = element(by.cssContainingText('button', 'Next'));
-
-                return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                    return nextButton.click().then(() => {
-                        return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                            return true;
-                        });
-                    });
-                });
-            }
-        });
-
-        fileSystemSelector.isDisplayed().then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
-
-            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        element(by.cssContainingText('button', 'Next')).click().then(() => {
-            return browser.wait(EC.visibilityOf(userField), 5000, 'Ambari User is NOT visible').then(() => {
-                return true;
-            });
-        });
-
-        userField.clear().then(() => {
-            userField.sendKeys(user);
-        });
-
-        passwordField.clear().then(() => {
-            passwordField.sendKeys(password);
-        });
-        confirmPasswordField.clear().then(() => {
-            confirmPasswordField.sendKeys(password);
-        });
-
-        return sshTextarea.sendKeys(sshKey).then(() => {
-            const createButton = element(by.cssContainingText('button', 'Create cluster'));
-
-            return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
-                return createButton.click().then(() => {
-                    const widget = $("a[data-stack-name=\'" + clusterName + "\']");
-
-                    return browser.wait(EC.visibilityOf(widget), 10000, 'User field is NOT visible').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
+        return this.submitClusterCreate(clusterName);
     }
 
     createGCPCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        const EC = browser.ExpectedConditions;
+        this.selectCredential(credentialName);
+        this.setClusterName(clusterName);
+        this.setMasterAsAmbariServer();
 
-        const credentialSelector = $("md-select[placeholder='Please select credential']");
-        const clusterNameField = $("input[id='clusterName']");
-        const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
-        const fileSystemSelector = $("md-select[placeholder='Please choose a file system']");
-        const networkSelector = $("md-select[placeholder='Please select a network']");
-        const userField = $("input[formcontrolname='username']");
-        const passwordField = $("input[formcontrolname='password']");
-        const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
-        const sshTextarea = $("textarea[formcontrolname='publicKey']");
+        this.navigateFromRecipes();
+        this.navigateFromNetwork();
 
-        this.templateSwitch.click().then(() => {
-            return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
-                return credentialSelector.click().then(() => {
-                    return element(by.cssContainingText('md-option', credentialName)).click();
-                });
-            });
-        });
+        this.setAmbariCredentials(user, password);
+        this.setSSHKey(sshKey);
 
-        clusterNameField.sendKeys(clusterName).then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
-
-            return browser.wait(EC.elementToBeClickable(nextButton), 20000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(ambariMasterCheckbox), 20000, 'Ambari checkbox is NOT clickable').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
-            //console.log(elementClass);
-            if (!elementClass.includes('mat-checkbox-checked')) {
-                return ambariMasterCheckbox.click().then(() => {
-                    const nextButton = element(by.cssContainingText('button', 'Next'));
-
-                    return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                        return nextButton.click().then(() => {
-                            return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                                return true;
-                            });
-                        });
-                    });
-                });
-            } else {
-                const nextButton = element(by.cssContainingText('button', 'Next'));
-
-                return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                    return nextButton.click().then(() => {
-                        return browser.wait(EC.visibilityOf(fileSystemSelector), 5000, 'File System dropdown is NOT visible').then(() => {
-                            return true;
-                        });
-                    });
-                });
-            }
-        });
-
-        fileSystemSelector.isDisplayed().then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
-
-            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
-
-        element(by.cssContainingText('button', 'Next')).click().then(() => {
-            return browser.wait(EC.visibilityOf(userField), 5000, 'Ambari User is NOT visible').then(() => {
-                return true;
-            });
-        });
-
-        userField.clear().then(() => {
-            userField.sendKeys(user);
-        });
-
-        passwordField.clear().then(() => {
-            passwordField.sendKeys(password);
-        });
-        confirmPasswordField.clear().then(() => {
-            confirmPasswordField.sendKeys(password);
-        });
-
-        return sshTextarea.sendKeys(sshKey).then(() => {
-            const createButton = element(by.cssContainingText('button', 'Create cluster'));
-
-            return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
-                return createButton.click().then(() => {
-                    const widget = $("a[data-stack-name=\'" + clusterName + "\']");
-
-                    return browser.wait(EC.visibilityOf(widget), 10000, 'User field is NOT visible').then(() => {
-                        return true;
-                    });
-                });
-            });
-        });
+        return this.submitClusterCreate(clusterName);
     }
 }

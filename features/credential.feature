@@ -15,7 +15,7 @@ Feature: Credential
 
     Examples:
       | Provider  |
-      | OpenStack |
       | AWS       |
       | Azure     |
       | GCP       |
+      | OpenStack |

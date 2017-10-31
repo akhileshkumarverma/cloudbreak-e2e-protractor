@@ -31,13 +31,13 @@
     "chai-as-promised": "^7.0.0",
     "chai-smoothie": "^0.3.2",
     "cucumber": "^2.3.0",
-    "cucumber-html-report": "^0.6.1",
     "mkdirp": "^0.5.1",
     "protractor-console": "^3.0.0",
     "protractor-cucumber-framework": "^3.1.1"
   },
   "dependencies": {
     "cucumber-html-reporter": "^2.0.0",
+    "cucumber-html-report": "^0.6.1",
     "protractor": "^5.1.2",
     "ts-node": "^3.1.0",
     "typescript": "^2.2.1"

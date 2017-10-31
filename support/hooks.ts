@@ -1,7 +1,7 @@
 import { browser, protractor } from 'protractor';
 import * as fs from 'fs';
 import { defineSupportCode } from "cucumber";
-import * as reporter from 'cucumber-html-reporter';
+import * as reporterHTML from 'cucumber-html-reporter';
 import { mkdirp } from 'mkdirp';
 
 const Cucumber = require('cucumber');
@@ -61,7 +61,7 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
         }
         try {
             fs.writeFileSync(targetJson, string);
-            reporter.generate(cucumberReporterOptions); // invoke cucumber-html-reporter
+            reporterHTML.generate(cucumberReporterOptions); // invoke cucumber-html-reporter
 
             report.create({
                 source:       './reports/json/cucumber_report.json',  // source json

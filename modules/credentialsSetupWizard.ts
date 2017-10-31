@@ -4,9 +4,9 @@ import { CredentialsPageObject } from "../pages/credentialsPage";
 const path = require('path');
 
 export class CredentialSetupWizardPageObject extends CredentialsPageObject {
-    public providerSelector: any = element(by.cssContainingText('span', 'Please select your cloud provider'));
+    public providerSelector: any = $("form div[class='provider-block'] div[class='selected-option']");
 
-    onTheCreateCredentialWizard() {
+    amIOnTheCreateCredentialWizard() {
         return browser.getCurrentUrl().then((url) => {
             //console.log('Actual URL: ' + url);
             //console.log(url.includes('/getstarted'));
@@ -27,19 +27,6 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
             } else {
                 return result;
             }
-        });
-    }
-
-    async selectOpenstack() {
-        const EC = browser.ExpectedConditions;
-
-        await this.providerSelector.click().then(() => {
-            const openstackButton = $("div[class='option'] img[src*='openstack.png']");
-
-            browser.wait(EC.visibilityOf(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
-                return openstackButton.click();
-            });
-
         });
     }
 

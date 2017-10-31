@@ -63,6 +63,6 @@ echo " Get the runtime CBD logs!"
 mkdir -pv cloudbreak-logs
 sudo chown -R jenkins .
 
-ssh -tt -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST sudo docker logs cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$CBD_VERSION.log
+ssh -tt -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST sudo docker logs --since $NOWDATE cbreak_cloudbreak_1 > cloudbreak-logs/cloudbreak-$CBD_VERSION.log
 
 exit $RESULT
