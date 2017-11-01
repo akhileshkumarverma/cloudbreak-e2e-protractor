@@ -122,16 +122,25 @@ export let config: Config = {
         browser.manage().timeouts().pageLoadTimeout(60000);
     },
     cucumberOpts: {
-        compiler: "ts:ts-node/register",
-        strict: true,
+        failFast: false,                                                                                            // <boolean> abort the run on first failure
+        dryRun: false,                                                                                              // <boolean> invoke formatters without executing steps
+        profile: [],                                                                                                // <string[]> (name) specify the profile to use
+        compiler: "ts:ts-node/register",                                                                            // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
+        backtrace: true,                                                                                            // <boolean> show full backtrace for errors
+        strict: true,                                                                                               // <boolean> fail if there are any undefined or pending steps
         format: [
             'pretty'
-        ],
-        backtrace: true,
+        ],                                                                                                          // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
+        colors: true,                                                                                              // <boolean> disable colors in formatter output
+        snippets: true,                                                                                             // <boolean> hide step definition snippets for pending steps
+        source: true,                                                                                               // <boolean> hide source uris
+        ignoreUncaughtExceptions: true,
+        defaultTimeoutInterval: 60000,
+        timeout: 60000,                                                                                             // <number> timeout for step definitions
         require: [
             '../stepdefinitions/*/*.ts',
             '../support/*.ts'
-        ],
-        tags: '@LoginScenario or @CredentialScenario or @ClusterScenario or @TeardownScenario or @LogoutScenario'
+        ],                                                                                                          // <string[]> (file/dir) require files before executing features
+        tags: '@LoginScenario or @CredentialScenario or @ClusterScenario or @TeardownScenario or @LogoutScenario'   // <string[]> (expression) only execute the features or scenarios with tags matching the expression
     }
 };

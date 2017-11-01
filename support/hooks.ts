@@ -4,11 +4,12 @@ import { defineSupportCode } from "cucumber";
 import * as reporterHTML from 'cucumber-html-reporter';
 import { mkdirp } from 'mkdirp';
 
-const Cucumber = require('cucumber');
+const cucumber = require('cucumber');
 const report = require('cucumber-html-report');
 
 defineSupportCode(function ({ registerHandler, registerListener, After, setDefaultTimeout }) {
     setDefaultTimeout(60 * 1000);
+
     let jsonReports = process.cwd() + "/reports/json";
     let htmlReports = process.cwd() + "/reports/html";
     let screenshots = process.cwd() + "/reports/screenshots";
@@ -48,7 +49,7 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
     let cucumberReporterOptions = {
         theme: "bootstrap",
         jsonFile: targetJson,
-        output: htmlReports + "/cucumber_reporter.html",
+        output: htmlReports + "/cucumber_report.html",
         reportSuiteAsScenarios: true,
         launchReport: false,
         storeScreenshots: false,
@@ -79,7 +80,7 @@ defineSupportCode(function ({ registerHandler, registerListener, After, setDefau
             }
         }
     };
-    let jsonformatter = new Cucumber.JsonFormatter({
+    let jsonformatter = new cucumber.JsonFormatter({
         log: logFn
     });
     registerListener(jsonformatter);
