@@ -10,7 +10,7 @@ Feature: Credential
   @CredentialScenario
   Scenario Outline: User creates a new credential
     Given I am on the Cloudbreak Credential Setup Wizard
-    When I create my new Credential for the following "<Provider>"
+    When I create my new Credential for "<Provider>"
     Then I should see Create Cluster Wizard
 
     Examples:

@@ -8,7 +8,7 @@ defineSupportCode(function ({ When, Then }) {
 
     const name = process.env.CREDENTIAL_NAME + browser.params.nameTag;
 
-    When(/^I create my new Credential for the following "([^"]*)"$/, async (provider) => {
+    When(/^I create my new Credential for "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
                 const keystoneVersion = 'v2';

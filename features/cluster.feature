@@ -4,7 +4,8 @@ Feature: Cluster
   @ClusterScenario
   Scenario Outline: User creates a new cluster
     Given I am on the Create Cluster Wizard
-    When I create my new Cluster for the following "<Provider>"
+    When I select my previously created "<Provider>" credential
+      And I create my new Cluster for "<Provider>"
     Then I should see my "<Provider>" cluster's widget
 
     Examples:
@@ -16,8 +17,9 @@ Feature: Cluster
 
   @ClusterScenario
   Scenario Outline: User deletes the previously created cluster
-    Given I am opened "<Provider>" Cluster Details
-    When I terminate my Cluster on "<Provider>"
+    Given I see my previously created "<Provider>" cluster on the Clusters page
+    When I open "<Provider>" Cluster Details
+      And I terminate my Cluster on "<Provider>"
     Then I should NOT see my "<Provider>" cluster on the Cloudbreak Dashboard
 
     Examples:

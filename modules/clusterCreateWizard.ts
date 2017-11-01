@@ -201,7 +201,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createOpenStackCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        this.selectCredential(credentialName);
+        //this.selectCredential(credentialName);
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
@@ -215,7 +215,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createAWSCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        this.selectCredential(credentialName);
+        //this.selectCredential(credentialName);
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
@@ -229,7 +229,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createAzureCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        this.selectCredential(credentialName);
+        //this.selectCredential(credentialName);
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
@@ -243,7 +243,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createGCPCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        this.selectCredential(credentialName);
+        //this.selectCredential(credentialName);
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 

@@ -15,7 +15,26 @@ defineSupportCode(function ({ When, Then }) {
     const sshKey = process.env.SSH_KEY;
     const sshKeyName = process.env.SSH_KEY_NAME;
 
-    When(/^I create my new Cluster for the following "([^"]*)"$/, async (provider) => {
+    When(/^I select my previously created "([^"]*)" credential$/, async (provider) => {
+        switch (provider) {
+            case "OpenStack":
+                await clusterCreateSetupWizard.selectCredential(credentialName + 'os');
+                break;
+            case "AWS":
+                await clusterCreateSetupWizard.selectCredential(credentialName + 'aws');
+                break;
+            case "Azure":
+                await clusterCreateSetupWizard.selectCredential(credentialName + 'azure');
+                break;
+            case "GCP":
+                await clusterCreateSetupWizard.selectCredential(credentialName + 'gcp');
+                break;
+            default:
+                console.log('No such provider!');
+        }
+    });
+
+    When(/^I create my new Cluster for "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
                 await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', user, password, sshKeyName);
