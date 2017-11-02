@@ -18,16 +18,16 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I select my previously created "([^"]*)" credential$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await clusterCreateSetupWizard.selectCredential(credentialName + 'os');
+                await expect(clusterCreateSetupWizard.selectCredential(credentialName + 'os')).to.eventually.be.true;
                 break;
             case "AWS":
-                await clusterCreateSetupWizard.selectCredential(credentialName + 'aws');
+                await expect(clusterCreateSetupWizard.selectCredential(credentialName + 'aws')).to.eventually.be.true;
                 break;
             case "Azure":
-                await clusterCreateSetupWizard.selectCredential(credentialName + 'azure');
+                await expect(clusterCreateSetupWizard.selectCredential(credentialName + 'azure')).to.eventually.be.true;
                 break;
             case "GCP":
-                await clusterCreateSetupWizard.selectCredential(credentialName + 'gcp');
+                await expect(clusterCreateSetupWizard.selectCredential(credentialName + 'gcp')).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');
@@ -37,16 +37,16 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I create my new Cluster for "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', user, password, sshKeyName);
+                await expect(clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', user, password, sshKeyName)).to.eventually.be.true;
                 break;
             case "AWS":
-                await clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName);
+                await expect(clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).to.eventually.be.true;
                 break;
             case "Azure":
-                await clusterCreateSetupWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey);
+                await expect(clusterCreateSetupWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey)).to.eventually.be.true;
                 break;
             case "GCP":
-                await clusterCreateSetupWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey);
+                await expect(clusterCreateSetupWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey)).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');

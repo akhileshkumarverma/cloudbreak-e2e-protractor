@@ -21,16 +21,16 @@ defineSupportCode(function ({ Given }) {
     Given(/^I see my previously created "([^"]*)" cluster on the Clusters page$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await clusters.getClusterWidget(clusterName + 'os');
+                await expect(clusters.getClusterWidget(clusterName + 'os')).to.eventually.be.true;
                 break;
             case "AWS":
-                await clusters.getClusterWidget(clusterName + 'aws');
+                await expect(clusters.getClusterWidget(clusterName + 'aws')).to.eventually.be.true;
                 break;
             case "Azure":
-                await clusters.getClusterWidget(clusterName + 'azure');
+                await expect(clusters.getClusterWidget(clusterName + 'azure')).to.eventually.be.true;
                 break;
             case "GCP":
-                await clusters.getClusterWidget(clusterName + 'gcp');
+                await expect(clusters.getClusterWidget(clusterName + 'gcp')).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');

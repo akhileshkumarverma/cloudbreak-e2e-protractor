@@ -13,16 +13,16 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I delete my Credential for "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await credentials.deleteCredential(name + 'os');
+                await expect(credentials.deleteCredential(name + 'os')).to.eventually.be.true;
                 break;
             case "AWS":
-                await credentials.deleteCredential(name + 'aws');
+                await expect(credentials.deleteCredential(name + 'aws')).to.eventually.be.true;
                 break;
             case "Azure":
-                await credentials.deleteCredential(name + 'azure');
+                await expect(credentials.deleteCredential(name + 'azure')).to.eventually.be.true;
                 break;
             case "GCP":
-                await credentials.deleteCredential(name + 'gcp');
+                await expect(credentials.deleteCredential(name + 'gcp')).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');

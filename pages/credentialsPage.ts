@@ -11,13 +11,24 @@ export class CredentialsPageObject extends BasePageObject {
         const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
 
         return checkbox.click().then(() => {
-            return deleteButton.click().then( () => {
+            deleteButton.click().then( () => {
                 const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
 
                 return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
                     return confirmationYes.click();
                 });
             });
+
+            return browser.wait(EC.invisibilityOf(checkbox), 10000, name + ' credential has NOT been deleted!').then(() => {
+                return checkbox.isDisplayed().then((displayed) => {
+                   return !displayed;
+                }, error => {
+                    return true;
+                });
+            });
+        }, error => {
+            console.log(name + ' credential is not present!');
+            return true;
         });
     }
 

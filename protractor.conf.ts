@@ -1,5 +1,7 @@
 import { Config } from 'protractor';
 
+const XMLReporter = require('ruru-protractor-junit-reporter');
+
 export let config: Config = {
     params: {
         nameTag: process.env.TARGET_CBD_VERSION.replace(/\./g,'')
@@ -121,6 +123,20 @@ export let config: Config = {
         browser.manage().timeouts().implicitlyWait(20000);
         browser.manage().timeouts().pageLoadTimeout(60000);
     },
+
+    resultJsonOutputFile: './protractor-reports/protractor_report.json',                                                                 // Protractor will save the test output in JSON format to the path. The path is relative to the location of this config.
+    afterLaunch : (exitCode) => {
+        return new Promise((resolve) => {
+
+            let reporter = new XMLReporter({
+                title : 'My Protractor End to End Results',
+                xmlReportDestPath : './protractor-reports/protractor-e2e-report.xml'
+            });
+
+            reporter.generateXMLReport(exports.config.resultJsonOutputFile);
+        });
+    },
+
     cucumberOpts: {
         failFast: false,                                                                                            // <boolean> abort the run on first failure
         dryRun: false,                                                                                              // <boolean> invoke formatters without executing steps

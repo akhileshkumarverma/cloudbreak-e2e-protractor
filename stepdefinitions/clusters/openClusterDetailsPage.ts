@@ -2,6 +2,9 @@ import { defineSupportCode } from 'cucumber'
 import { ClusterDetailsPageObject } from "../../modules/clusterDetails";
 import { browser } from "protractor";
 
+let chai = require('chai').use(require('chai-smoothie'));
+let expect = chai.expect;
+
 defineSupportCode(function ({ When }) {
     let clusterDetails: ClusterDetailsPageObject = new ClusterDetailsPageObject();
 
@@ -10,16 +13,16 @@ defineSupportCode(function ({ When }) {
     When(/^I open "([^"]*)" Cluster Details$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await clusterDetails.openClusterDetails(clusterName + 'os');
+                await expect(clusterDetails.openClusterDetails(clusterName + 'os')).to.eventually.be.true;
                 break;
             case "AWS":
-                await clusterDetails.openClusterDetails(clusterName + 'aws');
+                await expect(clusterDetails.openClusterDetails(clusterName + 'aws')).to.eventually.be.true;
                 break;
             case "Azure":
-                await clusterDetails.openClusterDetails(clusterName + 'azure');
+                await expect(clusterDetails.openClusterDetails(clusterName + 'azure')).to.eventually.be.true;
                 break;
             case "GCP":
-                await clusterDetails.openClusterDetails(clusterName + 'gcp');
+                await expect(clusterDetails.openClusterDetails(clusterName + 'gcp')).to.eventually.be.true;
                 break;
             default:
                 console.log('No such provider!');

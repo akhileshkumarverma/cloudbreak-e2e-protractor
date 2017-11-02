@@ -17,11 +17,12 @@
     "postinstall": "node ./node_modules/protractor/bin/webdriver-manager update --allow-root install",
     "build": "tsc",
     "clean": "rimraf typeScript/ reports/",
-    "clean-build": "npm run clean && npm run build",
+    "clean-build": "npm-run-all clean build",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "webdriver-start": "node ./node_modules/protractor/bin/webdriver-manager start",
-    "test": "npm run build && protractor typeScript/protractor.conf.js && npm run generate-junit",
-    "clean-test": "npm run clean-build && protractor typeScript/protractor.conf.js && npm run generate-junit",
+    "protractor-test": "protractor typeScript/protractor.conf.js",
+    "test": "npm-run-all build protractor-test generate-junit --continue-on-error",
+    "clean-test": "npm-run-all clean-build protractor-test generate-junit --continue-on-error",
     "generate-junit": "mkdirp reports/junit && cat reports/json/cucumber_report.json | node ./node_modules/cucumberjs-junitxml/bin/cucumber-junit > reports/junit/cucumber_report.xml"
   },
   "devDependencies": {
@@ -33,9 +34,11 @@
     "chai-smoothie": "^0.3.2",
     "cucumberjs-junitxml": "^1.0.0",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.6.2",
+    "npm-run-all": "^4.1.1",
     "protractor-console": "^3.0.0",
-    "protractor-cucumber-framework": "^3.1.2"
+    "protractor-cucumber-framework": "^3.1.2",
+    "rimraf": "^2.6.2",
+    "ruru-protractor-junit-reporter": "0.0.1"
   },
   "dependencies": {
     "cucumber-html-reporter": "^2.0.0",

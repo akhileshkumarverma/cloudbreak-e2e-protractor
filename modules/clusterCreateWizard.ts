@@ -3,7 +3,7 @@ import { ClustersPageObject } from "../pages/clustersPage";
 
 export class ClusterCreateWizardPageObject extends ClustersPageObject {
     public generalConfiguarationSideItem: any = $("div[ng-reflect-router-link='/clusters/create']");
-    public templateSwitch: any = $("div[class='setup-wizard-title-bar'] i[class='fa fa-toggle-off']");
+    public templateSwitch: any = $("div[class='setup-wizard-title-bar'] i");
 
     amIOnTheCreateClusterWizard() {
         return browser.getCurrentUrl().then((url) => {
@@ -47,13 +47,26 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     selectCredential(name: string) {
         const EC = browser.ExpectedConditions;
         const credentialSelector = $("md-select[placeholder='Please select credential']");
+        const selectedCredential = element(by.cssContainingText('span.mat-select-value-text span', name));
 
         this.templateSwitch.click().then(() => {
             return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
-                return credentialSelector.click().then(() => {
+                credentialSelector.click().then(() => {
                     return element(by.cssContainingText('md-option', name)).click();
                 });
             });
+        });
+
+        return browser.wait(EC.visibilityOf(selectedCredential), 5000, name + ' is NOT the selected credential').then(() => {
+            return selectedCredential.isDisplayed().then((displayed) => {
+                return displayed;
+            }, error => {
+                console.log(name + ' credential is NOT present!');
+                return false;
+            });
+        }, error => {
+            console.log(name + ' credential is NOT selected!');
+            return false;
         });
     }
 
@@ -188,8 +201,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         const EC = browser.ExpectedConditions;
         const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
-        return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(async () => {
-            await createButton.click().then(() => {
+        return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
+            return createButton.click().then(() => {
                 const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
                 return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
