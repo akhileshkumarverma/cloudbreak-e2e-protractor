@@ -1,0 +1,1007 @@
+[
+  {
+    "description": "Valid user successfully logs in to Cloudbreak",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am on the Cloudbreak Login page",
+        "category": "Login: Valid user successfully logs in to Cloudbreak",
+        "durationMillis": 2248,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/login.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I submit my user credentials",
+        "category": "Login: Valid user successfully logs in to Cloudbreak",
+        "durationMillis": 33994,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/login.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "And Close Credential warning dialog if it is present",
+        "category": "Login: Valid user successfully logs in to Cloudbreak",
+        "durationMillis": 1756,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/login.feature",
+          "line": 8,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should be logged in",
+        "category": "Login: Valid user successfully logs in to Cloudbreak",
+        "durationMillis": 1,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/login.feature",
+          "line": 9,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Login: Valid user successfully logs in to Cloudbreak",
+        "durationMillis": 1,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/login.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 38000
+  },
+  {
+    "description": "User opens Cloudbreak Credential Setup Wizard",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am opened Cloudbreak Credential page",
+        "category": "Credential: User opens Cloudbreak Credential Setup Wizard",
+        "durationMillis": 591,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I click on the Create Credential button",
+        "category": "Credential: User opens Cloudbreak Credential Setup Wizard",
+        "durationMillis": 572,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should see Credential Setup Wizard",
+        "category": "Credential: User opens Cloudbreak Credential Setup Wizard",
+        "durationMillis": 1,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 8,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Credential: User opens Cloudbreak Credential Setup Wizard",
+        "durationMillis": 1,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 1165
+  },
+  {
+    "description": "User creates a new credential",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "expected false to be true",
+        "stackTrace": "AssertionError: expected false to be true\n    at getBasePromise.then.then.newArgs (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/chai-as-promised/lib/chai-as-promised.js:302:22)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am on the Cloudbreak Credential Setup Wizard",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 209,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 12,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I create my new Credential for \"Azure\"",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 31314,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 13,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testFail",
+        "name": "Then I should see Create Cluster Wizard",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 20432,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 14,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 207,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 52162
+  },
+  {
+    "description": "User creates a new credential",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "File not found: /Users/aszegedi/prj/uluwatutests/cloud/modules/SequenceIQ\\ Hadoop\\ as\\ a\\ Service-17f1bb222049.p12",
+        "stackTrace": "InvalidArgumentError: File not found: /Users/aszegedi/prj/uluwatutests/cloud/modules/SequenceIQ\\ Hadoop\\ as\\ a\\ Service-17f1bb222049.p12\n    at Object.throwDecodedError (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/error.js:514:15)\n    at parseHttpResponse (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:519:13)\n    at doSend.then.response (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:441:30)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)\nFrom: Task: WebElement.sendKeys()\n    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)\n    at Driver.schedule (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:807:17)\n    at WebElement.schedule_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2010:25)\n    at WebElement.sendKeys (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2174:19)\n    at actionFn (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:89:44)\n    at Array.map (<anonymous>)\n    at actionResults.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:461:65)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as sendKeys] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)\n    at ElementFinder.(anonymous function).args [as sendKeys] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)\n    at CredentialSetupWizardPageObject.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:221:41)\n    at Generator.next (<anonymous>)\n    at /Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:7:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:3:12)\n    at protractor_1.browser.wait.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:218:122)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am on the Cloudbreak Credential Setup Wizard",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 214,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 12,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testFail",
+        "name": "When I create my new Credential for \"GCP\"",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 7904,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 13,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should see Create Cluster Wizard",
+        "category": "Credential: User creates a new credential",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 14,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 168,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User creates a new credential",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "No element found using locator: by.cssContainingText(\"button\", \" Create\")",
+        "stackTrace": "NoSuchElementError: No element found using locator: by.cssContainingText(\"button\", \" Create\")\n    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)\n    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)\n    at providerSelect.click.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:86:37)\n    at elementArrayFinder_.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:804:32)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am on the Cloudbreak Credential Setup Wizard",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 213,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 12,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testFail",
+        "name": "When I create my new Credential for \"OpenStack\"",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 10364,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 13,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should see Create Cluster Wizard",
+        "category": "Credential: User creates a new credential",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "line": 14,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Credential: User creates a new credential",
+        "durationMillis": 165,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/credential.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User creates a new cluster",
+    "assertions": [
+      {
+        "passed": false,
+        "errorMsg": "Cannot open Create Cluster Wizard\nWait timed out after 5025ms",
+        "stackTrace": "TimeoutError: Cannot open Create Cluster Wizard\nWait timed out after 5025ms\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2201:17\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)\nFrom: Task: Cannot open Create Cluster Wizard\n    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)\n    at scheduleWait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2188:20)\n    at ControlFlow.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2517:12)\n    at Driver.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:934:29)\n    at run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:59:33)\n    at ProtractorBrowser.to.(anonymous function) [as wait] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:67:16)\n    at clusterCreateButton.click.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterCreateWizard.ts:20:36)\n    at elementArrayFinder_.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:804:32)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testFail",
+        "name": "Given I am on the Create Cluster Wizard",
+        "category": "Cluster: User creates a new cluster",
+        "durationMillis": 6448,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I select my previously created \"Azure\" credential",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "And I create my new Cluster for \"Azure\"",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 8,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should see my \"Azure\" cluster's widget",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 9,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cluster: User creates a new cluster",
+        "durationMillis": 152,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User creates a new cluster",
+    "assertions": [
+      {
+        "passed": false,
+        "errorMsg": "The element reference of <button id=\"btnCreateCluster\" class=\"btn btn-primary\"> stale: either the element is no longer attached to the DOM or the page has been refreshed",
+        "stackTrace": "StaleElementReferenceError: The element reference of <button id=\"btnCreateCluster\" class=\"btn btn-primary\"> stale: either the element is no longer attached to the DOM or the page has been refreshed\n    at Object.throwDecodedError (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/error.js:514:15)\n    at parseHttpResponse (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:519:13)\n    at doSend.then.response (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:441:30)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)\nFrom: Task: WebElement.click()\n    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)\n    at Driver.schedule (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:807:17)\n    at WebElement.schedule_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2010:25)\n    at WebElement.click (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2092:17)\n    at actionFn (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:89:44)\n    at Array.map (<anonymous>)\n    at actionResults.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:461:65)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)\n    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)\n    at protractor_1.browser.getCurrentUrl.then.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterCreateWizard.ts:19:42)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testFail",
+        "name": "Given I am on the Create Cluster Wizard",
+        "category": "Cluster: User creates a new cluster",
+        "durationMillis": 1053,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I select my previously created \"GCP\" credential",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "And I create my new Cluster for \"GCP\"",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 8,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should see my \"GCP\" cluster's widget",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 9,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cluster: User creates a new cluster",
+        "durationMillis": 157,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User creates a new cluster",
+    "assertions": [
+      {
+        "passed": false,
+        "errorMsg": "Cannot open Create Cluster Wizard\nWait timed out after 5017ms",
+        "stackTrace": "TimeoutError: Cannot open Create Cluster Wizard\nWait timed out after 5017ms\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2201:17\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)\nFrom: Task: Cannot open Create Cluster Wizard\n    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)\n    at scheduleWait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2188:20)\n    at ControlFlow.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2517:12)\n    at Driver.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:934:29)\n    at run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:59:33)\n    at ProtractorBrowser.to.(anonymous function) [as wait] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:67:16)\n    at clusterCreateButton.click.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterCreateWizard.ts:20:36)\n    at elementArrayFinder_.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:804:32)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testFail",
+        "name": "Given I am on the Create Cluster Wizard",
+        "category": "Cluster: User creates a new cluster",
+        "durationMillis": 6426,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I select my previously created \"OpenStack\" credential",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "And I create my new Cluster for \"OpenStack\"",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 8,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should see my \"OpenStack\" cluster's widget",
+        "category": "Cluster: User creates a new cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 9,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cluster: User creates a new cluster",
+        "durationMillis": 164,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User deletes the previously created cluster",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "No element found using locator: by.cssContainingText(\"app-cluster-details button\", \"TERMINATE\")",
+        "stackTrace": "NoSuchElementError: No element found using locator: by.cssContainingText(\"app-cluster-details button\", \"TERMINATE\")\n    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)\n    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)\n    at ClusterDetailsPageObject.terminateCluster (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterDetails.ts:11:26)\n    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:22:38\n    at Generator.next (<anonymous>)\n    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:7:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:3:12)\n    at World.When (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:13:93)\n    at Function.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:59:25)\n    at Generator.next (<anonymous>)\n    at Generator.tryCatcher (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/util.js:16:23)\n    at PromiseSpawn._promiseFulfilled (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:97:49)\n    at Function.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:201:15)\n    at Function.run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:118:22)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I see my previously created \"Azure\" cluster on the Clusters page",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 20424,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 20,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I open \"Azure\" Cluster Details",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 20435,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 21,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testFail",
+        "name": "And I terminate my Cluster on \"Azure\"",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 315,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 22,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should NOT see my \"Azure\" cluster on the Cloudbreak Dashboard",
+        "category": "Cluster: User deletes the previously created cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 23,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 155,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User deletes the previously created cluster",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "No element found using locator: by.cssContainingText(\"app-cluster-details button\", \"TERMINATE\")",
+        "stackTrace": "NoSuchElementError: No element found using locator: by.cssContainingText(\"app-cluster-details button\", \"TERMINATE\")\n    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)\n    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)\n    at ClusterDetailsPageObject.terminateCluster (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterDetails.ts:11:26)\n    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:25:38\n    at Generator.next (<anonymous>)\n    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:7:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:3:12)\n    at World.When (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:13:93)\n    at Function.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:59:25)\n    at Generator.next (<anonymous>)\n    at Generator.tryCatcher (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/util.js:16:23)\n    at PromiseSpawn._promiseFulfilled (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:97:49)\n    at Function.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:201:15)\n    at Function.run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:118:22)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I see my previously created \"GCP\" cluster on the Clusters page",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 20425,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 20,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I open \"GCP\" Cluster Details",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 20419,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 21,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testFail",
+        "name": "And I terminate my Cluster on \"GCP\"",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 345,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 22,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should NOT see my \"GCP\" cluster on the Cloudbreak Dashboard",
+        "category": "Cluster: User deletes the previously created cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 23,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 191,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User deletes the previously created cluster",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": false,
+        "errorMsg": "No element found using locator: by.cssContainingText(\"app-cluster-details button\", \"TERMINATE\")",
+        "stackTrace": "NoSuchElementError: No element found using locator: by.cssContainingText(\"app-cluster-details button\", \"TERMINATE\")\n    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)\n    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)\n    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)\n    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)\n    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)\n    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)Error\n    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)\n    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)\n    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)\n    at ClusterDetailsPageObject.terminateCluster (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterDetails.ts:11:26)\n    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:16:38\n    at Generator.next (<anonymous>)\n    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:7:71\n    at new Promise (<anonymous>)\n    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:3:12)\n    at World.When (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:13:93)\n    at Function.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:59:25)\n    at Generator.next (<anonymous>)\n    at Generator.tryCatcher (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/util.js:16:23)\n    at PromiseSpawn._promiseFulfilled (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:97:49)\n    at Function.<anonymous> (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:201:15)\n    at Function.run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:118:22)"
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I see my previously created \"OpenStack\" cluster on the Clusters page",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 20452,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 20,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I open \"OpenStack\" Cluster Details",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 20445,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 21,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testFail",
+        "name": "And I terminate my Cluster on \"OpenStack\"",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 344,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 22,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should NOT see my \"OpenStack\" cluster on the Cloudbreak Dashboard",
+        "category": "Cluster: User deletes the previously created cluster",
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "line": 23,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cluster: User deletes the previously created cluster",
+        "durationMillis": 146,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/cluster.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": null
+  },
+  {
+    "description": "User delete the previously created credential",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am opened Cloudbreak Credential page",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 617,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 5,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I delete my Credential for \"Azure\"",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 20227,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should NOT see my previously created credential on the page",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 40649,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 0,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 61493
+  },
+  {
+    "description": "User delete the previously created credential",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am opened Cloudbreak Credential page",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 582,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 5,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I delete my Credential for \"GCP\"",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 20250,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should NOT see my previously created credential on the page",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 40706,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 0,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 61538
+  },
+  {
+    "description": "User delete the previously created credential",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am opened Cloudbreak Credential page",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 581,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 5,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I delete my Credential for \"OpenStack\"",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 20247,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should NOT see my previously created credential on the page",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 40702,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Clean up after tests have done: User delete the previously created credential",
+        "durationMillis": 0,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/teardown.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 61530
+  },
+  {
+    "description": "Valid user successfully logs out from Cloudbreak",
+    "assertions": [
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      },
+      {
+        "passed": true
+      }
+    ],
+    "events": [
+      {
+        "emitterEvent": "testPass",
+        "name": "Given I am on the Cloudbreak base page",
+        "category": "Cloudbreak logout: Valid user successfully logs out from Cloudbreak",
+        "durationMillis": 0,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/logout.feature",
+          "line": 5,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "When I click on the Logout icon",
+        "category": "Cloudbreak logout: Valid user successfully logs out from Cloudbreak",
+        "durationMillis": 2321,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/logout.feature",
+          "line": 6,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "Then I should be logged out",
+        "category": "Cloudbreak logout: Valid user successfully logs out from Cloudbreak",
+        "durationMillis": 210,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/logout.feature",
+          "line": 7,
+          "column": 1
+        }
+      },
+      {
+        "emitterEvent": "testPass",
+        "name": "After",
+        "category": "Cloudbreak logout: Valid user successfully logs out from Cloudbreak",
+        "durationMillis": 0,
+        "sourceLocation": {
+          "filePath": "/Users/aszegedi/prj/uluwatutests/cloud/features/logout.feature",
+          "column": 1
+        }
+      }
+    ],
+    "duration": 2531
+  }
+]

@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<testsuite errors="9" failures="9" tests="15" name="My Protractor End to End Results" time="278.41900000000004" timestamp="2017-11-02T16:05:05">
+    <testcase className="Valid user successfully logs in to Cloudbreak" name="Valid user successfully logs in to Cloudbreak" time="38"/>
+    <testcase className="User opens Cloudbreak Credential Setup Wizard" name="User opens Cloudbreak Credential Setup Wizard" time="1.165"/>
+    <testcase className="User creates a new credential" name="User creates a new credential" time="52.162">
+        <failure type="testfailure">undefined. undefined. undefined. undefined. expected false to be true. AssertionError: expected false to be true
+    at getBasePromise.then.then.newArgs (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/chai-as-promised/lib/chai-as-promised.js:302:22)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User creates a new credential" name="User creates a new credential" time="0">
+        <failure type="testfailure">undefined. undefined. File not found: /Users/aszegedi/prj/uluwatutests/cloud/modules/SequenceIQ\ Hadoop\ as\ a\ Service-17f1bb222049.p12. InvalidArgumentError: File not found: /Users/aszegedi/prj/uluwatutests/cloud/modules/SequenceIQ\ Hadoop\ as\ a\ Service-17f1bb222049.p12
+    at Object.throwDecodedError (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/error.js:514:15)
+    at parseHttpResponse (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:519:13)
+    at doSend.then.response (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:441:30)
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+From: Task: WebElement.sendKeys()
+    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)
+    at Driver.schedule (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:807:17)
+    at WebElement.schedule_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2010:25)
+    at WebElement.sendKeys (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2174:19)
+    at actionFn (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:89:44)
+    at Array.map (&lt;anonymous&gt;)
+    at actionResults.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:461:65)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)Error
+    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as sendKeys] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as sendKeys] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)
+    at CredentialSetupWizardPageObject.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:221:41)
+    at Generator.next (&lt;anonymous&gt;)
+    at /Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:7:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:3:12)
+    at protractor_1.browser.wait.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:218:122)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User creates a new credential" name="User creates a new credential" time="0">
+        <failure type="testfailure">undefined. undefined. No element found using locator: by.cssContainingText("button", " Create"). NoSuchElementError: No element found using locator: by.cssContainingText("button", " Create")
+    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)Error
+    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)
+    at providerSelect.click.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/credentialsSetupWizard.ts:86:37)
+    at elementArrayFinder_.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:804:32)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User creates a new cluster" name="User creates a new cluster" time="0">
+        <failure type="testfailure">Cannot open Create Cluster Wizard
+Wait timed out after 5025ms. TimeoutError: Cannot open Create Cluster Wizard
+Wait timed out after 5025ms
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2201:17
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+From: Task: Cannot open Create Cluster Wizard
+    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)
+    at scheduleWait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2188:20)
+    at ControlFlow.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2517:12)
+    at Driver.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:934:29)
+    at run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:59:33)
+    at ProtractorBrowser.to.(anonymous function) [as wait] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:67:16)
+    at clusterCreateButton.click.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterCreateWizard.ts:20:36)
+    at elementArrayFinder_.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:804:32)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User creates a new cluster" name="User creates a new cluster" time="0">
+        <failure type="testfailure">The element reference of &lt;button id="btnCreateCluster" class="btn btn-primary"&gt; stale: either the element is no longer attached to the DOM or the page has been refreshed. StaleElementReferenceError: The element reference of &lt;button id="btnCreateCluster" class="btn btn-primary"&gt; stale: either the element is no longer attached to the DOM or the page has been refreshed
+    at Object.throwDecodedError (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/error.js:514:15)
+    at parseHttpResponse (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:519:13)
+    at doSend.then.response (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/http.js:441:30)
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+From: Task: WebElement.click()
+    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)
+    at Driver.schedule (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:807:17)
+    at WebElement.schedule_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2010:25)
+    at WebElement.click (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:2092:17)
+    at actionFn (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:89:44)
+    at Array.map (&lt;anonymous&gt;)
+    at actionResults.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:461:65)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)Error
+    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)
+    at protractor_1.browser.getCurrentUrl.then.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterCreateWizard.ts:19:42)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User creates a new cluster" name="User creates a new cluster" time="0">
+        <failure type="testfailure">Cannot open Create Cluster Wizard
+Wait timed out after 5017ms. TimeoutError: Cannot open Create Cluster Wizard
+Wait timed out after 5017ms
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2201:17
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+From: Task: Cannot open Create Cluster Wizard
+    at ControlFlow.protractor_1.browser.driver.controlFlow.execute (/Users/aszegedi/prj/uluwatutests/cloud/support/hooks.ts:36:27)
+    at scheduleWait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2188:20)
+    at ControlFlow.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2517:12)
+    at Driver.wait (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/webdriver.js:934:29)
+    at run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:59:33)
+    at ProtractorBrowser.to.(anonymous function) [as wait] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/browser.js:67:16)
+    at clusterCreateButton.click.then (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterCreateWizard.ts:20:36)
+    at elementArrayFinder_.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:804:32)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User deletes the previously created cluster" name="User deletes the previously created cluster" time="0">
+        <failure type="testfailure">undefined. undefined. undefined. undefined. No element found using locator: by.cssContainingText("app-cluster-details button", "TERMINATE"). NoSuchElementError: No element found using locator: by.cssContainingText("app-cluster-details button", "TERMINATE")
+    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)Error
+    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)
+    at ClusterDetailsPageObject.terminateCluster (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterDetails.ts:11:26)
+    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:22:38
+    at Generator.next (&lt;anonymous&gt;)
+    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:7:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:3:12)
+    at World.When (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:13:93)
+    at Function.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:59:25)
+    at Generator.next (&lt;anonymous&gt;)
+    at Generator.tryCatcher (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/util.js:16:23)
+    at PromiseSpawn._promiseFulfilled (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:97:49)
+    at Function.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:201:15)
+    at Function.run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:118:22). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User deletes the previously created cluster" name="User deletes the previously created cluster" time="0">
+        <failure type="testfailure">undefined. undefined. undefined. undefined. No element found using locator: by.cssContainingText("app-cluster-details button", "TERMINATE"). NoSuchElementError: No element found using locator: by.cssContainingText("app-cluster-details button", "TERMINATE")
+    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)Error
+    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)
+    at ClusterDetailsPageObject.terminateCluster (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterDetails.ts:11:26)
+    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:25:38
+    at Generator.next (&lt;anonymous&gt;)
+    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:7:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:3:12)
+    at World.When (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:13:93)
+    at Function.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:59:25)
+    at Generator.next (&lt;anonymous&gt;)
+    at Generator.tryCatcher (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/util.js:16:23)
+    at PromiseSpawn._promiseFulfilled (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:97:49)
+    at Function.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:201:15)
+    at Function.run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:118:22). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User deletes the previously created cluster" name="User deletes the previously created cluster" time="0">
+        <failure type="testfailure">undefined. undefined. undefined. undefined. No element found using locator: by.cssContainingText("app-cluster-details button", "TERMINATE"). NoSuchElementError: No element found using locator: by.cssContainingText("app-cluster-details button", "TERMINATE")
+    at elementArrayFinder.getWebElements.then (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:814:27)
+    at ManagedPromise.invokeCallback_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:1376:14)
+    at TaskQueue.execute_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3084:14)
+    at TaskQueue.executeNext_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:3067:27)
+    at asyncRun (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:2927:27)
+    at /Users/aszegedi/prj/uluwatutests/cloud/node_modules/selenium-webdriver/lib/promise.js:668:7
+    at &lt;anonymous&gt;
+    at process._tickCallback (internal/process/next_tick.js:188:7)Error
+    at ElementArrayFinder.applyAction_ (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:459:27)
+    at ElementArrayFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:91:29)
+    at ElementFinder.(anonymous function).args [as click] (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/protractor/built/element.js:831:22)
+    at ClusterDetailsPageObject.terminateCluster (/Users/aszegedi/prj/uluwatutests/cloud/modules/clusterDetails.ts:11:26)
+    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:16:38
+    at Generator.next (&lt;anonymous&gt;)
+    at /Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:7:71
+    at new Promise (&lt;anonymous&gt;)
+    at __awaiter (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:3:12)
+    at World.When (/Users/aszegedi/prj/uluwatutests/cloud/stepdefinitions/clusters/terminateCluster.ts:13:93)
+    at Function.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:59:25)
+    at Generator.next (&lt;anonymous&gt;)
+    at Generator.tryCatcher (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/util.js:16:23)
+    at PromiseSpawn._promiseFulfilled (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:97:49)
+    at Function.&lt;anonymous&gt; (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/bluebird/js/release/generators.js:201:15)
+    at Function.run (/Users/aszegedi/prj/uluwatutests/cloud/node_modules/cucumber/lib/user_code_runner.js:118:22). undefined. undefined. </failure>
+    </testcase>
+    <testcase className="User delete the previously created credential" name="User delete the previously created credential" time="61.493"/>
+    <testcase className="User delete the previously created credential" name="User delete the previously created credential" time="61.538"/>
+    <testcase className="User delete the previously created credential" name="User delete the previously created credential" time="61.53"/>
+    <testcase className="Valid user successfully logs out from Cloudbreak" name="Valid user successfully logs out from Cloudbreak" time="2.531"/>
+    <system-out>beta</system-out>
+</testsuite>
