@@ -6,26 +6,30 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     public templateSwitch: any = $("div[class='setup-wizard-title-bar'] i");
 
     amIOnTheCreateClusterWizard() {
-        return browser.getCurrentUrl().then((url) => {
-            //console.log('Actual URL: ' + url);
-            //console.log(url.includes('/getstarted'));
+        browser.getCurrentUrl().then((url) => {
             return url.includes('/clusters/create');
         }, error => {
-            console.log('Error get current URL');
             return false;
         }).then((result) => {
             if (!result) {
                 this.openPage('Clusters');
+
                 this.clusterCreateButton.click().then(() => {
                     return browser.wait(() => {
                         return browser.getCurrentUrl().then((url) => {
-                            return /create/.test(url);
+                            return url.includes('/clusters/create');
                         });
                     }, 5000, 'Cannot open Create Cluster Wizard');
                 });
-            } else {
-                return result;
             }
+        });
+
+        return browser.getCurrentUrl().then((url) => {
+            //console.log('Actual URL: ' + url);
+            return url.includes('/clusters/create');
+        }, error => {
+            console.log('Error get current URL');
+            return false;
         });
     }
 
@@ -44,15 +48,48 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
+    setAdvancedTemplate() {
+        const EC = browser.ExpectedConditions;
+        const templateSelector = this.templateSwitch;
+        const credentialSelector = $("md-select[placeholder='Please select credential']");
+
+        browser.wait(EC.elementToBeClickable(templateSelector), 5000, 'Template switch is NOT clickable').then(() => {
+            return templateSelector.isEnabled().then((enabled) => {
+                return enabled;
+            }, error => {
+                console.log('Template switch is not clickable!');
+                return false;
+            })
+        }).then((result) => {
+            if (result) {
+                templateSelector.click().then(() => {
+                    return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
+                        return credentialSelector.isDisplayed().then((displayed) => {
+                            return displayed;
+                        });
+                    }, error => {
+                        return false;
+                    });
+                });
+            }
+        });
+    }
+
     selectCredential(name: string) {
         const EC = browser.ExpectedConditions;
         const credentialSelector = $("md-select[placeholder='Please select credential']");
         const selectedCredential = element(by.cssContainingText('span.mat-select-value-text span', name));
 
-        this.templateSwitch.click().then(() => {
-            return browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
-                credentialSelector.click().then(() => {
-                    return element(by.cssContainingText('md-option', name)).click();
+        browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
+            return credentialSelector.click().then(() => {
+                const credentialToSelect = element(by.cssContainingText('md-option', name));
+
+                return browser.wait(EC.elementToBeClickable(credentialToSelect), 5000, name + ' credential is NOT clickable').then(() => {
+                    return credentialToSelect.click();
+                }, error => {
+                    console.log(name + ' credential is NOT present!');
+                    $$("md-option").first().click();
+                    return false;
                 });
             });
         });
@@ -61,11 +98,11 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
             return selectedCredential.isDisplayed().then((displayed) => {
                 return displayed;
             }, error => {
-                console.log(name + ' credential is NOT present!');
+                console.log(name + ' credential is NOT selected!');
                 return false;
             });
         }, error => {
-            console.log(name + ' credential is NOT selected!');
+            //console.log(name + ' credential is NOT present!');
             return false;
         });
     }
@@ -206,7 +243,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
                 return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
-                    console.log('Cluster widget is available');
+                    //console.log('Cluster widget is available');
                     return true;
                 });
             });
@@ -214,7 +251,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createOpenStackCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        //this.selectCredential(credentialName);
+        this.setAdvancedTemplate();
+
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
@@ -228,7 +266,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createAWSCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        //this.selectCredential(credentialName);
+        this.setAdvancedTemplate();
+
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
@@ -242,7 +281,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createAzureCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        //this.selectCredential(credentialName);
+        this.setAdvancedTemplate();
+
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
@@ -256,7 +296,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createGCPCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
-        //this.selectCredential(credentialName);
+        this.setAdvancedTemplate();
+
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 

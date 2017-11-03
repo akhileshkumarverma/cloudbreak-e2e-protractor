@@ -10,15 +10,15 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
         return browser.wait(EC.elementToBeClickable(widgetLink), 20000, 'Cluster widget is NOT visible').then(() => {
-            return widgetLink.isDisplayed().then((displayed) => {
-                console.log('IsDisplayed passed');
+            return widgetLink.isPresent().then((displayed) => {
+                //console.log('IsPresent passed');
                 return displayed;
             }, error => {
-                console.log('IsDisplayed failed for: ' + name);
+                console.log('IsPresent failed for: ' + name);
                 return false;
             });
         }, error => {
-            console.log('WidgetWait failed for: ' + name);
+            console.log(name + ' cluster has NOT been created!');
             return false;
         });
     }
@@ -26,11 +26,24 @@ export class ClustersPageObject extends BasePageObject {
     openClusterDetails(name: string) {
         const EC = browser.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
+        const terminateButton = element(by.cssContainingText('app-cluster-details button', 'TERMINATE'));
 
-        return browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT clickable').then(() => {
+        browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT clickable').then(() => {
             return widgetLink.isDisplayed().then((displayed) => {
                 //console.log('IsDisplayed passed');
                 return widgetLink.click();
+            }, error => {
+                //console.log('IsDisplayed failed');
+                return false;
+            });
+        }, error => {
+            return false;
+        });
+
+        return browser.wait(EC.elementToBeClickable(terminateButton), 10000, 'Cluster Details has NOT opened').then(() => {
+            return terminateButton.isDisplayed().then((displayed) => {
+                //console.log('IsDisplayed passed');
+                return displayed;
             }, error => {
                 //console.log('IsDisplayed failed');
                 return false;
