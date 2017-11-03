@@ -58,23 +58,34 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
-        return browser.wait(EC.visibilityOf(widgetStatus), 60 * 20000, 'Cluster is NOT terminating').then(() => {
-            return widgetStatus.isDisplayed().then(() => {
-                console.log('Terminating the cluster and its infrastructure...');
-                return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'Cluster has not been terminated in 1200000 ms!').then(() => {
-                    return widgetLink.isDisplayed().then((displayed) => {
-                        return !displayed;
-                    }, err => {
-                        return true;
-                    });
-                }, err => {
-                    console.log('Wait for cluster termination has failed!');
-                    return false;
-                });
-            });
-        }, err => {
-            console.log(name + ' widget status is NOT visible!');
-            return true;
+        let widgetIsPresent = widgetStatus.isPresent().then((presented) => {
+           return presented;
+        }, error => {
+            return false;
         });
+
+        if (widgetIsPresent) {
+            return browser.wait(EC.visibilityOf(widgetStatus), 60 * 20000, 'Cluster is NOT terminating').then(() => {
+                return widgetStatus.isDisplayed().then(() => {
+                    console.log('Terminating the cluster and its infrastructure...');
+                    return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'Cluster has not been terminated in 1200000 ms!').then(() => {
+                        return widgetLink.isDisplayed().then((displayed) => {
+                            return !displayed;
+                        }, err => {
+                            return true;
+                        });
+                    }, err => {
+                        console.log('Wait for cluster termination has failed!');
+                        return false;
+                    });
+                });
+            }, err => {
+                console.log(name + ' widget status is NOT visible!');
+                return true;
+            });
+        } else {
+            console.log(name + ' widget status is NOT present!');
+            return true;
+        }
     }
 }
