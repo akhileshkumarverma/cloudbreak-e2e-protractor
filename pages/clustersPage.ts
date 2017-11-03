@@ -10,9 +10,9 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
         return browser.wait(EC.elementToBeClickable(widgetLink), 20000, 'Cluster widget is NOT visible').then(() => {
-            return widgetLink.isPresent().then((displayed) => {
+            return widgetLink.isPresent().then((presented) => {
                 //console.log('IsPresent passed');
-                return displayed;
+                return presented;
             }, error => {
                 console.log('IsPresent failed for: ' + name);
                 return false;
@@ -58,7 +58,7 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
-        let widgetIsPresent = widgetStatus.isPresent().then((presented) => {
+        let widgetIsPresent = widgetLink.isPresent().then((presented) => {
            return presented;
         }, error => {
             return false;

@@ -2,6 +2,7 @@ import { browser, $, by, element } from 'protractor'
 import { CredentialsPageObject } from "../pages/credentialsPage";
 
 const path = require('path');
+const fs = require('fs');
 
 export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     public providerSelector: any = $("form div[class='provider-block'] div[class='selected-option']");
@@ -218,8 +219,12 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                     await browser.wait(EC.visibilityOf(fileInput), 5000, 'GCP P12 input is NOT visible').then(async () => {
                         const filePath = path.resolve(__dirname, p12Path);
 
-                        console.log(filePath);
-                        await fileInput.sendKeys(filePath);
+                        if (fs.existsSync(filePath)) {
+                            console.log(filePath);
+                            await fileInput.sendKeys(filePath);
+                        } else {
+                            await console.log(filePath + ' file is not present on this path!');
+                        }
                     });
                 });
 
