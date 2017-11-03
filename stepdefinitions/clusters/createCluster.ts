@@ -14,6 +14,8 @@ defineSupportCode(function ({ When, Then }) {
     const password = process.env.AMBARI_PASSWORD;
     const sshKey = process.env.SSH_KEY;
     const sshKeyName = process.env.SSH_KEY_NAME;
+    const network = process.env.OS_NETWORK;
+    const subnet = process.env.OS_SUBNET;
 
     When(/^I select my previously created "([^"]*)" credential$/, async (provider) => {
         switch (provider) {
@@ -37,7 +39,7 @@ defineSupportCode(function ({ When, Then }) {
     When(/^I create my new Cluster for "([^"]*)"$/, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await expect(clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', user, password, sshKeyName)).to.eventually.be.true;
+                await expect(clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', network, subnet, user, password, sshKeyName)).to.eventually.be.true;
                 break;
             case "AWS":
                 await expect(clusterCreateSetupWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).to.eventually.be.true;

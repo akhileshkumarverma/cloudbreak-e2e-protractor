@@ -173,6 +173,32 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
+    selectNetworkSubnet(network: string, subnet: string) {
+        const EC = browser.ExpectedConditions;
+        const networkSelector = $("md-select[placeholder='Please select a network']");
+        const subnetSelector = $("md-select[placeholder='Please select a subnet']");
+
+        browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+            networkSelector.click().then(() => {
+                return $("md-option[ng-reflect-value=\'" + network + "\']").click();
+            }).then(() => {
+                subnetSelector.click().then(() => {
+                    return $("md-option[ng-reflect-value=\'" + subnet + "\']").click().then(() => {
+                        const nextButton = element(by.cssContainingText('button', 'Next'));
+
+                        return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                            return nextButton.click().then(() => {
+                                return browser.wait(EC.urlContains('/clusters/create/security'), 5000, 'Security page is NOT visible').then(() => {
+                                    return true;
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+
     navigateFromNetwork() {
         const EC = browser.ExpectedConditions;
         const networkActionContainer = $("app-network form div[class='action-container']");
@@ -250,14 +276,14 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
-    createOpenStackCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
+    createOpenStackCluster(credentialName: string, clusterName: string, network: string, subnet: string, user: string, password: string, sshKey: string) {
         this.setAdvancedTemplate();
 
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
         this.navigateFromRecipes();
-        this.navigateFromNetwork();
+        this.selectNetworkSubnet(network, subnet);
 
         this.setAmbariCredentials(user, password);
         this.selectSSHKey(sshKey);
