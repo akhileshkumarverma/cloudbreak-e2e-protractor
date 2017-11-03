@@ -218,6 +218,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                     await browser.wait(EC.visibilityOf(fileInput), 5000, 'GCP P12 input is NOT visible').then(async () => {
                         const filePath = path.resolve(__dirname, p12Path);
 
+                        console.log(filePath);
                         await fileInput.sendKeys(filePath);
                     });
                 });
