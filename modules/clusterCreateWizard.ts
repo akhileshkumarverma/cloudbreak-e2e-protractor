@@ -77,7 +77,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
     selectCredential(name: string) {
         const EC = browser.ExpectedConditions;
-        const credentialSelector = $("md-select[placeholder='Please select credential']");
+        const credentialSelector = $("app-general-configuration md-select[placeholder='Please select credential']");
         const selectedCredential = element(by.cssContainingText('span.mat-select-value-text span', name));
 
         browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
@@ -264,15 +264,21 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         const EC = browser.ExpectedConditions;
         const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
-        return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {
+        return browser.wait(EC.elementToBeClickable(createButton), 30 * 1000, 'Create Cluster button is NOT clickable').then(() => {
             return createButton.click().then(() => {
                 const widget = $("a[data-stack-name=\'" + clusterName + "\']");
 
-                return browser.wait(EC.visibilityOf(widget), 10000, 'Cluster widget is NOT visible').then(() => {
+                return browser.wait(EC.presenceOf(widget), 30 * 1000, clusterName + ' cluster widget is NOT present').then(() => {
                     //console.log('Cluster widget is available');
                     return true;
+                }, error => {
+                    console.log(clusterName + ' cluster widget is NOT present!');
+                    return false;
                 });
             });
+        }, error => {
+            console.log(clusterName + ' cluster Create button is NOT available!');
+            return false;
         });
     }
 

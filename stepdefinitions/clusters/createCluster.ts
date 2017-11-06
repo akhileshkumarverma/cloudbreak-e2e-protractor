@@ -36,7 +36,7 @@ defineSupportCode(function ({ When, Then }) {
         }
     });
 
-    When(/^I create my new Cluster for "([^"]*)"$/, async (provider) => {
+    When(/^I create my new Cluster for "([^"]*)"$/, {timeout: 60 * 1000}, async (provider) => {
         switch (provider) {
             case "OpenStack":
                 await expect(clusterCreateSetupWizard.createOpenStackCluster(credentialName + 'os',clusterName + 'os', network, subnet, user, password, sshKeyName)).to.eventually.be.true;
@@ -55,7 +55,7 @@ defineSupportCode(function ({ When, Then }) {
         }
     });
 
-    Then(/^I should see my "([^"]*)" cluster's widget$/, async (provider) => {
+    Then(/^I should see my "([^"]*)" cluster's widget$/, {timeout: 60 * 1000}, async (provider) => {
         switch (provider) {
             case "OpenStack":
                 await expect(clusterCreateSetupWizard.getClusterWidget(clusterName + 'os')).to.eventually.be.true;

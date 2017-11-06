@@ -101,7 +101,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const providerSelect = this.providerSelector;
         const EC = browser.ExpectedConditions;
 
-        const typeSelector = $("md-select[id='type']");
+        const typeSelector = $("app-create-amazon-credential md-select");
         const nameField = $("input[id='name']");
         const roleField = $("input[id='roleArn']");
         const createButton = element(by.cssContainingText('button', ' Create'));

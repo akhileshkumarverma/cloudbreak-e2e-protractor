@@ -9,7 +9,7 @@ export class ClustersPageObject extends BasePageObject {
         const EC = browser.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.elementToBeClickable(widgetLink), 20000, 'Cluster widget is NOT visible').then(() => {
+        return browser.wait(EC.elementToBeClickable(widgetLink), 30 * 1000, 'Cluster widget is NOT visible').then(() => {
             return widgetLink.isPresent().then((presented) => {
                 //console.log('IsPresent passed');
                 return presented;
@@ -66,11 +66,12 @@ export class ClustersPageObject extends BasePageObject {
 
         if (widgetIsPresent) {
             return browser.wait(EC.visibilityOf(widgetStatus), 60 * 20000, 'Cluster is NOT terminating').then(() => {
-                return widgetStatus.isDisplayed().then(() => {
+                return widgetStatus.isPresent().then(() => {
                     console.log('Terminating the cluster and its infrastructure...');
-                    return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'Cluster has not been terminated in 1200000 ms!').then(() => {
-                        return widgetLink.isDisplayed().then((displayed) => {
-                            return !displayed;
+                    return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'Cluster has not been terminated!').then(() => {
+                        return widgetLink.isPresent().then((presented) => {
+                            console.log('Is present has been checked with: ' + presented);
+                            return !presented;
                         }, err => {
                             return true;
                         });
