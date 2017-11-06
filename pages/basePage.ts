@@ -14,7 +14,17 @@ export class BasePageObject {
     }
 
     openPage(name: string) {
-        return $("a[href=\'/" + name.toLocaleLowerCase() + "\']").click();
+        const EC = browser.ExpectedConditions;
+        const confirmationOk = element(by.cssContainingText('button[aria-label="Close dialog"]', 'ok'));
+
+        return browser.get(process.env.BASE_URL + '/' + name.toLocaleLowerCase()).then( () => {
+            return browser.wait(EC.visibilityOf(confirmationOk), 5000, 'Default Credential Confirmation is NOT visible').then(() => {
+                return confirmationOk.click();
+            }, error => {
+                return false;
+            });
+        });
+        //$("a[href=\'/" + name.toLocaleLowerCase() + "\']").click();
     }
 
     closeDefaultCredentialWarning() {
