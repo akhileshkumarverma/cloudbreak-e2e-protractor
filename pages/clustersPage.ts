@@ -1,6 +1,5 @@
 import { $, by, element, browser } from 'protractor'
 import { BasePageObject } from "./basePage";
-import {async} from "q";
 
 export class ClustersPageObject extends BasePageObject {
     public clusterCreateButton: any = $("button[id='btnCreateCluster']");
@@ -9,16 +8,26 @@ export class ClustersPageObject extends BasePageObject {
         const EC = browser.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.elementToBeClickable(widgetLink), 30 * 1000, 'Cluster widget is NOT visible').then(() => {
-            return widgetLink.isPresent().then((presented) => {
-                //console.log('IsPresent passed');
-                return presented;
+        this.openPage('Clusters').then(() => {
+            return browser.wait(EC.elementToBeClickable(widgetLink), 30 * 1000, 'Cluster widget is NOT visible').then(() => {
+                return widgetLink.isPresent().then((presented) => {
+                    //console.log('IsPresent passed');
+                    return presented;
+                }, error => {
+                    console.log('IsPresent failed for: ' + name);
+                    return false;
+                });
             }, error => {
-                console.log('IsPresent failed for: ' + name);
+                console.log(name + ' cluster has NOT been created!');
                 return false;
             });
+        });
+
+        return widgetLink.isPresent().then((presented) => {
+            //console.log('IsPresent passed');
+            return presented;
         }, error => {
-            console.log(name + ' cluster has NOT been created!');
+            console.log('Widget link is NOT present for: ' + name);
             return false;
         });
     }
@@ -31,6 +40,7 @@ export class ClustersPageObject extends BasePageObject {
         browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT clickable').then(() => {
             return widgetLink.isDisplayed().then((displayed) => {
                 //console.log('IsDisplayed passed');
+                browser.waitForAngular();
                 return widgetLink.click();
             }, error => {
                 //console.log('IsDisplayed failed');
@@ -65,13 +75,13 @@ export class ClustersPageObject extends BasePageObject {
         });
 
         if (widgetIsPresent) {
-            return browser.wait(EC.visibilityOf(widgetStatus), 60 * 20000, 'Cluster is NOT terminating').then(() => {
-                return widgetStatus.isPresent().then(() => {
+            return browser.wait(EC.visibilityOf(widgetStatus), 5000, 'Cluster is NOT terminating').then(() => {
+                return widgetStatus.isDisplayed().then(() => {
                     console.log('Terminating the cluster and its infrastructure...');
-                    return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'Cluster has not been terminated!').then(() => {
-                        return widgetLink.isPresent().then((presented) => {
-                            console.log('Is present has been checked with: ' + presented);
-                            return !presented;
+                    return browser.wait(EC.stalenessOf(widgetLink), 60 * 20000, 'Cluster has not been terminated!').then(() => {
+                        return widgetLink.isDisplayed().then((displayed) => {
+                            console.log('Is displayed has been checked with: ' + displayed);
+                            return !displayed;
                         }, err => {
                             return true;
                         });
@@ -79,6 +89,9 @@ export class ClustersPageObject extends BasePageObject {
                         console.log('Wait for cluster termination has failed!');
                         return false;
                     });
+                }, err => {
+                    console.log(name + ' widget status is NOT displayed!');
+                    return true;
                 });
             }, err => {
                 console.log(name + ' widget status is NOT visible!');

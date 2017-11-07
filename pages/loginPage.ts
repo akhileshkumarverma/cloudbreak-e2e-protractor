@@ -6,14 +6,13 @@ export class LoginPageObject extends BasePageObject {
     public passwordBox: any = $("input[id='password']");
     public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
 
-    async login() {
-        let dashboardURL;
+    login() {
         const EC = browser.ExpectedConditions;
 
-        await this.usernameBox.sendKeys(process.env.USERNAME);
-        await this.passwordBox.sendKeys(process.env.PASSWORD);
+        this.usernameBox.sendKeys(process.env.USERNAME);
+        this.passwordBox.sendKeys(process.env.PASSWORD);
 
-        await this.loginButton.click().then(() => {
+        this.loginButton.click().then(() => {
             $("input[id='settingsOpted']").click().then(() => {
                 browser.waitForAngular();
                 let yesButton = $("form[id='confirm-yes'] a");
@@ -21,16 +20,24 @@ export class LoginPageObject extends BasePageObject {
                 return browser.wait(EC.visibilityOf(yesButton), 20000, 'I Agree button is NOT visible').then(() => {
                     return yesButton.click().then(() => {
                         return browser.getCurrentUrl().then((url) => {
-                            return dashboardURL == url;
+                            return url.includes('/clusters');
                         });
                     });
                 });
             }, error => {
                 return browser.getCurrentUrl().then((url) => {
                     //console.log(url);
-                    return dashboardURL == url;
+                    return url.includes('/clusters');
                 });
             })
+        });
+
+        return browser.getCurrentUrl().then((url) => {
+            //console.log('Actual URL: ' + url);
+            return url.includes('/clusters');
+        }, error => {
+            //console.log('Error get current URL');
+            return false;
         });
     }
 }

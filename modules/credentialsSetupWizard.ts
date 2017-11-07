@@ -8,26 +8,30 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     public providerSelector: any = $("form div[class='provider-block'] div[class='selected-option']");
 
     amIOnTheCreateCredentialWizard() {
+        browser.getCurrentUrl().then((url) => {
+            return url.includes('/getstarted');
+        }, error => {
+            return false;
+        }).then((result) => {
+            if (!result) {
+                this.openPage('Credentials').then(() => {
+                    return this.credentialCreateButton.click().then(() => {
+                        return browser.wait(() => {
+                            return browser.getCurrentUrl().then((url) => {
+                                return url.includes('/getstarted');
+                            });
+                        }, 5000, 'Cannot open Create Credential Wizard');
+                    });
+                });
+            }
+        });
+
         return browser.getCurrentUrl().then((url) => {
             //console.log('Actual URL: ' + url);
-            //console.log(url.includes('/getstarted'));
             return url.includes('/getstarted');
         }, error => {
             console.log('Error get current URL');
             return false;
-        }).then((result) => {
-            if (!result) {
-                this.openPage('Credentials');
-                this.credentialCreateButton.click().then(() => {
-                    return browser.wait(() => {
-                        return browser.getCurrentUrl().then((url) => {
-                            return /getstarted/.test(url);
-                        });
-                    }, 5000, 'Cannot open Create Credential Wizard');
-                });
-            } else {
-                return result;
-            }
         });
     }
 

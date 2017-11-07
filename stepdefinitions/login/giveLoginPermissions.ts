@@ -1,5 +1,5 @@
 import { LoginPageObject } from '../../pages/loginPage'
-import { ClustersPageObject } from '../../pages/clustersPage'
+import { BasePageObject } from "../../pages/basePage";
 import { defineSupportCode } from 'cucumber'
 
 let chai = require('chai').use(require('chai-smoothie'));
@@ -9,7 +9,7 @@ defineSupportCode(function ({ When, Then }) {
     let login: LoginPageObject = new LoginPageObject();
 
     When(/^I submit my user credentials$/, async () => {
-        await login.login();
+        await expect(login.login()).to.eventually.be.true;
     });
 
     When(/^Close Credential warning dialog if it is present$/, async () => {
@@ -17,8 +17,8 @@ defineSupportCode(function ({ When, Then }) {
     });
 
     Then(/^I should be logged in$/, async () => {
-        let dashboard: ClustersPageObject = new ClustersPageObject();
+        let base: BasePageObject = new BasePageObject();
 
-        await expect(dashboard.cloudbreakBody).to.be.displayed;
+        await expect(base.amIOnTheClustersPage()).to.eventually.be.true;
     });
 });

@@ -12,14 +12,14 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
             return false;
         }).then((result) => {
             if (!result) {
-                this.openPage('Clusters');
-
-                this.clusterCreateButton.click().then(() => {
-                    return browser.wait(() => {
-                        return browser.getCurrentUrl().then((url) => {
-                            return url.includes('/clusters/create');
-                        });
-                    }, 5000, 'Cannot open Create Cluster Wizard');
+                this.openPage('Clusters').then(() => {
+                    return this.clusterCreateButton.click().then(() => {
+                        return browser.wait(() => {
+                            return browser.getCurrentUrl().then((url) => {
+                                return url.includes('/clusters/create');
+                            });
+                        }, 5000, 'Cannot open Create Cluster Wizard');
+                    });
                 });
             }
         });
