@@ -2,7 +2,7 @@ import { defineSupportCode } from 'cucumber'
 import { browser } from "protractor";
 import { ClusterDetailsPageObject } from "../../modules/clusterDetails";
 
-let chai = require('chai').use(require('chai-smoothie'));
+let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
 defineSupportCode(function ({ When, Then }) {
@@ -25,26 +25,26 @@ defineSupportCode(function ({ When, Then }) {
                 await clusterDetails.terminateCluster();
                 break;
             default:
-                console.log('No such provider!');
+                await console.log('No such provider!');
         }
     });
 
     Then(/^I should NOT see my "([^"]*)" cluster on the Cloudbreak Dashboard$/, {timeout: 60 * 60000}, async (provider) => {
         switch (provider) {
             case "OpenStack":
-                await expect(clusterDetails.waitForClusterTermination(clusterName + 'os')).to.eventually.be.true;
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'os')).to.eventually.equal(true);
                 break;
             case "AWS":
-                await expect(clusterDetails.waitForClusterTermination(clusterName + 'aws')).to.eventually.be.true;
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'aws')).to.eventually.equal(true);
                 break;
             case "Azure":
-                await expect(clusterDetails.waitForClusterTermination(clusterName + 'azure')).to.eventually.be.true;
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'azure')).to.eventually.equal(true);
                 break;
             case "GCP":
-                await expect(clusterDetails.waitForClusterTermination(clusterName + 'gcp')).to.eventually.be.true;
+                await expect(clusterDetails.waitForClusterTermination(clusterName + 'gcp')).to.eventually.equal(true);
                 break;
             default:
-                console.log('No such provider!');
+                await console.log('No such provider!');
         }
     });
 });

@@ -47,7 +47,7 @@ export class BasePageObject {
             return browser.wait(EC.visibilityOf(confirmationOk), 5000, 'Default Credential Confirmation is NOT visible').then(() => {
                 return confirmationOk.click();
             }, error => {
-                console.log('No confirmation dialog is present!');
+                //console.log('No confirmation dialog is present!');
                 return error;
             });
         });

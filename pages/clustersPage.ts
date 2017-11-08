@@ -75,7 +75,7 @@ export class ClustersPageObject extends BasePageObject {
         });
 
         if (widgetIsPresent) {
-            return browser.wait(EC.visibilityOf(widgetStatus), 5000, 'Cluster is NOT terminating').then(() => {
+            return browser.wait(EC.visibilityOf(widgetStatus), 20000, 'Cluster is NOT terminating').then(() => {
                 return widgetStatus.isDisplayed().then(() => {
                     console.log('Terminating the cluster and its infrastructure...');
                     return browser.wait(EC.stalenessOf(widgetLink), 60 * 20000, 'Cluster has not been terminated!').then(() => {
