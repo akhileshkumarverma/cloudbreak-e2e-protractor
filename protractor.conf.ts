@@ -150,9 +150,7 @@ export let config: Config = {
         colors: true,                                                                                               // <boolean> disable colors in formatter output
         snippets: true,                                                                                             // <boolean> hide step definition snippets for pending steps
         source: true,                                                                                               // <boolean> hide source uris
-        ignoreUncaughtExceptions: true,
-        defaultTimeoutInterval: 60000,
-        timeout: 60 * 60000,                                                                                        // <number> timeout for step definitions
+        timeout: 60000,                                                                                             // <number> timeout for step definitions
         require: [
             '../stepdefinitions/*/*.ts',
             '../support/*.ts'

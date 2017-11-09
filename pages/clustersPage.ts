@@ -1,4 +1,4 @@
-import { $, by, element, browser } from 'protractor'
+import { $, by, element, browser, ElementFinder } from 'protractor'
 import { BasePageObject } from "./basePage";
 
 export class ClustersPageObject extends BasePageObject {
@@ -63,42 +63,56 @@ export class ClustersPageObject extends BasePageObject {
         });
     }
 
+    waitForElementToDisappear(webElement: ElementFinder) {
+        const EC = browser.ExpectedConditions;
+
+        browser.waitForAngular();
+        return browser.wait(EC.invisibilityOf(webElement), 60 * 20000, 'The cluster has NOT been terminated!').then(() => {
+            browser.waitForAngular();
+            return webElement.isDisplayed().then((isDisplayed) => {
+                return !isDisplayed;
+            }, err => {
+                return true;
+            });
+        }, err => {
+            return false;
+        });
+    }
+
     waitForClusterTermination(name: string) {
         const EC = browser.ExpectedConditions;
-        const widgetLink = $("a[data-stack-name=\'" + name + "\']");
+        const widgetLink = $("app-cluster-item-card a[data-stack-name=\'" + name + "\']");
         const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
         let widgetIsPresent = widgetLink.isPresent().then((presented) => {
-           return presented;
+            return presented;
         }, error => {
             return false;
         });
 
         if (widgetIsPresent) {
-            return browser.wait(EC.visibilityOf(widgetStatus), 20000, 'Cluster is NOT terminating').then(() => {
+            return browser.wait(EC.visibilityOf(widgetStatus), 20000, 'The cluster is NOT terminating!').then(() => {
                 return widgetStatus.isDisplayed().then(() => {
                     console.log('Terminating the cluster and its infrastructure...');
-                    return browser.wait(EC.stalenessOf(widgetLink), 60 * 20000, 'Cluster has not been terminated!').then(() => {
-                        return widgetLink.isDisplayed().then((displayed) => {
-                            console.log('Is displayed has been checked with: ' + displayed);
-                            return !displayed;
+
+                    if (this.waitForElementToDisappear(widgetStatus)) {
+                        return widgetStatus.isDisplayed().then((isDisplayed) => {
+                            return !isDisplayed;
                         }, err => {
                             return true;
                         });
-                    }, err => {
-                        console.log('Wait for cluster termination has failed!');
-                        return false;
-                    });
+                    } else {
+                        console.log(name + ' cluster has NOT been terminated during the first 20 minutes wait!');
+                        return this.waitForElementToDisappear(widgetLink);
+                    }
+
                 }, err => {
-                    console.log(name + ' widget status is NOT displayed!');
-                    return true;
+                    console.log('Termination has NOT started!');
+                    return err;
                 });
-            }, err => {
-                console.log(name + ' widget status is NOT visible!');
-                return true;
             });
         } else {
-            console.log(name + ' widget status is NOT present!');
+            console.log(name + ' widget is NOT present!');
             return true;
         }
     }

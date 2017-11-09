@@ -1,4 +1,4 @@
-import { browser, $, by, element, protractor } from 'protractor'
+import { browser, $, by, element } from 'protractor'
 import { ClustersPageObject } from "../pages/clustersPage";
 
 export class ClusterDetailsPageObject extends ClustersPageObject {
@@ -10,9 +10,21 @@ export class ClusterDetailsPageObject extends ClustersPageObject {
 
         return terminate.click().then(() => {
             const confirmationYesButton = element(by.cssContainingText('app-confirmation-dialog button', 'Yes'));
+            const forceTermination = $("app-confirmation-dialog md-checkbox");
+            const forceTerminationLabel = forceTermination.$("label");
 
             return browser.wait(EC.elementToBeClickable(confirmationYesButton), 5000, 'Confirmation dialog is NOT visible').then(() => {
-                return confirmationYesButton.click();
+                return forceTerminationLabel.click().then(() => {
+                    return forceTermination.getAttribute('class').then((classAttribute) => {
+                        if (classAttribute.includes('mat-checkbox-checked')) {
+                            console.log('Force terminating the cluster');
+                            return confirmationYesButton.click();
+                        } else {
+                            console.log('Terminating the cluster');
+                            return confirmationYesButton.click();
+                        }
+                    })
+                });
             });
         });
     }

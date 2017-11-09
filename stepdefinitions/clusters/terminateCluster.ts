@@ -5,10 +5,22 @@ import { ClusterDetailsPageObject } from "../../modules/clusterDetails";
 let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 
-defineSupportCode(function ({ When, Then }) {
+const originalAllScriptsTimeout = browser.allScriptsTimeout;
+
+defineSupportCode(function ({ setDefaultTimeout, After, Before, When, Then }) {
     let clusterDetails: ClusterDetailsPageObject = new ClusterDetailsPageObject();
 
     const clusterName = process.env.CLUSTER_NAME + browser.params.nameTag;
+
+    Before(() => {
+        browser.allScriptsTimeout = 60 * 60000;
+        setDefaultTimeout(60 * 60000);
+    });
+
+    After(() => {
+        browser.allScriptsTimeout = originalAllScriptsTimeout;
+        setDefaultTimeout(60 * 1000);
+    });
 
     When(/^I terminate my Cluster on "([^"]*)"$/, {timeout: 60 * 60000}, async (provider) => {
         switch (provider) {
