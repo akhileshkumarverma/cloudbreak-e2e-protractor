@@ -1,4 +1,3 @@
-import { browser } from 'protractor'
 import { BasePageObject } from "../../pages/basePage";
 import { defineSupportCode } from 'cucumber'
 

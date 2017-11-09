@@ -68,6 +68,8 @@ export class BasePageObject {
     logOut() {
         const EC = browser.ExpectedConditions;
 
+        this.closeDefaultCredentialWarning();
+
         return this.logoutToggle.click().then(() => {
             const confirmationYes = element(by.cssContainingText('app-confirmation-dialog', 'Yes'));
 
