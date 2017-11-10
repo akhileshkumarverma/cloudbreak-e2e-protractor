@@ -21,7 +21,9 @@
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "webdriver-start": "node ./node_modules/protractor/bin/webdriver-manager start",
     "protractor-test": "protractor typeScript/protractor.conf.js",
+    "protractor-smoke": "protractor typeScript/protractor.conf.js --suite smoke",
     "test": "npm-run-all build protractor-test generate-junit --continue-on-error",
+    "smoke-test": "npm-run-all build protractor-smoke generate-junit --continue-on-error",
     "clean-test": "npm-run-all clean-build protractor-test generate-junit --continue-on-error",
     "generate-junit": "mkdirp reports/junit && cat reports/json/cucumber_report.json | node ./node_modules/cucumberjs-junitxml/bin/cucumber-junit > reports/junit/cucumber_report.xml"
   },

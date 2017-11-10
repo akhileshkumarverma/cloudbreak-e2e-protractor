@@ -64,7 +64,14 @@
 ```
 npm test
 ```
-> Above command compiles the project then launches tests in the Browser based on the project configuration.
+> Above command compiles the project then launches all the tests in the Browser based on the project configuration.
+
+#### Executing smoke tests only
+```
+npm run smoke-test
+```
+> Above command compiles the project then launches only the smoke tests in the Browser based on the [Protractor configuration](protractor.conf.ts) file.
+
 
 ### Protractor direct connect
 Protractor can test directly using Chrome Driver, [bypassing any Selenium Server](https://github.com/angular/protractor/blob/master/docs/server-setup.md#connecting-directly-to-browser-drivers). **The advantage of direct connect is that your test project start up and run faster.**
@@ -138,15 +145,11 @@ export class LoginPageObject extends BasePageObject {
 
 **Docker image for executing headless Google Chrome Protractor e2e test cases in Docker container.**
 
-The [Dockerfile](Dockerfile) is available here. 
+The [cloudbreak-web-e2e](https://hub.docker.com/r/hortonworks/cloudbreak-web-e2e/) image is available here. 
 
 ### Makefile
 
 We created a very simple Makefile to be able build and run easily our Docker image:
-```
-make build
-```
-then
 ```
 make run
 ```

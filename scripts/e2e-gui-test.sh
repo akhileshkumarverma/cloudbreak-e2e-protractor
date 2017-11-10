@@ -19,14 +19,10 @@ export ARTIFACT_POSTFIX=info
 CBD_VERSION=$(curl -sk $BASE_URL/cb/info | grep -oP "(?<=\"version\":\")[^\"]*")
 echo "CBD version: "$CBD_VERSION
 
-#echo "Build the Test Runner Docker image if it does not present"
-if [[ -z "$(docker images -q hortonworks/docker-e2e-cloud:1.0)" ]]; then
- docker build -t hortonworks/docker-e2e-cloud:1.0 ./
-else
- echo "hortonworks/docker-e2e-cloud:1.0 is already present"
-fi
+echo "Refresh the Test Runner Docker image"
+docker pull hortonworks/cloudbreak-web-e2e
 
-export TEST_CONTAINER_NAME=cloud-e2e-runner
+export TEST_CONTAINER_NAME=cloudbreak-e2e-runner
 
 echo "Checking stopped containers"
 if [[ -n "$(docker ps -a -f status=exited -f status=dead -q)" ]]; then
@@ -55,7 +51,7 @@ else
     --env-file $ENVFILE \
     -v $(pwd):/protractor/project \
     -v /dev/shm:/dev/shm \
-    hortonworks/docker-e2e-cloud:1.0 npm test
+    hortonworks/cloudbreak-web-e2e npm test
     RESULT=$?
 fi
 

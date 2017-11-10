@@ -76,6 +76,26 @@ export let config: Config = {
         '../features/logout.feature'
     ],
 
+    suites: {
+        smoke: [
+            '../features/login.feature',
+            '../features/logout.feature'
+        ],
+        regression: [
+            '../features/login.feature',
+            '../features/credential.feature',
+            '../features/cluster.feature',
+            '../features/teardown.feature',
+            '../features/logout.feature'
+        ],
+        credentials: [
+            '../features/login.feature',
+            '../features/credential.feature',
+            '../features/teardown.feature',
+            '../features/logout.feature'
+        ]
+    },
+
     /**
      * Base URL for the Cloudbreak.
      * BASE_URL is environment variable.
