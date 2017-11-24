@@ -1,5 +1,5 @@
 import { browser, $, by, element } from 'protractor'
-import { ClustersPageObject } from "../pages/clustersPage";
+import { ClustersPageObject } from "../clustersPage";
 
 export class ClusterDetailsPageObject extends ClustersPageObject {
     public terminateButton: any = element(by.cssContainingText('app-cluster-details button', 'TERMINATE'));

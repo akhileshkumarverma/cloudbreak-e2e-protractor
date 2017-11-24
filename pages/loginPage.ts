@@ -1,16 +1,15 @@
-import { browser, $, by, element, protractor } from 'protractor'
-import { BasePageObject } from "./basePage";
+import {$, browser, by, element} from "protractor";
 
-export class LoginPageObject extends BasePageObject {
+export class LoginPageObject {
     public usernameBox: any = $("input[id='username']");
     public passwordBox: any = $("input[id='password']");
     public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
 
-    login() {
+    login(username: string, password: string) {
         const EC = browser.ExpectedConditions;
 
-        this.usernameBox.sendKeys(process.env.USERNAME);
-        this.passwordBox.sendKeys(process.env.PASSWORD);
+        this.usernameBox.sendKeys(username);
+        this.passwordBox.sendKeys(password);
 
         this.loginButton.click().then(() => {
             $("input[id='settingsOpted']").click().then(() => {

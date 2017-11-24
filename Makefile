@@ -1,4 +1,4 @@
-ENVFILE=./support/testenv
+ENVFILE=./testenvironment
 
 refresh-image:
 				docker pull hortonworks/cloudbreak-web-e2e

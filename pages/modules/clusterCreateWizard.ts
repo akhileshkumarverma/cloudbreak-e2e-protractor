@@ -1,5 +1,5 @@
 import { browser, $, $$, by, element } from 'protractor'
-import { ClustersPageObject } from "../pages/clustersPage";
+import { ClustersPageObject } from "../clustersPage";
 
 export class ClusterCreateWizardPageObject extends ClustersPageObject {
     public generalConfiguarationSideItem: any = $("div[ng-reflect-router-link='/clusters/create']");
@@ -111,13 +111,15 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         const EC = browser.ExpectedConditions;
         const clusterNameField = $("input[id='clusterName']");
 
-        clusterNameField.sendKeys(name).then(() => {
-            const nextButton = element(by.cssContainingText('button', 'Next'));
+        clusterNameField.clear().then(() => {
+            return clusterNameField.sendKeys(name).then(() => {
+                const nextButton = element(by.cssContainingText('button', 'Next'));
 
-            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                return nextButton.click().then(() => {
-                    return browser.wait(EC.urlContains('/clusters/create/hardware-and-storage'), 5000, 'Hardware and Storage page is NOT opened').then(() => {
-                        return true;
+                return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                    return nextButton.click().then(() => {
+                        return browser.wait(EC.urlContains('/clusters/create/hardware-and-storage'), 5000, 'Hardware and Storage page is NOT opened').then(() => {
+                            return true;
+                        });
                     });
                 });
             });
@@ -217,18 +219,22 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     setAmbariCredentials(user: string, password: string) {
+        const EC = browser.ExpectedConditions;
+
         const userField = $("input[formcontrolname='username']");
         const passwordField = $("input[formcontrolname='password']");
         const confirmPasswordField = $("input[formcontrolname='passwordConfirmation']");
 
-        userField.clear().then(() => {
-            userField.sendKeys(user);
-        });
-        passwordField.clear().then(() => {
-            passwordField.sendKeys(password);
-        });
-        confirmPasswordField.clear().then(() => {
-            confirmPasswordField.sendKeys(password);
+        browser.wait(EC.visibilityOf(userField), 5000, 'Ambari user field is NOT visible').then(() => {
+            userField.clear().then(() => {
+                return userField.sendKeys(user);
+            });
+            passwordField.clear().then(() => {
+                return passwordField.sendKeys(password);
+            });
+            return confirmPasswordField.clear().then(() => {
+                return confirmPasswordField.sendKeys(password);
+            });
         });
     }
 
@@ -283,6 +289,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createOpenStackCluster(credentialName: string, clusterName: string, network: string, subnet: string, user: string, password: string, sshKey: string) {
+        this.selectCredential(credentialName);
+
         this.setAdvancedTemplate();
 
         this.setClusterName(clusterName);
@@ -298,6 +306,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createAWSCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
+        this.selectCredential(credentialName);
+
         this.setAdvancedTemplate();
 
         this.setClusterName(clusterName);
@@ -313,6 +323,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createAzureCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
+        this.selectCredential(credentialName);
+
         this.setAdvancedTemplate();
 
         this.setClusterName(clusterName);
@@ -328,6 +340,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     createGCPCluster(credentialName: string, clusterName: string, user: string, password: string, sshKey: string) {
+        this.selectCredential(credentialName);
+
         this.setAdvancedTemplate();
 
         this.setClusterName(clusterName);

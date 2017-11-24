@@ -1,12 +1,12 @@
 {
-  "name": "cloud-e2e-protractor",
-  "version": "1.0.0",
+  "name": "cloudbreak-e2e-protractor",
+  "version": "2.0.0",
   "description": "Cloud web application functional end-to-end test project",
-  "repository": "https://github.com/hortonworks/cloud-e2e-protractor.git",
+  "repository": "https://github.com/hortonworks/cloudbreak-e2e-protractor.git",
   "license": "Apache-2.0",
   "keywords": [
     "protractor",
-    "typescript",
+    "tmp",
     "testing",
     "automation testing"
   ],
@@ -14,40 +14,34 @@
     "unsafe-perm": true
   },
   "scripts": {
-    "postinstall": "node ./node_modules/protractor/bin/webdriver-manager update --allow-root install",
+    "postinstall": "node ./node_modules/protractor/bin/webdriver-manager update --gecko false --allow-root install",
     "build": "tsc",
-    "clean": "rimraf typeScript/ reports/",
+    "clean": "rimraf tmp/ reports/ allure-report/ allure-results jasmine-reports",
     "clean-build": "npm-run-all clean build",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "webdriver-start": "node ./node_modules/protractor/bin/webdriver-manager start",
-    "protractor-test": "protractor typeScript/protractor.conf.js",
-    "protractor-smoke": "protractor typeScript/protractor.conf.js --suite smoke",
-    "test": "npm-run-all build protractor-test generate-junit --continue-on-error",
-    "smoke-test": "npm-run-all build protractor-smoke generate-junit --continue-on-error",
-    "clean-test": "npm-run-all clean-build protractor-test generate-junit --continue-on-error",
-    "generate-junit": "mkdirp reports/junit && cat reports/json/cucumber_report.json | node ./node_modules/cucumberjs-junitxml/bin/cucumber-junit > reports/junit/cucumber_report.xml"
+    "protractor-test": "protractor tmp/protractor.conf.js",
+    "test": "npm-run-all build protractor-test --continue-on-error"
   },
   "devDependencies": {
-    "@types/cucumber": "0.0.38",
+    "@types/jasmine": "^2.8.2",
     "@types/node": "^8.0.3",
-    "@types/selenium-webdriver": "^3.0.0",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^7.0.0",
-    "chai-smoothie": "^0.3.2",
-    "cucumberjs-junitxml": "^1.0.0",
+    "ts-node": "^3.3.0",
     "mkdirp": "^0.5.1",
     "npm-run-all": "^4.1.1",
-    "protractor-console": "^3.0.0",
-    "protractor-cucumber-framework": "^3.1.2",
     "rimraf": "^2.6.2",
-    "ruru-protractor-junit-reporter": "0.0.1"
+    "jasmine-expect": "^3.8.1",
+    "jasmine-data-provider": "^2.2.0",
+    "tmp": "^0.0.33"
   },
   "dependencies": {
-    "cucumber-html-reporter": "^2.0.0",
-    "cucumber-html-report": "^0.6.1",
-    "protractor": "^5.1.2",
-    "ts-node": "^3.1.0",
-    "cucumber": "^2.3.0",
-    "typescript": "^2.2.1"
+    "protractor": "^5.2.0",
+    "protractor-console": "^3.0.0",
+    "typescript": "^2.6.1",
+    "jasmine": "^2.8.0",
+    "jasmine-reporters": "^2.2.1",
+    "jasmine-spec-reporter": "^4.2.1",
+    "protractor-jasmine2-html-reporter": "^0.0.7",
+    "jasmine-allure-reporter": "^1.0.2"
   }
 }

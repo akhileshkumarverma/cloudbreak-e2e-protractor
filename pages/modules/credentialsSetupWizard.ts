@@ -1,5 +1,5 @@
 import { browser, $, by, element } from 'protractor'
-import { CredentialsPageObject } from "../pages/credentialsPage";
+import { CredentialsPageObject } from "../credentialsPage";
 
 const path = require('path');
 const fs = require('fs');

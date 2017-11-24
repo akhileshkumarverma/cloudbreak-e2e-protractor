@@ -8,7 +8,7 @@
 : ${MASTER_SSH_KEY:? required}
 : ${CLOUDBREAK_CENTOS_SSH_USER:? required}
 : ${BROWSER:? required}
-: ${ENVFILE:=./support/testenv}
+: ${ENVFILE:=./testenvironment}
 
 HOST=${BASE_URL#*//}
 export NOWDATE=$(ssh -o StrictHostKeyChecking=no -i $MASTER_SSH_KEY $CLOUDBREAK_CENTOS_SSH_USER@$HOST date +%Y-%m-%d"T"%H:%M:%S)

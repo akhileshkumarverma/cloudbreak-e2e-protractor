@@ -1,35 +1,37 @@
-import { $, by, element, browser, ElementFinder } from 'protractor'
+import { $, by, element, browser } from "protractor";
 import { BasePageObject } from "./basePage";
 
 export class ClustersPageObject extends BasePageObject {
     public clusterCreateButton: any = $("button[id='btnCreateCluster']");
 
-    getClusterWidget(name: string) {
+    openClusterCreateWizard() {
         const EC = browser.ExpectedConditions;
-        const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        this.openPage('Clusters').then(() => {
-            return browser.wait(EC.elementToBeClickable(widgetLink), 30 * 1000, 'Cluster widget is NOT visible').then(() => {
-                return widgetLink.isPresent().then((presented) => {
-                    //console.log('IsPresent passed');
-                    return presented;
+        return this.clusterCreateButton.click().then(() => {
+            return browser.wait(EC.urlContains('/create'), 5000, 'Cluster Create Wizard has NOT been opened!').then(() => {
+                return browser.getCurrentUrl().then((url) => {
+                    //console.log('Actual URL: ' + url);
+                    return url.includes('/create');
                 }, error => {
-                    console.log('IsPresent failed for: ' + name);
+                    console.log('Error get current URL');
                     return false;
                 });
-            }, error => {
-                console.log(name + ' cluster has NOT been created!');
-                return false;
             });
         });
+    }
 
-        return widgetLink.isPresent().then((presented) => {
-            //console.log('IsPresent passed');
-            return presented;
-        }, error => {
-            console.log('Widget link is NOT present for: ' + name);
-            return false;
-        });
+    getClusterWidget(name: string) {
+        const widgetLink = $("a[data-stack-name=\'" + name + "\']");
+
+        return browser.wait(() => {
+            return widgetLink.isPresent().then((presented) => {
+                //console.log('IsPresent passed');
+                return presented;
+            }, error => {
+                console.log('Widget link is NOT present for: ' + name);
+                return false;
+            });
+        }, 10000, name + ' cluster has NOT been created!');
     }
 
     openClusterDetails(name: string) {
@@ -63,57 +65,46 @@ export class ClustersPageObject extends BasePageObject {
         });
     }
 
-    waitForElementToDisappear(webElement: ElementFinder) {
+    isClusterTerminating(name: string) {
         const EC = browser.ExpectedConditions;
+        const widgetLink = $("app-cluster-item-card a[data-stack-name=\'" + name + "\']");
+        const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
-        browser.waitForAngular();
-        return browser.wait(EC.invisibilityOf(webElement), 60 * 20000, 'The cluster has NOT been terminated!').then(() => {
-            browser.waitForAngular();
-            return webElement.isDisplayed().then((isDisplayed) => {
-                return !isDisplayed;
-            }, err => {
-                return true;
-            });
-        }, err => {
+        widgetLink.isPresent().then((presented) => {
+            return presented;
+        }, error => {
             return false;
+        }).then((result) => {
+            if (result) {
+                return browser.wait(EC.visibilityOf(widgetStatus), 10000, 'The cluster is NOT terminating!').then(() => {
+                    return widgetStatus.isDisplayed().then(() => {
+                        console.log('Terminating the cluster and its infrastructure...');
+                        return true;
+                    }, err => {
+                        console.log('Termination has NOT started!');
+                        return err;
+                    });
+                });
+            } else {
+                console.log(name + ' widget is NOT present!');
+                return true;
+            }
         });
     }
 
     waitForClusterTermination(name: string) {
         const EC = browser.ExpectedConditions;
         const widgetLink = $("app-cluster-item-card a[data-stack-name=\'" + name + "\']");
-        const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
-        let widgetIsPresent = widgetLink.isPresent().then((presented) => {
-            return presented;
+        return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'The cluster has NOT been terminated!').then(() => {
+            return widgetLink.isDisplayed().then((displayed) => {
+                return !displayed;
+            }, error => {
+                console.log('Cluster has been terminated');
+                return true;
+            });
         }, error => {
             return false;
         });
-
-        if (widgetIsPresent) {
-            return browser.wait(EC.visibilityOf(widgetStatus), 20000, 'The cluster is NOT terminating!').then(() => {
-                return widgetStatus.isDisplayed().then(() => {
-                    console.log('Terminating the cluster and its infrastructure...');
-
-                    if (this.waitForElementToDisappear(widgetStatus)) {
-                        return widgetStatus.isDisplayed().then((isDisplayed) => {
-                            return !isDisplayed;
-                        }, err => {
-                            return true;
-                        });
-                    } else {
-                        console.log(name + ' cluster has NOT been terminated during the first 20 minutes wait!');
-                        return this.waitForElementToDisappear(widgetLink);
-                    }
-
-                }, err => {
-                    console.log('Termination has NOT started!');
-                    return err;
-                });
-            });
-        } else {
-            console.log(name + ' widget is NOT present!');
-            return true;
-        }
     }
 }

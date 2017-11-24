@@ -3,13 +3,14 @@
 ### Pre-requisites
 1. Please install followings if these have not installed for you:
       * NodeJS
+      * TypeScript
       * Google Chrome
     
     > You can check Protractor browser compatibility at [Protractor Browser Support](https://github.com/angular/protractor/blob/master/docs/browser-support.md)
 
 2. IDE or Text Editor should be installed (WebStorm/Sublime/Visual Studio Code/Brackets)
 
-3. Every variable from [environment file](support/testenv) should be present as environment variables with valid values:
+3. Every variable from [environment file](testenvironment) should be present as environment variables with valid values:
     
     > For OS X Yosemite users with IntelliJ IDEA: You should add the environment variables to your
     `bash_profile` to can run tests directly form IDEA with no issues.
@@ -66,13 +67,6 @@ npm test
 ```
 > Above command compiles the project then launches all the tests in the Browser based on the project configuration.
 
-#### Executing smoke tests only
-```
-npm run smoke-test
-```
-> Above command compiles the project then launches only the smoke tests in the Browser based on the [Protractor configuration](protractor.conf.ts) file.
-
-
 ### Protractor direct connect
 Protractor can test directly using Chrome Driver, [bypassing any Selenium Server](https://github.com/angular/protractor/blob/master/docs/server-setup.md#connecting-directly-to-browser-drivers). **The advantage of direct connect is that your test project start up and run faster.**
 
@@ -96,14 +90,13 @@ directConnect: true
 
 ```
 import { browser, $, by, element, protractor } from 'protractor'
-import { BasePageObject } from "./basePage";
 
-export class LoginPageObject extends BasePageObject {
+export class LoginPageObject {
     public usernameBox: any = $("input[id='username']");
     public passwordBox: any = $("input[id='password']");
     public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
     
-    async login() {
+    login() {
     ...etc.
     }
     
@@ -158,7 +151,7 @@ or you can run the above commands in one round:
 ### To run tests in this container
 
 1. Clone this repository to your local folder.
-2. Provide valid and appropriate values for base test parameters in the [environment file](support/testenv), for example:
+2. Provide valid and appropriate values for base test parameters in the [environment file](testenvironment), for example:
       ```
       export BASE_URL=your.url
       export USERNAME=your@mail.address
@@ -173,7 +166,7 @@ or you can run the above commands in one round:
     ```
     make run
     ```
-  - `cloud-e2e-runner` name of the new Docker container (created from `hortonworks/docker-e2e-protractor` Docker image).
+  - `cloud-e2e-runner` name of the new Docker container (created from `hortonworks/cloudbreak-web-e2e` Docker image).
   - `utils/testenv` the location (full path) of the `testenv` file on your machine.
   - `$(PWD)` or `$pwd` the root folder of your Protractor test project.
       - For example the local folder where the test project has been cloned from GitHub.
