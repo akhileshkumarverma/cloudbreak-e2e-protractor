@@ -1,4 +1,4 @@
-import { browser, $, by, element } from 'protractor'
+import {browser, $, by, element, protractor} from 'protractor'
 import { CredentialsPageObject } from "../credentialsPage";
 
 const path = require('path');
@@ -40,7 +40,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
     }
 
     closeDocumentationSlide() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const closeIcon = $("i[class='fa fa-remove pull-right']");
 
         return browser.wait(EC.elementToBeClickable(closeIcon), 5000, 'Close icon is NOT clickable').then(() => {
@@ -52,7 +52,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
     createOpenStackCredential(keystoneVersion: string, name: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
         const providerSelect = this.providerSelector;
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const keystoneSelector = $("md-select[placeholder='Please choose a type']");
         const nameField = $("input[id='name']");
@@ -103,7 +103,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
     createAWSCredential(credentialType: string, name: string, iamRoleARN: string) {
         const providerSelect = this.providerSelector;
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const typeSelector = $("app-create-amazon-credential md-select");
         const nameField = $("input[id='name']");
@@ -144,7 +144,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
     createAzureCredential(credentialType: string, name: string, subscription: string, tenant: string, app: string, password: string) {
         const providerSelect = this.providerSelector;
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const typeSelector = $("md-select[name='type']");
         const nameField = $("input[id='name']");
@@ -193,7 +193,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
     createGCPCredential(name: string, project: string, email: string, p12Path: string) {
         const providerSelect = this.providerSelector;
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const nameField = $("input[id='name']");
         const projectIDField = $("input[id='projectId']");

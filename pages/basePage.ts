@@ -1,4 +1,4 @@
-import {browser, $, by, element} from "protractor";
+import {browser, $, by, element, protractor} from "protractor";
 
 export class BasePageObject {
 
@@ -31,7 +31,7 @@ export class BasePageObject {
     }
 
     openPage(name: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const confirmationOk = element(by.cssContainingText('button[aria-label="Close dialog"]', 'ok'));
 
         browser.get(process.env.BASE_URL + '/' + name.toLowerCase()).then( () => {
@@ -54,7 +54,7 @@ export class BasePageObject {
     }
 
     isConfirmationDialogVisible() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const confirmationDialog = $("app-confirmation-dialog");
 
         return browser.wait(EC.visibilityOf(confirmationDialog), 5000, 'Confirmation dialog is NOT visible').then(() => {
@@ -67,7 +67,7 @@ export class BasePageObject {
     }
 
     closeConfirmationDialog() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const confirmationOk = element(by.cssContainingText('button[aria-label="Close dialog"]', 'ok'));
 
         browser.wait(EC.elementToBeClickable(confirmationOk), 10000, 'Confirmation dialog is NOT visible').then(() => {
@@ -94,7 +94,7 @@ export class BasePageObject {
     }
 
     logOut() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const logoutToggle = $("[id='logoutBtn']");
 
         logoutToggle.click().then(() => {

@@ -1,12 +1,6 @@
-import {Config, protractor} from 'protractor';
-
-declare const allure: any;
+import {browser, Config} from "protractor";
 
 export let config: Config = {
-    // You could set no globals to true to avoid jQuery '$' and protractor '$'
-    // collisions on the global namespace.
-    noGlobals: true,
-
     params: {
         nameTag: process.env.TARGET_CBD_VERSION.replace(/\./g,'')
     },
@@ -86,7 +80,7 @@ export let config: Config = {
         loggingPrefs: { browser: 'SEVERE', driver: 'ALL' }
     },
 
-    framework: 'jasmine2',
+    framework: 'jasmine',
     allScriptsTimeout: 60000,
     getPageTimeout: 60000,
     ScriptTimeoutError: 60000,
@@ -95,7 +89,7 @@ export let config: Config = {
         showColors: true,
         includeStackTrace: true,
         isVerbose: true,
-        defaultTimeoutInterval: 60000
+        defaultTimeoutInterval: 120000
     },
 
     specs: [
@@ -112,12 +106,15 @@ export let config: Config = {
             '../tests/logout/specLogout.ts'
         ],
         regression: [
+            '../utils/slowdownProtractor.ts',
             '../tests/login/specLogin.ts',
+            '../tests/credentials/specCreateCredentials.ts',
+            '../tests/clusters/specCreateClusters.ts',
             '../tests/logout/specLogout.ts'
         ]
     },
 
-    beforeLaunch: function() { // If you're using type script then you need compiler options
+    beforeLaunch: () => { // If you're using type script then you need compiler options
         require('ts-node').register({
             project: 'tsconfig.json'
         });
@@ -130,9 +127,6 @@ export let config: Config = {
     baseUrl: process.env.BASE_URL,
 
     onPrepare: () => {
-        let globals = require('protractor');
-        let browser = globals.browser;
-
         console.log("The Base URL is: " + process.env.BASE_URL);
         console.log("The Username is: " + process.env.USERNAME);
         console.log("The Password is: " + process.env.PASSWORD);
@@ -162,7 +156,7 @@ export let config: Config = {
          * OR
          * You can use parameter 'browser.params.baseUrl' with 'protractor protractor.conf.js --params.baseUrl=https://123.12.123.12:3000/'.
          */
-        browser.driver.get(browser.baseUrl);
+        browser.get(browser.baseUrl);
 
         // It genereates JUnit XML report for test run.
         const jasmineReporters = require('jasmine-reporters');
@@ -181,20 +175,27 @@ export let config: Config = {
                 displayDuration: true
             }
         }));
-        // It generates HTML reports for the test run. In case of failure these save screenshot about the related page.
-        const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+        /**
+         * It generates HTML reports for the test run. In case of failure these save screenshot about the related page.
+         *
+         * https://github.com/Kenzitron/protractor-jasmine2-html-reporter/issues/48
+         * "noGlobals: false" must be to can generates screenshots and can avoid "ReferenceError: browser is not defined
+         * at Jasmine2HTMLReporter.self.specDone"
+         */
+    	const Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
         jasmine.getEnv().addReporter(new Jasmine2HtmlReporter({
             savePath: './jasmine-reports/',
             screenshotsFolder: 'screenshots',
             filePrefix: 'htmlReport',
             takeScreenshots: true,
-            takeScreenshotsOnlyOnFailures: true
+            takeScreenshotsOnlyOnFailures: true,
+            fixedScreenshotName: true
         }));
         // It generates the Jasmine Allure Reports https://www.npmjs.com/package/jasmine-allure-reporter
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15836
         // const AllureReporter = require('jasmine-allure-reporter');
         // jasmine.getEnv().addReporter(new AllureReporter());
-        // jasmine.getEnv().afterEach(done: (result: any) => void) => {
+        // jasmine.getEnv().afterEach(done => {
         //     browser.takeScreenshot().then(function(png) {
         //         allure.createAttachment('Screenshot', function () {
         //             return new Buffer(png, 'base64')

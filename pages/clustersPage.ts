@@ -1,11 +1,11 @@
-import { $, by, element, browser } from "protractor";
+import {$, by, element, browser, protractor} from "protractor";
 import { BasePageObject } from "./basePage";
 
 export class ClustersPageObject extends BasePageObject {
     public clusterCreateButton: any = $("button[id='btnCreateCluster']");
 
     openClusterCreateWizard() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         return this.clusterCreateButton.click().then(() => {
             return browser.wait(EC.urlContains('/create'), 5000, 'Cluster Create Wizard has NOT been opened!').then(() => {
@@ -35,7 +35,7 @@ export class ClustersPageObject extends BasePageObject {
     }
 
     openClusterDetails(name: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const terminateButton = element(by.cssContainingText('app-cluster-details button', 'TERMINATE'));
 
@@ -66,37 +66,39 @@ export class ClustersPageObject extends BasePageObject {
     }
 
     isClusterTerminating(name: string) {
-        const EC = browser.ExpectedConditions;
-        const widgetLink = $("app-cluster-item-card a[data-stack-name=\'" + name + "\']");
+        const EC = protractor.ExpectedConditions;
+        const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
-        widgetLink.isPresent().then((presented) => {
-            return presented;
-        }, error => {
-            return false;
-        }).then((result) => {
-            if (result) {
-                return browser.wait(EC.visibilityOf(widgetStatus), 10000, 'The cluster is NOT terminating!').then(() => {
-                    return widgetStatus.isDisplayed().then(() => {
-                        console.log('Terminating the cluster and its infrastructure...');
-                        return true;
-                    }, err => {
-                        console.log('Termination has NOT started!');
-                        return err;
+        browser.wait(EC.visibilityOf(widgetLink), 5000, name + ' widget is NOT visible!').then(() => {
+            widgetLink.isPresent().then((presented) => {
+                return presented;
+            }, error => {
+                return false;
+            }).then((result) => {
+                if (result) {
+                    return browser.wait(EC.visibilityOf(widgetStatus), 10000, 'The cluster is NOT terminating!').then(() => {
+                        return widgetStatus.isDisplayed().then(() => {
+                            console.log('Terminating the cluster and its infrastructure...');
+                            return true;
+                        }, err => {
+                            console.log('Termination has NOT started!');
+                            return err;
+                        });
                     });
-                });
-            } else {
-                console.log(name + ' widget is NOT present!');
-                return true;
-            }
+                } else {
+                    console.log(name + ' widget is NOT present!');
+                    return true;
+                }
+            });
         });
     }
 
     waitForClusterTermination(name: string) {
-        const EC = browser.ExpectedConditions;
-        const widgetLink = $("app-cluster-item-card a[data-stack-name=\'" + name + "\']");
+        const EC = protractor.ExpectedConditions;
+        const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.invisibilityOf(widgetLink), 60 * 20000, 'The cluster has NOT been terminated!').then(() => {
+        return browser.wait(EC.stalenessOf(widgetLink), 10 * 60000, 'The cluster has NOT been terminated!').then(() => {
             return widgetLink.isDisplayed().then((displayed) => {
                 return !displayed;
             }, error => {

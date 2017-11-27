@@ -1,4 +1,4 @@
-import {$, browser, by, element} from "protractor";
+import {$, browser, by, element, protractor} from "protractor";
 
 export class LoginPageObject {
     public usernameBox: any = $("input[id='username']");
@@ -6,7 +6,7 @@ export class LoginPageObject {
     public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
 
     login(username: string, password: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         this.usernameBox.sendKeys(username);
         this.passwordBox.sendKeys(password);

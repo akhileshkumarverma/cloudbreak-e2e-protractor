@@ -1,4 +1,4 @@
-import { browser, $, $$, by, element } from 'protractor'
+import {browser, $, $$, by, element, protractor} from 'protractor'
 import { ClustersPageObject } from "../clustersPage";
 
 export class ClusterCreateWizardPageObject extends ClustersPageObject {
@@ -34,7 +34,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     isCreateClusterWizardOpened() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const generalConfigurations = this.generalConfiguarationSideItem;
 
         return browser.wait(EC.visibilityOf(generalConfigurations), 5000, 'General Configurations is NOT visible').then(() => {
@@ -49,7 +49,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     setAdvancedTemplate() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const templateSelector = this.templateSwitch;
         const credentialSelector = $("md-select[placeholder='Please select credential']");
 
@@ -76,7 +76,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     selectCredential(name: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const credentialSelector = $("app-general-configuration md-select[placeholder='Please select credential']");
         const selectedCredential = element(by.cssContainingText('span.mat-select-value-text span', name));
 
@@ -108,7 +108,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     setClusterName(name: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const clusterNameField = $("input[id='clusterName']");
 
         clusterNameField.clear().then(() => {
@@ -127,7 +127,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     setMasterAsAmbariServer() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
 
         ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
@@ -159,7 +159,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     navigateFromRecipes() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const recipeActionContainer = $("app-config-recipes div[class='action-container']");
 
         recipeActionContainer.isDisplayed().then(() => {
@@ -176,13 +176,17 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     selectNetworkSubnet(network: string, subnet: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const networkSelector = $("md-select[placeholder='Please select a network']");
         const subnetSelector = $("md-select[placeholder='Please select a subnet']");
 
         browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
             networkSelector.click().then(() => {
-                return $("md-option[ng-reflect-value=\'" + network + "\']").click();
+                const selectedNetwork = $("md-option[ng-reflect-value=\'" + network + "\']");
+
+                return browser.wait(EC.elementToBeClickable(selectedNetwork), 5000, 'Network value is NOT clickable').then(() => {
+                    return selectedNetwork.click();
+                });
             }).then(() => {
                 subnetSelector.click().then(() => {
                     return $("md-option[ng-reflect-value=\'" + subnet + "\']").click().then(() => {
@@ -202,7 +206,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     navigateFromNetwork() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const networkActionContainer = $("app-network form div[class='action-container']");
 
         networkActionContainer.isDisplayed().then(() => {
@@ -219,7 +223,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     setAmbariCredentials(user: string, password: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const userField = $("input[formcontrolname='username']");
         const passwordField = $("input[formcontrolname='password']");
@@ -239,7 +243,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     selectSSHKey(sshKey: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const sshSelector = $("md-select[placeholder='Please select ssh key']");
 
         browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
@@ -258,7 +262,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     setSSHKey(sshKey: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const sshTextarea = $("textarea[formcontrolname='publicKey']");
 
         sshTextarea.clear().then(() => {
@@ -267,7 +271,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     }
 
     submitClusterCreate(clusterName: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
         return browser.wait(EC.elementToBeClickable(createButton), 30 * 1000, 'Create Cluster button is NOT clickable').then(() => {

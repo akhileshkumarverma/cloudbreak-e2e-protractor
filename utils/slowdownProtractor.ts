@@ -9,15 +9,15 @@
 
 import {browser, protractor} from "protractor";
 
-let origFn = browser.driver.controlFlow().execute;
+let origFn = browser.controlFlow().execute;
 
-browser.driver.controlFlow().execute = function() {
+browser.controlFlow().execute = function() {
     let args = arguments;
 
     // queue 100ms wait
-    origFn.call(browser.driver.controlFlow(), () => {
-        return protractor.promise.delayed(100);
+    origFn.call(browser.controlFlow(), () => {
+        return protractor.promise.delayed(200);
     });
 
-    return origFn.apply(browser.driver.controlFlow(), args);
+    return origFn.apply(browser.controlFlow(), args);
 };

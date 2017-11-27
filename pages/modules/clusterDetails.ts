@@ -1,11 +1,11 @@
-import { browser, $, by, element } from 'protractor'
+import {browser, $, by, element, protractor} from 'protractor'
 import { ClustersPageObject } from "../clustersPage";
 
 export class ClusterDetailsPageObject extends ClustersPageObject {
     public terminateButton: any = element(by.cssContainingText('app-cluster-details button', 'TERMINATE'));
 
     terminateCluster() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const terminate = this.terminateButton;
 
         return terminate.click().then(() => {

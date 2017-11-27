@@ -1,6 +1,5 @@
 import {$, $$, browser, by, element, protractor} from 'protractor'
 import { BasePageObject } from "./basePage";
-import {error} from "util";
 
 export class CredentialsPageObject extends BasePageObject {
     public credentialCreateButton: any = $("button[id='btnCreateCredential']");
@@ -34,7 +33,7 @@ export class CredentialsPageObject extends BasePageObject {
     }
 
     openCredentialSetupWizard() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         this.closeConfirmationDialog();
 
@@ -52,7 +51,7 @@ export class CredentialsPageObject extends BasePageObject {
     }
 
     deleteAllCredentials() {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const noCredentialInformation = element(by.cssContainingText('app-credential-list div', 'There are no credentials to display.'));
         const checkboxes = $$("app-credential-list md-checkbox");
@@ -95,7 +94,7 @@ export class CredentialsPageObject extends BasePageObject {
     }
 
     deleteCredential(name: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
 
         const checkbox = $("div[data-credential-name=\'" + name + "\'] md-checkbox");
         const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
@@ -123,7 +122,7 @@ export class CredentialsPageObject extends BasePageObject {
     }
 
     isCredentialDeleted(name: string) {
-        const EC = browser.ExpectedConditions;
+        const EC = protractor.ExpectedConditions;
         const credential = $("div[data-credential-name=\'" + name + "\']");
 
         return browser.wait(EC.invisibilityOf(credential), 5000, 'Deleted credential is STILL visible').then(() => {
