@@ -1,4 +1,4 @@
-import {$, by, element, browser, protractor} from "protractor";
+import {$, by, element, browser, protractor, $$} from "protractor";
 import { BasePageObject } from "./basePage";
 
 export class ClustersPageObject extends BasePageObject {
@@ -79,7 +79,7 @@ export class ClustersPageObject extends BasePageObject {
                 if (result) {
                     return browser.wait(EC.visibilityOf(widgetStatus), 10000, 'The cluster is NOT terminating!').then(() => {
                         return widgetStatus.isDisplayed().then(() => {
-                            console.log('Terminating the cluster and its infrastructure...');
+                            //console.log('Terminating the cluster and its infrastructure...');
                             return true;
                         }, err => {
                             console.log('Termination has NOT started!');
@@ -94,13 +94,42 @@ export class ClustersPageObject extends BasePageObject {
         });
     }
 
-    waitForClusterTermination(name: string) {
+    waitForClusterWidgetTermination(name: string) {
         const EC = protractor.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
         return browser.wait(EC.stalenessOf(widgetLink), 10 * 60000, 'The cluster has NOT been terminated!').then(() => {
             return widgetLink.isDisplayed().then((displayed) => {
                 return !displayed;
+            }, error => {
+                console.log('Cluster has been terminated');
+                return true;
+            });
+        }, error => {
+            return false;
+        });
+    }
+
+    waitForClusterDetailsTermination(name: string) {
+        const EC = protractor.ExpectedConditions;
+        const clusterDetailsModule = $("app-cluster-details");
+
+        this.openClusterDetails(name).then(() => {
+            const latestClusterHistory = clusterDetailsModule.$$("event-history ul>li").first();
+            const latestMessage = latestClusterHistory.$$("div").first();
+            const latestTimeStamp = latestClusterHistory.$$("div").last();
+
+            latestMessage.getText().then(function (message) {
+                console.log(message);
+            });
+            latestTimeStamp.getText().then(function (time) {
+                console.log(time);
+            });
+        });
+
+        return browser.wait(EC.stalenessOf(clusterDetailsModule), 10 * 60000, 'The cluster has NOT been terminated!').then(() => {
+            return clusterDetailsModule.isPresent().then((presented) => {
+                return !presented;
             }, error => {
                 console.log('Cluster has been terminated');
                 return true;

@@ -81,6 +81,10 @@ describe('Testing Cloudbreak cluster creation', () => {
 
     describe('where the Clusters page shows the newly created clusters', () => {
 
+        beforeAll(() => {
+            clusters.openPage('Clusters');
+        });
+
         it('OpenStack widget should be available', () => {
             expect(clusters.getClusterWidget(clusterName + 'os')).toBeTruthy();
         });
@@ -101,11 +105,9 @@ describe('Testing Cloudbreak cluster creation', () => {
     describe('where user is able to delete clusters', () => {
         let clusterDetails: ClusterDetailsPageObject = new ClusterDetailsPageObject();
 
-        beforeEach(() => {
-            console.log('Original Jasmine Default Timeout is: ' + originalJasmineTimeout);
+        beforeEach(async () => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            console.log('Custom Jasmine Default Timeout is: ' + jasmine.DEFAULT_TIMEOUT_INTERVAL);
-            clusters.openPage('Clusters');
+            await clusters.openPage('Clusters');
         });
 
         afterAll(() => {
@@ -117,7 +119,7 @@ describe('Testing Cloudbreak cluster creation', () => {
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'os');
-            expect(await clusterDetails.waitForClusterTermination(clusterName + 'os')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'os')).toBeTruthy();
         }, 600000);
 
         it('previously created AWS cluster should be deleted',async () => {
@@ -125,7 +127,7 @@ describe('Testing Cloudbreak cluster creation', () => {
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'aws');
-            expect(await clusterDetails.waitForClusterTermination(clusterName + 'aws')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'aws')).toBeTruthy();
         }, 600000);
 
         it('previously created Azure cluster should be deleted',async () => {
@@ -133,7 +135,7 @@ describe('Testing Cloudbreak cluster creation', () => {
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'azure');
-            expect(await clusterDetails.waitForClusterTermination(clusterName + 'azure')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'azure')).toBeTruthy();
         }, 600000);
 
         it('previously created GCP cluster should be deleted',async () => {
@@ -141,7 +143,7 @@ describe('Testing Cloudbreak cluster creation', () => {
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'gcp');
-            expect(await clusterDetails.waitForClusterTermination(clusterName + 'gcp')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'gcp')).toBeTruthy();
         }, 600000);
     });
 });
