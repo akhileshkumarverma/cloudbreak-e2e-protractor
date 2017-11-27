@@ -115,15 +115,19 @@ export class ClustersPageObject extends BasePageObject {
         const clusterDetailsModule = $("app-cluster-details");
 
         this.openClusterDetails(name).then(() => {
-            const latestClusterHistory = clusterDetailsModule.$$("event-history ul>li").first();
-            const latestMessage = latestClusterHistory.$$("div").first();
-            const latestTimeStamp = latestClusterHistory.$$("div").last();
+            return browser.wait(EC.visibilityOf(clusterDetailsModule), 5000, 'Cluster details has NOT been opened').then(() => {
+                const latestClusterHistory = clusterDetailsModule.$$("event-history ul>li").first();
+                const latestMessage = latestClusterHistory.$$("div").first();
+                const latestTimeStamp = latestClusterHistory.$$("div").last();
 
-            latestMessage.getText().then(function (message) {
-                console.log(message);
-            });
-            latestTimeStamp.getText().then(function (time) {
-                console.log(time);
+                latestMessage.getText().then(function (message) {
+                    return console.log(message);
+                });
+                latestTimeStamp.getText().then(function (time) {
+                    return console.log(time);
+                });
+            }, error => {
+                return console.log('Cluster has already been terminated');
             });
         });
 
