@@ -39,28 +39,31 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const terminateButton = element(by.cssContainingText('app-cluster-details button', 'TERMINATE'));
 
-        browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT clickable').then(() => {
-            return widgetLink.isDisplayed().then((displayed) => {
-                //console.log('IsDisplayed passed');
-                browser.waitForAngular();
-                return widgetLink.click();
-            }, error => {
-                //console.log('IsDisplayed failed');
-                return false;
+        browser.wait(EC.visibilityOf(widgetLink), 10000, 'Cluster widget is NOT visible').then(() => {
+            return browser.wait(EC.elementToBeClickable(widgetLink), 5000, 'Cluster widget is NOT clickable').then(() => {
+                return widgetLink.isDisplayed().then(() => {
+                    return widgetLink.click();
+                }, error => {
+                    console.log(name + ' widget link is not available!');
+                    return false;
+                });
             });
         }, error => {
+            console.log(name + ' widget link is not visible!');
             return false;
         });
 
-        return browser.wait(EC.elementToBeClickable(terminateButton), 10000, 'Cluster Details has NOT opened').then(() => {
-            return terminateButton.isDisplayed().then((displayed) => {
-                //console.log('IsDisplayed passed');
-                return displayed;
-            }, error => {
-                //console.log('IsDisplayed failed');
-                return false;
+        return browser.wait(EC.visibilityOf(terminateButton), 10000, 'Cluster Details has NOT been opened').then(() => {
+            return browser.wait(EC.elementToBeClickable(terminateButton), 5000, 'Cluster Terminate is NOT clickable').then(() => {
+                return terminateButton.isDisplayed().then((displayed) => {
+                    return displayed;
+                }, error => {
+                    console.log(name + ' terminate button is not available!');
+                    return false;
+                });
             });
         }, error => {
+            console.log(name + ' terminate button is not visible!');
             return false;
         });
     }

@@ -114,32 +114,40 @@ describe('Testing Cloudbreak cluster creation', () => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = originalJasmineTimeout;
         });
 
+        it('previously created OpenStack cluster Details should be opened',async () => {
+            expect(await clusterDetails.openClusterDetails(clusterName + 'os')).toBeTruthy();
+        });
         it('previously created OpenStack cluster should be deleted',async () => {
-            clusterDetails.openClusterDetails(clusterName + 'os');
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'os');
             expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'os')).toBeTruthy();
         }, 600000);
 
+        it('previously created AWS cluster Details should be opened',async () => {
+            expect(await clusterDetails.openClusterDetails(clusterName + 'aws')).toBeTruthy();
+        });
         it('previously created AWS cluster should be deleted',async () => {
-            clusterDetails.openClusterDetails(clusterName + 'aws');
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'aws');
             expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'aws')).toBeTruthy();
         }, 600000);
 
+        it('previously created Azure cluster Details should be opened',async () => {
+            expect(await clusterDetails.openClusterDetails(clusterName + 'azure')).toBeTruthy();
+        });
         it('previously created Azure cluster should be deleted',async () => {
-            clusterDetails.openClusterDetails(clusterName + 'azure');
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'azure');
             expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'azure')).toBeTruthy();
         }, 600000);
 
+        it('previously created GCP cluster Details should be opened',async () => {
+            expect(await clusterDetails.openClusterDetails(clusterName + 'gcp')).toBeTruthy();
+        });
         it('previously created GCP cluster should be deleted',async () => {
-            clusterDetails.openClusterDetails(clusterName + 'gcp');
             clusterDetails.terminateCluster();
 
             clusterDetails.isClusterTerminating(clusterName + 'gcp');
