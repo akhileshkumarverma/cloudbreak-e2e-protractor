@@ -58,7 +58,7 @@ export let config: Config = {
         /**
          * Using headless Chrome
          * https://github.com/angular/protractor/blob/master/docs/browser-setup.md#using-headless-chrome
-         * This is supported only with Protractor 5.1.2+ should be in package.json. So need to do an `npm install` again.
+         * This is supported only with Protractor 5.1.2+ should be in package.json. So need to do an `yarn install` again.
          */
         chromeOptions: {
             'args': [

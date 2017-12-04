@@ -51,7 +51,7 @@ else
     --env-file $ENVFILE \
     -v $(pwd):/protractor/project \
     -v /dev/shm:/dev/shm \
-    hortonworks/cloudbreak-web-e2e npm test
+    hortonworks/cloudbreak-web-e2e yarn test
     RESULT=$?
 fi
 

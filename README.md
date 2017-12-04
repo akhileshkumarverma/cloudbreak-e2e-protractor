@@ -52,18 +52,18 @@
     source environment
     ```
 
-4. [Set your local Node environment up](https://docs.npmjs.com/cli/install) (install every needed packages and tools) for the project. Run:
+4. [Set your local Node environment up](https://yarnpkg.com/lang/en/docs/install/) (install every needed packages and tools) for the project. Run:
  
-    ```npm install```
+    ```yarn install```
    
    from the root of the project where the `package.json` is located.
 
 ### Executing Protractor tests
-> If your Protractor test environment has just cloned, you should set up its Node environment first (install every needed packages and tools). The easiest way to get all the needed Node packages in one round to use `npm install`. Please check the [npm-install](https://docs.npmjs.com/cli/install) documentation. Beyond these please check the [Protractor Tutorial](https://angular.github.io/protractor/#/tutorial).
+> If your Protractor test environment has just cloned, you should set up its Node environment first (install every needed packages and tools). The easiest way to get all the needed Node packages in one round to use `yarn install`. Please check the [yarn install](https://yarnpkg.com/en/docs/cli/install) documentation. Beyond these please check the [Protractor Tutorial](https://angular.github.io/protractor/#/tutorial).
 > You do not need to launch the `webdriver-manager` for these tests, because of the `directConnect` is `true` by default in the [Protractor configuration](protractor.conf.ts). In this case the Protractor works directly with Chrome or Firefox Driver, bypassing any Selenium Server.
 
 ```
-npm test
+yarn test
 ```
 > Above command compiles the project then launches all the tests in the Browser based on the project configuration.
 
@@ -171,4 +171,4 @@ or you can run the above commands in one round:
   - `$(PWD)` or `$pwd` the root folder of your Protractor test project.
       - For example the local folder where the test project has been cloned from GitHub.
       - The use of **PWD is optional**, you do not need to navigate to the Protractor test project root. If it is the case, you should add the full path of the root folder instead of the `$(PWD)`.
-  - `npm test` launch tests.
+  - `yarn test` launch tests.
