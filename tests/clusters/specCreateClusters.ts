@@ -114,44 +114,48 @@ describe('Testing Cloudbreak cluster creation', () => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = originalJasmineTimeout;
         });
 
-        it('previously created OpenStack cluster Details should be opened',async () => {
-            expect(await clusterDetails.openClusterDetails(clusterName + 'os')).toBeTruthy();
+        it('previously created OpenStack cluster should terminate', () => {
+            clusterDetails.openClusterDetails(clusterName + 'os');
+            expect(clusterDetails.terminateCluster()).toBeTruthy();
         });
-        it('previously created OpenStack cluster should be deleted',async () => {
-            clusterDetails.terminateCluster();
-
-            clusterDetails.isClusterTerminating(clusterName + 'os');
-            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'os')).toBeTruthy();
+        it('previously created OpenStack cluster should be terminating', () => {
+            expect(clusterDetails.isClusterTerminating(clusterName + 'os')).toBeTruthy();
+        });
+        it('previously created OpenStack cluster should be removed',async () => {
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'os')).toBeTruthy();
         }, 600000);
 
-        it('previously created AWS cluster Details should be opened',async () => {
-            expect(await clusterDetails.openClusterDetails(clusterName + 'aws')).toBeTruthy();
+        it('previously created AWS cluster should terminate', () => {
+            clusterDetails.openClusterDetails(clusterName + 'aws');
+            expect(clusterDetails.terminateCluster()).toBeTruthy();
         });
-        it('previously created AWS cluster should be deleted',async () => {
-            clusterDetails.terminateCluster();
-
-            clusterDetails.isClusterTerminating(clusterName + 'aws');
-            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'aws')).toBeTruthy();
+        it('previously created AWS cluster should be terminating', () => {
+            expect(clusterDetails.isClusterTerminating(clusterName + 'aws')).toBeTruthy();
+        });
+        it('previously created AWS cluster should be removed',async () => {
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'aws')).toBeTruthy();
         }, 600000);
 
-        it('previously created Azure cluster Details should be opened',async () => {
-            expect(await clusterDetails.openClusterDetails(clusterName + 'azure')).toBeTruthy();
+        it('previously created Azure cluster should terminate', () => {
+            clusterDetails.openClusterDetails(clusterName + 'azure');
+            expect(clusterDetails.terminateCluster()).toBeTruthy();
         });
-        it('previously created Azure cluster should be deleted',async () => {
-            clusterDetails.terminateCluster();
-
-            clusterDetails.isClusterTerminating(clusterName + 'azure');
-            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'azure')).toBeTruthy();
+        it('previously created Azure cluster should be terminating', () => {
+            expect(clusterDetails.isClusterTerminating(clusterName + 'azure')).toBeTruthy();
+        });
+        it('previously created Azure cluster should be removed',async () => {
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'azure')).toBeTruthy();
         }, 600000);
 
-        it('previously created GCP cluster Details should be opened',async () => {
-            expect(await clusterDetails.openClusterDetails(clusterName + 'gcp')).toBeTruthy();
+        it('previously created GCP cluster should terminate', () => {
+            clusterDetails.openClusterDetails(clusterName + 'gcp');
+            expect(clusterDetails.terminateCluster()).toBeTruthy();
         });
-        it('previously created GCP cluster should be deleted',async () => {
-            clusterDetails.terminateCluster();
-
-            clusterDetails.isClusterTerminating(clusterName + 'gcp');
-            expect(await clusterDetails.waitForClusterDetailsTermination(clusterName + 'gcp')).toBeTruthy();
+        it('previously created GCP cluster should be terminating', () => {
+            expect(clusterDetails.isClusterTerminating(clusterName + 'gcp')).toBeTruthy();
+        });
+        it('previously created GCP cluster should be removed',async () => {
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'gcp')).toBeTruthy();
         }, 600000);
     });
 });

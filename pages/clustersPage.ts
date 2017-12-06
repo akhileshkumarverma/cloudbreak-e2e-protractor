@@ -73,8 +73,8 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const widgetStatus = widgetLink.element(by.cssContainingText("span[class='status-text pull-right']", 'Terminating'));
 
-        browser.wait(EC.visibilityOf(widgetLink), 5000, name + ' widget is NOT visible!').then(() => {
-            widgetLink.isPresent().then((presented) => {
+        return browser.wait(EC.visibilityOf(widgetLink), 5000, name + ' widget is NOT visible!').then(() => {
+            return widgetLink.isPresent().then((presented) => {
                 return presented;
             }, error => {
                 return false;
@@ -102,8 +102,8 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
         return browser.wait(EC.stalenessOf(widgetLink), 10 * 60000, 'The cluster has NOT been terminated!').then(() => {
-            return widgetLink.isDisplayed().then((displayed) => {
-                return !displayed;
+            return widgetLink.isPresent().then((presented) => {
+                return !presented;
             }, error => {
                 console.log('Cluster has been terminated');
                 return true;

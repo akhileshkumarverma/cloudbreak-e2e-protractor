@@ -41,7 +41,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
     closeDocumentationSlide() {
         const EC = protractor.ExpectedConditions;
-        const closeIcon = $("i[class='fa fa-remove pull-right']");
+        const closeIcon = $("app-documentation i[class='fa fa-remove pull-right']");
 
         return browser.wait(EC.elementToBeClickable(closeIcon), 5000, 'Close icon is NOT clickable').then(() => {
             return closeIcon.click();
@@ -54,13 +54,13 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const providerSelect = this.providerSelector;
         const EC = protractor.ExpectedConditions;
 
-        const keystoneSelector = $("md-select[placeholder='Please choose a type']");
+        const keystoneSelector = $("mat-select[id='keystone-version-dropdown']");
         const nameField = $("input[id='name']");
         const userField = $("input[id='user']");
         const passwordField = $("input[id='password']");
         const tenantField = $("input[id='tenantName']");
         const endpointField = $("input[id='endpoint']");
-        const apiSelector = $("md-select[formcontrolname='apiFacing']");
+        const apiSelector = $("mat-select[formcontrolname='apiFacing']");
         const createButton = element(by.cssContainingText('button', ' Create'));
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
@@ -75,7 +75,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 browser.wait(EC.elementToBeClickable(keystoneSelector), 5000, 'Keystone option is NOT visible').then(() => {
                     return keystoneSelector.click().then(() => {
-                        return $("md-option[value=\'" + keystoneVersion + "\']").click();
+                        return $("mat-option[value=\'" + keystoneVersion + "\']").click();
                     });
                 });
 
@@ -85,7 +85,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                 tenantField.sendKeys(tenantName);
                 endpointField.sendKeys(endpoint);
                 apiSelector.click().then( () => {
-                    return $("md-option[ng-reflect-value=\'" + apiFacing + "\']").click();
+                    return $("mat-option[ng-reflect-value=\'" + apiFacing + "\']").click();
                 });
 
                 return createButton.click().then(() => {
@@ -105,7 +105,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const providerSelect = this.providerSelector;
         const EC = protractor.ExpectedConditions;
 
-        const typeSelector = $("app-create-amazon-credential md-select");
+        const typeSelector = $("app-create-amazon-credential mat-select[ng-reflect-name='type']");
         const nameField = $("input[id='name']");
         const roleField = $("input[id='roleArn']");
         const createButton = element(by.cssContainingText('button', ' Create'));
@@ -122,7 +122,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 browser.wait(EC.elementToBeClickable(typeSelector), 5000, 'Type option is NOT visible').then(() => {
                     return typeSelector.click().then(() => {
-                        return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                        return $("mat-option[ng-reflect-value=\'" + credentialType + "\']").click();
                     });
                 });
 
@@ -146,7 +146,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const providerSelect = this.providerSelector;
         const EC = protractor.ExpectedConditions;
 
-        const typeSelector = $("md-select[name='type']");
+        const typeSelector = $("app-create-azure-credential mat-select[name='type']");
         const nameField = $("input[id='name']");
         const subscriptionField = $("input[id='subscriptionId']");
         const tenantField = $("input[id='tenantId']");
@@ -166,7 +166,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 browser.wait(EC.elementToBeClickable(typeSelector), 5000, 'Type option is NOT visible').then(() => {
                     return typeSelector.click().then(() => {
-                        return $("md-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                        return $("mat-option[ng-reflect-value=\'" + credentialType + "\']").click();
                     });
                 });
 

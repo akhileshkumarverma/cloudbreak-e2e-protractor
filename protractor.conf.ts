@@ -168,11 +168,22 @@ export let config: Config = {
         // Format the Console test result report.
         const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
         jasmine.getEnv().addReporter(new SpecReporter({
+            // Configuration: https://github.com/bcaudan/jasmine-spec-reporter/blob/master/src/configuration.ts
+            suite: {
+                displayNumber: true,        // display each suite number (hierarchical)
+            },
             spec: {
-                displayStacktrace: true
+                displayDuration: true,      // display each spec duration
+                displayStacktrace: true     // display stacktrace for each failed assertion
             },
             summary: {
-                displayDuration: true
+                displaySuccessful: false,   // display summary of all successes after execution
+                displayFailed: true,        // display summary of all failures after execution
+                displayPending: false,      // display summary of all pending specs after execution
+                displayDuration: true,      // display execution duration
+            },
+            colors: {
+                enabled: true               // enable colors
             }
         }));
         /**

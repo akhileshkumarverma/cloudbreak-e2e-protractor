@@ -51,7 +51,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     setAdvancedTemplate() {
         const EC = protractor.ExpectedConditions;
         const templateSelector = this.templateSwitch;
-        const credentialSelector = $("md-select[placeholder='Please select credential']");
+        const credentialSelector = $("mat-select[placeholder='Please select credential']");
 
         browser.wait(EC.elementToBeClickable(templateSelector), 5000, 'Template switch is NOT clickable').then(() => {
             return templateSelector.isEnabled().then((enabled) => {
@@ -77,18 +77,18 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
     selectCredential(name: string) {
         const EC = protractor.ExpectedConditions;
-        const credentialSelector = $("app-general-configuration md-select[placeholder='Please select credential']");
+        const credentialSelector = $("app-general-configuration mat-select[placeholder='Please select credential']");
         const selectedCredential = element(by.cssContainingText('span.mat-select-value-text span', name));
 
         browser.wait(EC.elementToBeClickable(credentialSelector), 5000, 'Credential select is NOT clickable').then(() => {
             return credentialSelector.click().then(() => {
-                const credentialToSelect = element(by.cssContainingText('md-option', name));
+                const credentialToSelect = element(by.cssContainingText('mat-option', name));
 
                 return browser.wait(EC.elementToBeClickable(credentialToSelect), 5000, name + ' credential is NOT clickable').then(() => {
                     return credentialToSelect.click();
                 }, error => {
                     console.log(name + ' credential is NOT present!');
-                    $$("md-option").first().click();
+                    $$("mat-option").first().click();
                     return false;
                 });
             });
@@ -128,7 +128,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
     setMasterAsAmbariServer() {
         const EC = protractor.ExpectedConditions;
-        const ambariMasterCheckbox = $("md-checkbox[ng-reflect-name='master_ambariServer']");
+        const ambariMasterCheckbox = $("mat-checkbox[ng-reflect-name='master_ambariServer']");
 
         ambariMasterCheckbox.getAttribute('class').then((elementClass) => {
             //console.log(elementClass);
@@ -177,19 +177,19 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
     selectNetworkSubnet(network: string, subnet: string) {
         const EC = protractor.ExpectedConditions;
-        const networkSelector = $("md-select[placeholder='Please select a network']");
-        const subnetSelector = $("md-select[placeholder='Please select a subnet']");
+        const networkSelector = $("mat-select[placeholder='Please select a network']");
+        const subnetSelector = $("mat-select[placeholder='Please select a subnet']");
 
         browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
             networkSelector.click().then(() => {
-                const selectedNetwork = $("md-option[ng-reflect-value=\'" + network + "\']");
+                const selectedNetwork = $("mat-option[ng-reflect-value=\'" + network + "\']");
 
                 return browser.wait(EC.elementToBeClickable(selectedNetwork), 5000, 'Network value is NOT clickable').then(() => {
                     return selectedNetwork.click();
                 });
             }).then(() => {
                 subnetSelector.click().then(() => {
-                    return $("md-option[ng-reflect-value=\'" + subnet + "\']").click().then(() => {
+                    return $("mat-option[ng-reflect-value=\'" + subnet + "\']").click().then(() => {
                         const nextButton = element(by.cssContainingText('button', 'Next'));
 
                         return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
@@ -244,11 +244,11 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
     selectSSHKey(sshKey: string) {
         const EC = protractor.ExpectedConditions;
-        const sshSelector = $("md-select[placeholder='Please select ssh key']");
+        const sshSelector = $("mat-select[placeholder='Please select ssh key']");
 
         browser.wait(EC.elementToBeClickable(sshSelector), 5000, 'SSH Key select is NOT clickable').then(() => {
             return sshSelector.click().then(() => {
-                return $("md-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
+                return $("mat-option[ng-reflect-value=\'" + sshKey + "\']").click().then(() => {
                     const createButton = element(by.cssContainingText('button', 'Create cluster'));
 
                     return browser.wait(EC.elementToBeClickable(createButton), 5000, 'Create Cluster button is NOT clickable').then(() => {

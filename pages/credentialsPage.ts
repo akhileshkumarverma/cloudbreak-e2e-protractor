@@ -54,7 +54,7 @@ export class CredentialsPageObject extends BasePageObject {
         const EC = protractor.ExpectedConditions;
 
         const noCredentialInformation = element(by.cssContainingText('app-credential-list div', 'There are no credentials to display.'));
-        const checkboxes = $$("app-credential-list md-checkbox");
+        const checkboxes = $$("app-credential-list mat-checkbox");
         const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
 
         noCredentialInformation.isDisplayed().then((displayed) => {
@@ -96,7 +96,7 @@ export class CredentialsPageObject extends BasePageObject {
     deleteCredential(name: string) {
         const EC = protractor.ExpectedConditions;
 
-        const checkbox = $("div[data-credential-name=\'" + name + "\'] md-checkbox");
+        const checkbox = $("div[data-credential-name=\'" + name + "\'] mat-checkbox");
         const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
 
         return checkbox.click().then(() => {
