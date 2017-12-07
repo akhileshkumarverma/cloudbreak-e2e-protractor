@@ -13,6 +13,10 @@ describe('Testing Cloudbreak credential creation', () => {
 
     describe('where user is able to delete old credentials', () => {
 
+        beforeEach(async () => {
+            await credentials.openPage('Credentials');
+        });
+
         it('previously created OpenStack credential should delete',() => {
             expect(credentials.deleteCredential(name + 'os')).toBeTruthy();
         });
