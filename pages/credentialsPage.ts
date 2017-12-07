@@ -99,25 +99,32 @@ export class CredentialsPageObject extends BasePageObject {
         const checkbox = $("div[data-credential-name=\'" + name + "\'] mat-checkbox");
         const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
 
-        return checkbox.click().then(() => {
-            deleteButton.click().then( () => {
-                const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
+        checkbox.click().then(() => {
+            console.log(name + ' credential is selected to delete!');
+            return true;
+        });
 
-                return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
-                    return confirmationYes.click();
-                });
+        deleteButton.click().then(() => {
+            const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
+
+            return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
+                return confirmationYes.click();
+            }, error => {
+                return error;
             });
+        }).then(() => {
+            return this.closeConfirmationDialog();
+        });
 
-            return browser.wait(EC.invisibilityOf(checkbox), 10000, name + ' credential has NOT been deleted!').then(() => {
-                return checkbox.isDisplayed().then((displayed) => {
-                   return !displayed;
-                }, error => {
-                    return true;
-                });
+        return browser.wait(EC.stalenessOf(checkbox), 10000, name + ' credential has NOT been deleted!').then(() => {
+            return checkbox.isPresent().then((presented) => {
+                return !presented;
+            }, error => {
+                console.log(name + ' credential has been deleted');
+                return true;
             });
         }, error => {
-            console.log(name + ' credential is not present!');
-            return true;
+            return false;
         });
     }
 

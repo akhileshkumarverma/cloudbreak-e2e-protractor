@@ -9,7 +9,37 @@ describe('Testing Cloudbreak credential creation', () => {
 
     beforeAll(() => {
         credentials.openPage('Credentials');
-        credentials.deleteAllCredentials();
+    });
+
+    describe('where user is able to delete old credentials', () => {
+
+        it('previously created OpenStack credential should delete',() => {
+            expect(credentials.deleteCredential(name + 'os')).toBeTruthy();
+        });
+        it('previously created OpenStack credential should be deleted',() => {
+            expect(credentials.isCredentialDeleted(name + 'os')).toBeTruthy();
+        });
+
+        it('previously created AWS credential should delete',() => {
+            expect(credentials.deleteCredential(name + 'aws')).toBeTruthy();
+        });
+        it('previously created AWS credential should be deleted',() => {
+            expect(credentials.isCredentialDeleted(name + 'aws')).toBeTruthy();
+        });
+
+        it('previously created Azure credential should delete',() => {
+            expect(credentials.deleteCredential(name + 'azure')).toBeTruthy();
+        });
+        it('previously created Azure credential should be deleted',() => {
+            expect(credentials.isCredentialDeleted(name + 'azure')).toBeTruthy();
+        });
+
+        it('previously created GCP credential should delete',() => {
+            expect(credentials.deleteCredential(name + 'gcp')).toBeTruthy();
+        });
+        it('previously created GCP credential should be deleted',() => {
+            expect(credentials.isCredentialDeleted(name + 'gcp')).toBeTruthy();
+        });
     });
 
     describe('where the Credentials page', () => {
@@ -84,29 +114,4 @@ describe('Testing Cloudbreak credential creation', () => {
         });
 
     });
-
-    // describe('where user is able to delete credentials', () => {
-    //
-    //     beforeAll(() => {
-    //         console.log('Credential deletion test setup has started');
-    //         credentials.openPage('Credentials');
-    //         credentials.deleteAllCredentials();
-    //     });
-    //
-    //     it('previously created OpenStack credential should be deleted',() => {
-    //         expect(credentials.isCredentialDeleted(name + 'os')).toBeTruthy();
-    //     });
-    //
-    //     it('previously created AWS credential should be deleted',() => {
-    //         expect(credentials.isCredentialDeleted(name + 'aws')).toBeTruthy();
-    //     });
-    //
-    //     it('previously created Azure credential should be deleted',() => {
-    //         expect(credentials.isCredentialDeleted(name + 'azure')).toBeTruthy();
-    //     });
-    //
-    //     it('previously created GCP credential should be deleted',() => {
-    //         expect(credentials.isCredentialDeleted(name + 'gcp')).toBeTruthy();
-    //     });
-    // });
 });
