@@ -65,7 +65,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
-                const openstackButton = $("div[class='option'] img[src*='openstack.png']");
+                const openstackButton = $("div[class*='option'] img[src*='openstack.png']");
 
                 browser.wait(EC.elementToBeClickable(openstackButton), 5000, 'OpenStack option is NOT visible').then(() => {
                     return openstackButton.click();
@@ -112,7 +112,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
-                const awsButton = $("div[class='option'] img[src*='aws.png']");
+                const awsButton = $("div[class*='option'] img[src*='aws.png']");
 
                 browser.wait(EC.visibilityOf(awsButton), 5000, 'AWS Credential Type option is NOT visible').then(() => {
                     return awsButton.click();
@@ -156,7 +156,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
-                const azureButton = $("div[class='option'] img[src*='msa.png']");
+                const azureButton = $("div[class*='option'] img[src*='msa.png']");
 
                 browser.wait(EC.visibilityOf(azureButton), 5000, 'Azure Credential Type option is NOT visible').then(() => {
                     return azureButton.click();
@@ -203,7 +203,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
-                const gcpButton = $("div[class='option'] img[src*='gcp.png']");
+                const gcpButton = $("div[class*='option'] img[src*='gcp.png']");
 
                 browser.wait(EC.visibilityOf(gcpButton), 5000, 'GCP Credential Type option is NOT visible').then(() => {
                     return gcpButton.click();
