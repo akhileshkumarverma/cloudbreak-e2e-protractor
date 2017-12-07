@@ -97,11 +97,35 @@ export class ClustersPageObject extends BasePageObject {
         });
     }
 
+    refreshClustersPage() {
+        const EC = protractor.ExpectedConditions;
+        const refreshIcon = $("app-cluster-list i[class='fa fa-refresh fa-fw']");
+        const spinIcon = $("app-cluster-list i[class='fa fa-refresh fa-spin fa-fw']");
+
+        return browser.wait(EC.elementToBeClickable(refreshIcon), 5000, 'The refresh Clusters page is NOT clickable!').then(() => {
+            return refreshIcon.click().then(() => {
+                return browser.wait(EC.stalenessOf(spinIcon), 5000, 'The Clusters page is STILL refreshing!').then(() => {
+                    return spinIcon.isPresent().then((presented) => {
+                        return !presented;
+                    }, error => {
+                        return true;
+                    });
+                }, error => {
+                    return false;
+                });
+            }, error => {
+                return false;
+            });
+        }, error => {
+            return false;
+        });
+    }
+
     waitForClusterWidgetTermination(name: string) {
         const EC = protractor.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.stalenessOf(widgetLink), 10 * 60000, 'The cluster has NOT been terminated!').then(() => {
+        return browser.wait(EC.stalenessOf(widgetLink), 8 * 60000, 'The cluster has NOT been terminated!').then(() => {
             return widgetLink.isPresent().then((presented) => {
                 return !presented;
             }, error => {
@@ -109,7 +133,14 @@ export class ClustersPageObject extends BasePageObject {
                 return true;
             });
         }, error => {
-            return false;
+            this.refreshClustersPage();
+
+            return widgetLink.isPresent().then((presented) => {
+                return !presented;
+            }, error => {
+                console.log('Cluster has been terminated');
+                return true;
+            });
         });
     }
 
@@ -134,7 +165,7 @@ export class ClustersPageObject extends BasePageObject {
             });
         });
 
-        return browser.wait(EC.stalenessOf(clusterDetailsModule), 10 * 60000, 'The cluster has NOT been terminated!').then(() => {
+        return browser.wait(EC.stalenessOf(clusterDetailsModule), 8 * 60000, 'The cluster has NOT been terminated!').then(() => {
             return clusterDetailsModule.isPresent().then((presented) => {
                 return !presented;
             }, error => {
