@@ -94,6 +94,9 @@ export class ClustersPageObject extends BasePageObject {
                     return true;
                 }
             });
+        }, error => {
+            console.log(name + ' widget has already been removed!');
+            return true;
         });
     }
 

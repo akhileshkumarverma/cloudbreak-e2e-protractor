@@ -11,10 +11,21 @@ describe('Testing Cloudbreak credential creation', () => {
         credentials.openPage('Credentials');
     });
 
+    describe('where the Credentials page', () => {
+
+        it('should be opened from base page',() => {
+            expect(credentials.amIOnTheCredentialsPage()).toBeTruthy();
+        });
+    });
+
     describe('where user is able to delete old credentials', () => {
 
         beforeEach(async () => {
             await credentials.openPage('Credentials');
+        });
+
+        afterAll(async () => {
+            await credentials.deleteAllCredentials();
         });
 
         it('previously created OpenStack credential should delete',() => {
@@ -43,13 +54,6 @@ describe('Testing Cloudbreak credential creation', () => {
         });
         it('previously created GCP credential should be deleted',() => {
             expect(credentials.isCredentialDeleted(name + 'gcp')).toBeTruthy();
-        });
-    });
-
-    describe('where the Credentials page', () => {
-
-        it('should be opened from base page',() => {
-            expect(credentials.amIOnTheCredentialsPage()).toBeTruthy();
         });
     });
 

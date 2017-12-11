@@ -70,16 +70,20 @@ export class CredentialsPageObject extends BasePageObject {
                     });
                 });
 
-                return deleteButton.click().then(() => {
-                    const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
+                return browser.wait(EC.elementToBeClickable(deleteButton), 5000, 'Delete button is NOT clickable!').then(() => {
+                    return deleteButton.click().then(() => {
+                        const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
 
-                    return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
-                        return confirmationYes.click();
-                    }, error => {
-                        return error;
+                        return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
+                            return confirmationYes.click();
+                        }, error => {
+                            return error;
+                        });
+                    }).then(() => {
+                        return this.closeConfirmationDialog();
                     });
-                }).then(() => {
-                    return this.closeConfirmationDialog();
+                }, error => {
+                    return false;
                 });
             }
         });
@@ -99,28 +103,36 @@ export class CredentialsPageObject extends BasePageObject {
         const checkbox = $("div[data-credential-name=\'" + name + "\'] mat-checkbox");
         const deleteButton = element(by.cssContainingText('app-credential-list button', 'Delete'));
 
-        checkbox.click().then(() => {
-            console.log(name + ' credential is selected to delete!');
-            return true;
-        });
+        checkbox.isPresent().then((presented) => {
+            return presented;
+        }, error => {
+            return false;
+        }).then((presentedResult) => {
+           if (presentedResult) {
+               checkbox.click().then(() => {
+                   console.log(name + ' credential is selected to delete!');
+                   return true;
+               });
 
-        deleteButton.click().then(() => {
-            const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
+               deleteButton.click().then(() => {
+                   const confirmationYes = element(by.cssContainingText('app-delete-credentials-dialog button', 'Yes'));
 
-            return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
-                return confirmationYes.click();
-            }, error => {
-                return error;
-            });
-        }).then(() => {
-            return this.closeConfirmationDialog();
+                   return browser.wait(EC.visibilityOf(confirmationYes), 5000, 'Delete Confirmation is NOT visible').then(() => {
+                       return confirmationYes.click();
+                   }, error => {
+                       return error;
+                   });
+               }).then(() => {
+                   return this.closeConfirmationDialog();
+               });
+           }
         });
 
         return browser.wait(EC.stalenessOf(checkbox), 10000, name + ' credential has NOT been deleted!').then(() => {
             return checkbox.isPresent().then((presented) => {
                 return !presented;
             }, error => {
-                console.log(name + ' credential has been deleted');
+                console.log(name + ' credential is NOT present');
                 return true;
             });
         }, error => {
