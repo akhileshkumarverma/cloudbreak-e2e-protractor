@@ -126,6 +126,21 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
+    setAttachedVolume(count: number) {
+        const masterVolumeField = $("input[ng-reflect-name='master_volumeCount']");
+        const workerVolumeField = $("input[ng-reflect-name='worker_volumeCount']");
+        const computeVolumeField = $("input[ng-reflect-name='compute_volumeCount']");
+
+        let volumeFields = [masterVolumeField, workerVolumeField, computeVolumeField];
+
+        volumeFields.forEach((field, index) => {
+            field.clear().then(() => {
+                console.log(index + ' Attached Volumes Per Instance has been set to: ' + count);
+                return field.sendKeys(count);
+            });
+        });
+    }
+
     setMasterAsAmbariServer() {
         const EC = protractor.ExpectedConditions;
         const ambariMasterCheckbox = $("mat-checkbox[ng-reflect-name='master_ambariServer']");
@@ -298,6 +313,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         this.setAdvancedTemplate();
 
         this.setClusterName(clusterName);
+        this.setAttachedVolume(0);
         this.setMasterAsAmbariServer();
 
         this.navigateFromRecipes();

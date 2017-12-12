@@ -9,8 +9,8 @@ export class ClusterDetailsPageObject extends ClustersPageObject {
 
         return browser.wait(EC.elementToBeClickable(terminateButton), 5000, 'Terminate button is NOT clickable').then(() => {
             return terminateButton.click().then(() => {
-                const confirmationYesButton = element(by.cssContainingText('app-confirmation-dialog button', 'Yes'));
-                const forceTermination = $("app-confirmation-dialog mat-checkbox");
+                const confirmationYesButton = element(by.cssContainingText('app-delete-stack-dialog button', 'Yes'));
+                const forceTermination = $("app-delete-stack-dialog mat-checkbox");
                 const forceTerminationLabel = forceTermination.$("label");
 
                 console.log('Terminate button has clicked');
