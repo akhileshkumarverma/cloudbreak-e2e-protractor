@@ -57,26 +57,34 @@ describe('Testing Cloudbreak cluster creation', () => {
         const sshKeyName = process.env.SSH_KEY_NAME;
         const network = process.env.OS_NETWORK;
         const subnet = process.env.OS_SUBNET;
+        const securityGroupMaster = process.env.OS_MASTER_SECURITY_GROUP;
+        const securityGroupWorker = process.env.OS_WORKER_SECURITY_GROUP;
+        const securityGroupCompute = process.env.OS_COMPUTE_SECURITY_GROUP;
 
-        beforeEach(() => {
-            clusters.openPage('clusters/create');
+        beforeEach(async () => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+            await clusters.openPage('clusters/create');
+        });
+
+        afterAll(() => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = originalJasmineTimeout;
         });
 
         it('new OpenStack cluster should be created', async () => {
-            expect(await clusterCreateWizard.createOpenStackCluster(credentialName + 'os', clusterName + 'os', network, subnet, user, password, sshKeyName)).toBeTruthy();
-        });
+            expect(await clusterCreateWizard.createOpenStackCluster(credentialName + 'os', clusterName + 'os', network, subnet, securityGroupMaster, securityGroupWorker, securityGroupCompute, user, password, sshKeyName)).toBeTruthy();
+        },600000);
 
         it('new AWS cluster should be created',async () => {
             expect(await clusterCreateWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).toBeTruthy();
-        });
+        },600000);
 
         it('new Azure cluster should be created',async () => {
             expect(await clusterCreateWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey)).toBeTruthy();
-        });
+        },600000);
 
         it('new GCP cluster should be created',async () => {
             expect(await clusterCreateWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey)).toBeTruthy();
-        });
+        },600000);
     });
 
     describe('where the Clusters page shows the newly created clusters', () => {

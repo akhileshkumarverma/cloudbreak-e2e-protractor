@@ -200,6 +200,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 const selectedNetwork = $("mat-option[ng-reflect-value=\'" + network + "\']");
 
                 return browser.wait(EC.elementToBeClickable(selectedNetwork), 5000, 'Network value is NOT clickable').then(() => {
+                    console.log('Cluster\'s network has been set to: ' + network);
                     return selectedNetwork.click();
                 });
             }).then(() => {
@@ -207,6 +208,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                     return $("mat-option[ng-reflect-value=\'" + subnet + "\']").click().then(() => {
                         const nextButton = element(by.cssContainingText('button', 'Next'));
 
+                        console.log('[' + network + ']\'s subnet has been set to: ' + subnet);
                         return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                             return nextButton.click().then(() => {
                                 return browser.wait(EC.urlContains('/clusters/create/security'), 5000, 'Security page is NOT visible').then(() => {
@@ -215,6 +217,51 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                             });
                         });
                     });
+                });
+            });
+        });
+    }
+
+    openExistingSecurityGroupTab(hostGroup: string) {
+        const EC = protractor.ExpectedConditions;
+        const networkApp = $("app-network");
+        const sourceRadioGroup = networkApp.$("mat-radio-group[ng-reflect-name=\'" + hostGroup + "_securityGroupType']");
+        const selectedTabTitle = sourceRadioGroup.$("mat-radio-button[ng-reflect-value='provider-sg']");
+
+        return browser.wait(EC.elementToBeClickable(selectedTabTitle), 5000, hostGroup + ' Existing Security Group tab is NOT clickable').then(() => {
+            return selectedTabTitle.click().then(() => {
+                return browser.wait(EC.elementToBeSelected(selectedTabTitle), 5000, hostGroup + ' Existing Security Group tab is NOT selected').then(() => {
+                    return selectedTabTitle.isDisplayed().then((displayed) => {
+                        return displayed;
+                    });
+                }, error => {
+                    return false;
+                });
+            });
+        }, error => {
+            return false;
+        });
+    }
+
+    setSecurityGroup(hostGroup: string, securityGroup: string) {
+        const EC = protractor.ExpectedConditions;
+        const securityGroupSelector = $("mat-select[ng-reflect-name=\'" + hostGroup + "_securityGroup']");
+
+        this.openExistingSecurityGroupTab(hostGroup);
+
+        browser.wait(EC.visibilityOf(securityGroupSelector), 5000, hostGroup + ' security group dropdown is NOT visible').then(() => {
+            return securityGroupSelector.click().then(() => {
+                const selectedSecurityGroup = $("mat-option[ng-reflect-value=\'" + securityGroup + "\']");
+
+                return browser.wait(EC.elementToBeClickable(selectedSecurityGroup), 5000, securityGroup + ' security group value is NOT clickable').then(() => {
+                    return selectedSecurityGroup.click().then(() => {
+                        console.log('[' + hostGroup + '] security group has been set to: ' + securityGroup);
+                        return true;
+                    }, error => {
+                        return false;
+                    });
+                }, error => {
+                    return false;
                 });
             });
         });
@@ -307,7 +354,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         });
     }
 
-    createOpenStackCluster(credentialName: string, clusterName: string, network: string, subnet: string, user: string, password: string, sshKey: string) {
+    createOpenStackCluster(credentialName: string, clusterName: string, network: string, subnet: string, securityGroupMaster: string, securityGroupWorker: string, securityGroupCompute: string, user: string, password: string, sshKey: string) {
         this.selectCredential(credentialName);
 
         this.setAdvancedTemplate();
@@ -317,6 +364,10 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         this.setMasterAsAmbariServer();
 
         this.navigateFromRecipes();
+
+        this.setSecurityGroup('master', securityGroupMaster);
+        this.setSecurityGroup('worker', securityGroupWorker);
+        this.setSecurityGroup('compute', securityGroupCompute);
         this.selectNetworkSubnet(network, subnet);
 
         this.setAmbariCredentials(user, password);
