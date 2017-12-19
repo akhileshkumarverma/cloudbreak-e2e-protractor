@@ -110,15 +110,25 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
     setClusterName(name: string) {
         const EC = protractor.ExpectedConditions;
         const clusterNameField = $("input[id='clusterName']");
+        const regionSelector = $("mat-select[ng-reflect-name='region']");
 
-        clusterNameField.clear().then(() => {
-            return clusterNameField.sendKeys(name).then(() => {
-                const nextButton = element(by.cssContainingText('button', 'Next'));
+        browser.wait(EC.elementToBeClickable(regionSelector), 20000, 'Region select is NOT clickable').then(() => {
+            return regionSelector.isEnabled().then((enabled) => {
+                return enabled;
+            }, error => {
+                console.log('Region select is not clickable!');
+                return false;
+            })
+        }).then(() => {
+            clusterNameField.clear().then(() => {
+                return clusterNameField.sendKeys(name).then(() => {
+                    const nextButton = element(by.cssContainingText('button', 'Next'));
 
-                return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
-                    return nextButton.click().then(() => {
-                        return browser.wait(EC.urlContains('/clusters/create/hardware-and-storage'), 5000, 'Hardware and Storage page is NOT opened').then(() => {
-                            return true;
+                    return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                        return nextButton.click().then(() => {
+                            return browser.wait(EC.urlContains('/clusters/create/hardware-and-storage'), 5000, 'Hardware and Storage page is NOT opened').then(() => {
+                                return true;
+                            });
                         });
                     });
                 });
@@ -195,11 +205,11 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         const networkSelector = $("mat-select[placeholder='Please select a network']");
         const subnetSelector = $("mat-select[placeholder='Please select a subnet']");
 
-        browser.wait(EC.visibilityOf(networkSelector), 5000, 'Network dropdown is NOT visible').then(() => {
+        browser.wait(EC.visibilityOf(networkSelector), 10000, 'Network dropdown is NOT visible').then(() => {
             networkSelector.click().then(() => {
                 const selectedNetwork = $("mat-option[ng-reflect-value=\'" + network + "\']");
 
-                return browser.wait(EC.elementToBeClickable(selectedNetwork), 5000, 'Network value is NOT clickable').then(() => {
+                return browser.wait(EC.elementToBeClickable(selectedNetwork), 10000, 'Network value is NOT clickable').then(() => {
                     console.log('Cluster\'s network has been set to: ' + network);
                     return selectedNetwork.click();
                 });
@@ -228,9 +238,9 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         const sourceRadioGroup = networkApp.$("mat-radio-group[ng-reflect-name=\'" + hostGroup + "_securityGroupType']");
         const selectedTabTitle = sourceRadioGroup.$("mat-radio-button[ng-reflect-value='provider-sg']");
 
-        return browser.wait(EC.elementToBeClickable(selectedTabTitle), 5000, hostGroup + ' Existing Security Group tab is NOT clickable').then(() => {
+        return browser.wait(EC.elementToBeClickable(selectedTabTitle), 10000, hostGroup + ' Existing Security Group tab is NOT clickable').then(() => {
             return selectedTabTitle.click().then(() => {
-                return browser.wait(EC.elementToBeSelected(selectedTabTitle), 5000, hostGroup + ' Existing Security Group tab is NOT selected').then(() => {
+                return browser.wait(EC.elementToBeSelected(selectedTabTitle), 10000, hostGroup + ' Existing Security Group tab is NOT selected').then(() => {
                     return selectedTabTitle.isDisplayed().then((displayed) => {
                         return displayed;
                     });
@@ -249,11 +259,11 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
 
         this.openExistingSecurityGroupTab(hostGroup);
 
-        browser.wait(EC.visibilityOf(securityGroupSelector), 5000, hostGroup + ' security group dropdown is NOT visible').then(() => {
+        browser.wait(EC.visibilityOf(securityGroupSelector), 10000, hostGroup + ' security group dropdown is NOT visible').then(() => {
             return securityGroupSelector.click().then(() => {
                 const selectedSecurityGroup = $("mat-option[ng-reflect-value=\'" + securityGroup + "\']");
 
-                return browser.wait(EC.elementToBeClickable(selectedSecurityGroup), 5000, securityGroup + ' security group value is NOT clickable').then(() => {
+                return browser.wait(EC.elementToBeClickable(selectedSecurityGroup), 10000, securityGroup + ' security group value is NOT clickable').then(() => {
                     return selectedSecurityGroup.click().then(() => {
                         console.log('[' + hostGroup + '] security group has been set to: ' + securityGroup);
                         return true;

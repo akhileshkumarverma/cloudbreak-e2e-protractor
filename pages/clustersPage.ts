@@ -128,7 +128,7 @@ export class ClustersPageObject extends BasePageObject {
         const EC = protractor.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
 
-        return browser.wait(EC.stalenessOf(widgetLink), 8 * 60000, 'The cluster has NOT been terminated!').then(() => {
+        return browser.wait(EC.stalenessOf(widgetLink), 480000, 'The cluster has NOT been terminated!').then(() => {
             return widgetLink.isPresent().then((presented) => {
                 return !presented;
             }, error => {

@@ -20,12 +20,12 @@ describe('Testing Cloudbreak credential creation', () => {
 
     describe('where user is able to delete old credentials', () => {
 
-        beforeEach(async () => {
-            await credentials.openPage('Credentials');
+        beforeEach(() => {
+            credentials.openPage('Credentials');
         });
 
-        afterAll(async () => {
-            await credentials.deleteAllCredentials();
+        afterAll(() => {
+            credentials.deleteAllCredentials();
         });
 
         it('previously created OpenStack credential should delete',() => {
@@ -80,9 +80,8 @@ describe('Testing Cloudbreak credential creation', () => {
     describe('where user is able to create credentials', () => {
         let credentialSetupWizard: CredentialSetupWizardPageObject = new CredentialSetupWizardPageObject();
 
-        beforeEach((done) => {
+        beforeEach(() => {
             credentialSetupWizard.amIOnTheCreateCredentialWizard();
-            done();
         });
 
         it('new OpenStack credential should be created',() => {

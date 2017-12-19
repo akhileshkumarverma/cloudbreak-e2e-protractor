@@ -61,30 +61,37 @@ describe('Testing Cloudbreak cluster creation', () => {
         const securityGroupWorker = process.env.OS_WORKER_SECURITY_GROUP;
         const securityGroupCompute = process.env.OS_COMPUTE_SECURITY_GROUP;
 
-        beforeEach(async () => {
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            await clusters.openPage('clusters/create');
+        beforeEach( () => {
+            clusters.openPage('clusters/create');
         });
 
-        afterAll(() => {
+        afterEach(() => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = originalJasmineTimeout;
         });
 
-        it('new OpenStack cluster should be created', async () => {
-            expect(await clusterCreateWizard.createOpenStackCluster(credentialName + 'os', clusterName + 'os', network, subnet, securityGroupMaster, securityGroupWorker, securityGroupCompute, user, password, sshKeyName)).toBeTruthy();
-        },600000);
+        it('new OpenStack cluster should be created', async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
+            expect(clusterCreateWizard.createOpenStackCluster(credentialName + 'os', clusterName + 'os', network, subnet, securityGroupMaster, securityGroupWorker, securityGroupCompute, user, password, sshKeyName)).toBeTruthy();
+            await done();
+        }, 300000);
 
-        it('new AWS cluster should be created',async () => {
-            expect(await clusterCreateWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).toBeTruthy();
-        },600000);
+        it('new AWS cluster should be created',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
+            expect(clusterCreateWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).toBeTruthy();
+            await done();
+        }, 300000);
 
-        it('new Azure cluster should be created',async () => {
-            expect(await clusterCreateWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey)).toBeTruthy();
-        },600000);
+        it('new Azure cluster should be created',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
+            expect(clusterCreateWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey)).toBeTruthy();
+            await done();
+        }, 300000);
 
-        it('new GCP cluster should be created',async () => {
-            expect(await clusterCreateWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey)).toBeTruthy();
-        },600000);
+        it('new GCP cluster should be created',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
+            expect(clusterCreateWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey)).toBeTruthy();
+            await done();
+        }, 300000);
     });
 
     describe('where the Clusters page shows the newly created clusters', () => {
@@ -113,12 +120,11 @@ describe('Testing Cloudbreak cluster creation', () => {
     describe('where user is able to delete clusters', () => {
         let clusterDetails: ClusterDetailsPageObject = new ClusterDetailsPageObject();
 
-        beforeEach(async () => {
-            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            await clusters.openPage('Clusters');
+        beforeEach(() => {
+            clusters.openPage('Clusters');
         });
 
-        afterAll(() => {
+        afterEach(() => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = originalJasmineTimeout;
         });
 
@@ -129,9 +135,11 @@ describe('Testing Cloudbreak cluster creation', () => {
         it('previously created OpenStack cluster should be terminating', () => {
             expect(clusterDetails.isClusterTerminating(clusterName + 'os')).toBeTruthy();
         });
-        it('previously created OpenStack cluster should be removed',async () => {
-            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'os')).toBeTruthy();
-        }, 600000);
+        it('previously created OpenStack cluster should be removed',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'os')).toBeTruthy();
+            await done();
+        }, 500000);
 
         it('previously created AWS cluster should terminate', () => {
             clusterDetails.openClusterDetails(clusterName + 'aws');
@@ -140,9 +148,11 @@ describe('Testing Cloudbreak cluster creation', () => {
         it('previously created AWS cluster should be terminating', () => {
             expect(clusterDetails.isClusterTerminating(clusterName + 'aws')).toBeTruthy();
         });
-        it('previously created AWS cluster should be removed',async () => {
-            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'aws')).toBeTruthy();
-        }, 600000);
+        it('previously created AWS cluster should be removed',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'aws')).toBeTruthy();
+            await done();
+        }, 500000);
 
         it('previously created Azure cluster should terminate', () => {
             clusterDetails.openClusterDetails(clusterName + 'azure');
@@ -151,9 +161,11 @@ describe('Testing Cloudbreak cluster creation', () => {
         it('previously created Azure cluster should be terminating', () => {
             expect(clusterDetails.isClusterTerminating(clusterName + 'azure')).toBeTruthy();
         });
-        it('previously created Azure cluster should be removed',async () => {
-            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'azure')).toBeTruthy();
-        }, 600000);
+        it('previously created Azure cluster should be removed',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'azure')).toBeTruthy();
+            await done();
+        }, 500000);
 
         it('previously created GCP cluster should terminate', () => {
             clusterDetails.openClusterDetails(clusterName + 'gcp');
@@ -162,8 +174,10 @@ describe('Testing Cloudbreak cluster creation', () => {
         it('previously created GCP cluster should be terminating', () => {
             expect(clusterDetails.isClusterTerminating(clusterName + 'gcp')).toBeTruthy();
         });
-        it('previously created GCP cluster should be removed',async () => {
-            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'gcp')).toBeTruthy();
-        }, 600000);
+        it('previously created GCP cluster should be removed',async (done) => {
+            jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'gcp')).toBeTruthy();
+            await done();
+        }, 500000);
     });
 });

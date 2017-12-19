@@ -26,6 +26,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.8.2",
     "@types/node": "^8.0.3",
+    "jasmine": "^2.8.0",
     "jasmine-co": "^1.2.2",
     "jasmine-data-provider": "^2.2.0",
     "jasmine-expect": "^3.8.1",
@@ -39,7 +40,6 @@
     "protractor": "^5.2.0",
     "protractor-console": "^3.0.0",
     "typescript": "^2.6.1",
-    "jasmine": "^2.8.0",
     "jasmine-reporters": "^2.2.1",
     "jasmine-spec-reporter": "^4.2.1",
     "protractor-jasmine2-html-reporter": "^0.0.7",
