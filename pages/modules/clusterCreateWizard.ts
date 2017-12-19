@@ -119,6 +119,8 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 console.log('Region select is not clickable!');
                 return false;
             })
+        }, error => {
+            return false;
         }).then(() => {
             clusterNameField.clear().then(() => {
                 return clusterNameField.sendKeys(name).then(() => {
