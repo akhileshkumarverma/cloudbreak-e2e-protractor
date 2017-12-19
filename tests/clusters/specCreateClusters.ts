@@ -71,25 +71,25 @@ describe('Testing Cloudbreak cluster creation', () => {
 
         it('new OpenStack cluster should be created', async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
-            expect(clusterCreateWizard.createOpenStackCluster(credentialName + 'os', clusterName + 'os', network, subnet, securityGroupMaster, securityGroupWorker, securityGroupCompute, user, password, sshKeyName)).toBeTruthy();
+            expect(await clusterCreateWizard.createOpenStackCluster(credentialName + 'os', clusterName + 'os', network, subnet, securityGroupMaster, securityGroupWorker, securityGroupCompute, user, password, sshKeyName)).toBeTruthy();
             await done();
         }, 300000);
 
         it('new AWS cluster should be created',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
-            expect(clusterCreateWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).toBeTruthy();
+            expect(await clusterCreateWizard.createAWSCluster(credentialName + 'aws', clusterName + 'aws', user, password, sshKeyName)).toBeTruthy();
             await done();
         }, 300000);
 
         it('new Azure cluster should be created',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
-            expect(clusterCreateWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey)).toBeTruthy();
+            expect(await clusterCreateWizard.createAzureCluster(credentialName + 'azure', clusterName + 'azure', user, password, sshKey)).toBeTruthy();
             await done();
         }, 300000);
 
         it('new GCP cluster should be created',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 400000;
-            expect(clusterCreateWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey)).toBeTruthy();
+            expect(await clusterCreateWizard.createGCPCluster(credentialName + 'gcp', clusterName + 'gcp', user, password, sshKey)).toBeTruthy();
             await done();
         }, 300000);
     });
@@ -137,7 +137,7 @@ describe('Testing Cloudbreak cluster creation', () => {
         });
         it('previously created OpenStack cluster should be removed',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'os')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'os')).toBeTruthy();
             await done();
         }, 500000);
 
@@ -150,7 +150,7 @@ describe('Testing Cloudbreak cluster creation', () => {
         });
         it('previously created AWS cluster should be removed',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'aws')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'aws')).toBeTruthy();
             await done();
         }, 500000);
 
@@ -163,7 +163,7 @@ describe('Testing Cloudbreak cluster creation', () => {
         });
         it('previously created Azure cluster should be removed',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'azure')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'azure')).toBeTruthy();
             await done();
         }, 500000);
 
@@ -176,7 +176,7 @@ describe('Testing Cloudbreak cluster creation', () => {
         });
         it('previously created GCP cluster should be removed',async (done) => {
             jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
-            expect(clusterDetails.waitForClusterWidgetTermination(clusterName + 'gcp')).toBeTruthy();
+            expect(await clusterDetails.waitForClusterWidgetTermination(clusterName + 'gcp')).toBeTruthy();
             await done();
         }, 500000);
     });
