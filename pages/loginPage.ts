@@ -1,8 +1,8 @@
 import {$, browser, by, element, protractor} from "protractor";
 
 export class LoginPageObject {
-    public usernameBox: any = $("input[id='username']");
-    public passwordBox: any = $("input[id='password']");
+    public usernameBox: any = $('#username');
+    public passwordBox: any = $('#password');
     public loginButton: any = element(by.cssContainingText('.btn.btn-primary','Login'));
 
     login(username: string, password: string) {
@@ -12,9 +12,9 @@ export class LoginPageObject {
         this.passwordBox.sendKeys(password);
 
         this.loginButton.click().then(() => {
-            $("input[id='settingsOpted']").click().then(() => {
+            $('#settingsOpted').click().then(() => {
                 browser.waitForAngular();
-                let yesButton = $("form[id='confirm-yes'] a");
+                let yesButton = $('#confirm-yes a');
 
                 return browser.wait(EC.visibilityOf(yesButton), 20000, 'I Agree button is NOT visible').then(() => {
                     return yesButton.click().then(() => {

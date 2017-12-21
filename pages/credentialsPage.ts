@@ -2,7 +2,7 @@ import {$, $$, browser, by, element, protractor} from 'protractor'
 import { BasePageObject } from "./basePage";
 
 export class CredentialsPageObject extends BasePageObject {
-    public credentialCreateButton: any = $("button[id='btnCreateCredential']");
+    public credentialCreateButton: any = $('#btnCreateCredential');
 
     amIOnTheCredentialsPage() {
         browser.getCurrentUrl().then((url) => {

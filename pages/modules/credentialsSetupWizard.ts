@@ -5,7 +5,8 @@ const path = require('path');
 const fs = require('fs');
 
 export class CredentialSetupWizardPageObject extends CredentialsPageObject {
-    public providerSelector: any = $("form div[class='provider-block'] div[class='selected-option']");
+    createCredentialApp = $("app-get-started");
+    providerSelector = this.createCredentialApp.$(".cb-credential-create-started-select-provider-switch");
 
     amIOnTheCreateCredentialWizard() {
         browser.getCurrentUrl().then((url) => {
@@ -50,18 +51,36 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         });
     }
 
+    clickCreateButton(name: string) {
+        const EC = protractor.ExpectedConditions;
+        const createButton = element(by.cssContainingText('button', ' Create'));
+
+        return createButton.click().then(() => {
+            const createFormName = $("app-general-configuration mat-select");
+
+            return browser.wait(EC.presenceOf(createFormName), 5000, 'Credential has NOT been created').then(() => {
+                return createFormName.isPresent().then((present) => {
+                    return present;
+                }, error => {
+                    return false;
+                });
+            }, error => {
+                return false;
+            });
+        });
+    }
+
     createOpenStackCredential(keystoneVersion: string, name: string, user: string, password: string, tenantName: string, endpoint: string, apiFacing: string) {
         const providerSelect = this.providerSelector;
         const EC = protractor.ExpectedConditions;
 
-        const keystoneSelector = $("mat-select[id='keystone-version-dropdown']");
-        const nameField = $("input[id='name']");
-        const userField = $("input[id='user']");
-        const passwordField = $("input[id='password']");
-        const tenantField = $("input[id='tenantName']");
-        const endpointField = $("input[id='endpoint']");
-        const apiSelector = $("mat-select[formcontrolname='apiFacing']");
-        const createButton = element(by.cssContainingText('button', ' Create'));
+        const keystoneSelector = $('#keystone-version-dropdown');
+        const nameField = $('#name');
+        const userField = $('#user');
+        const passwordField = $('#password');
+        const tenantField = $('#tenantName');
+        const endpointField = $('#endpoint');
+        const apiSelector = $('#cb-credential-create-openstack-api-facing-select');
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
@@ -75,7 +94,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 browser.wait(EC.elementToBeClickable(keystoneSelector), 5000, 'Keystone option is NOT visible').then(() => {
                     return keystoneSelector.click().then(() => {
-                        return $("mat-option[value=\'" + keystoneVersion + "\']").click();
+                        return element(by.cssContainingText('.mat-option', keystoneVersion)).click();
                     });
                 });
 
@@ -85,16 +104,10 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                 tenantField.sendKeys(tenantName);
                 endpointField.sendKeys(endpoint);
                 apiSelector.click().then( () => {
-                    return $("mat-option[ng-reflect-value=\'" + apiFacing + "\']").click();
+                    return element(by.cssContainingText('.mat-option', apiFacing)).click();
                 });
 
-                return createButton.click().then(() => {
-                    return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
-                        return present;
-                    }, error => {
-                        return false;
-                    });
-                });
+                return this.clickCreateButton(name);
             });
         }, error => {
             return console.log('Create Credential page has not opened!');
@@ -105,10 +118,9 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const providerSelect = this.providerSelector;
         const EC = protractor.ExpectedConditions;
 
-        const typeSelector = $("app-create-amazon-credential mat-select[ng-reflect-name='type']");
-        const nameField = $("input[id='name']");
-        const roleField = $("input[id='roleArn']");
-        const createButton = element(by.cssContainingText('button', ' Create'));
+        const typeSelector = $("app-create-amazon-credential mat-select[name='type']");
+        const nameField = $('#name');
+        const roleField = $('#roleArn');
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
@@ -122,20 +134,14 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 browser.wait(EC.elementToBeClickable(typeSelector), 5000, 'Type option is NOT visible').then(() => {
                     return typeSelector.click().then(() => {
-                        return $("mat-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                        return element(by.cssContainingText('.mat-option', credentialType)).click();
                     });
                 });
 
                 nameField.sendKeys(name);
                 roleField.sendKeys(iamRoleARN);
 
-                return createButton.click().then(() => {
-                    return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
-                        return present;
-                    }, error => {
-                        return false;
-                    });
-                });
+                return this.clickCreateButton(name);
             });
         }, error => {
             return console.log('Create Credential page has not opened!');
@@ -147,12 +153,11 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const EC = protractor.ExpectedConditions;
 
         const typeSelector = $("app-create-azure-credential mat-select[name='type']");
-        const nameField = $("input[id='name']");
-        const subscriptionField = $("input[id='subscriptionId']");
-        const tenantField = $("input[id='tenantId']");
-        const appField = $("input[id='appId']");
-        const appPasswordField = $("input[id='password']");
-        const createButton = element(by.cssContainingText('button', ' Create'));
+        const nameField = $('#name');
+        const subscriptionField = $('#subscriptionId');
+        const tenantField = $('#tenantId');
+        const appField = $('#appId');
+        const appPasswordField = $('#password');
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
             return providerSelect.click().then(() => {
@@ -166,7 +171,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
 
                 browser.wait(EC.elementToBeClickable(typeSelector), 5000, 'Type option is NOT visible').then(() => {
                     return typeSelector.click().then(() => {
-                        return $("mat-option[ng-reflect-value=\'" + credentialType + "\']").click();
+                        return element(by.cssContainingText('.mat-option', credentialType)).click();
                     });
                 });
 
@@ -178,13 +183,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                 appField.sendKeys(app);
                 appPasswordField.sendKeys(password);
 
-                return createButton.click().then(() => {
-                    return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
-                        return present;
-                    }, error => {
-                        return false;
-                    });
-                });
+                return this.clickCreateButton(name);
             });
         }, error => {
             return console.log('Create Credential page has not opened!');
@@ -195,10 +194,9 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
         const providerSelect = this.providerSelector;
         const EC = protractor.ExpectedConditions;
 
-        const nameField = $("input[id='name']");
-        const projectIDField = $("input[id='projectId']");
-        const serviceAccountEmail = $("input[id='serviceAccountEmail']");
-        const uploadButton = element(by.cssContainingText('button', 'Upload file'));
+        const nameField = $('#name');
+        const projectIDField = $('#projectId');
+        const serviceAccountEmail = $('#serviceAccountEmail');
         const createButton = element(by.cssContainingText('button', ' Create'));
 
         return browser.wait(EC.visibilityOf(providerSelect), 5000, 'Provider select is NOT visible').then(() => {
@@ -233,13 +231,7 @@ export class CredentialSetupWizardPageObject extends CredentialsPageObject {
                 });
 
                 return browser.wait(EC.elementToBeClickable(createButton), 5000, 'GCP credential Create button is NOT clickable').then(() => {
-                    return createButton.click().then(() => {
-                        return $("div[ng-reflect-router-link='/clusters/create']").isPresent().then((present) => {
-                            return present;
-                        }, error => {
-                            return false;
-                        });
-                    });
+                    return this.clickCreateButton(name);
                 });
             });
         }, error => {

@@ -2,7 +2,7 @@ import {$, by, element, browser, protractor, $$} from "protractor";
 import { BasePageObject } from "./basePage";
 
 export class ClustersPageObject extends BasePageObject {
-    public clusterCreateButton: any = $("button[id='btnCreateCluster']");
+    public clusterCreateButton: any = $('#btnCreateCluster');
 
     openClusterCreateWizard() {
         const EC = protractor.ExpectedConditions;

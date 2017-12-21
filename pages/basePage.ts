@@ -95,7 +95,7 @@ export class BasePageObject {
 
     logOut() {
         const EC = protractor.ExpectedConditions;
-        const logoutToggle = $("[id='logoutBtn']");
+        const logoutToggle = $('#logoutBtn');
 
         logoutToggle.click().then(() => {
             const confirmationYes = element(by.cssContainingText('app-confirmation-dialog button', 'Yes'));

@@ -96,14 +96,14 @@ describe('Testing Cloudbreak credential creation', () => {
         });
 
         it('new AWS credential should be created',() => {
-            const awsType = 'role-based';
+            const awsType = 'Role based';
             const role = process.env.AWS_ROLE_ARN;
 
             expect(credentialSetupWizard.createAWSCredential(awsType, name + 'aws', role)).toBeTruthy();
         });
 
         it('new Azure credential should be created',() => {
-            const azureType = 'app-based';
+            const azureType = 'App based';
             const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
             const tenantId = process.env.AZURE_TENANT_ID;
             const appId = process.env.AZURE_APP_ID;
