@@ -127,21 +127,37 @@ export class ClustersPageObject extends BasePageObject {
     waitForClusterWidgetTermination(name: string) {
         const EC = protractor.ExpectedConditions;
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
+        //console.log('Custom timeouts: ' + jasmine.DEFAULT_TIMEOUT_INTERVAL + '[JASMINE] and ' + browser.allScriptsTimeout + '[PROTRACTOR]');
 
-        return browser.wait(EC.stalenessOf(widgetLink), 480000, 'The cluster has NOT been terminated!').then(() => {
-            return widgetLink.isPresent().then((presented) => {
-                return !presented;
+        return browser.wait(EC.invisibilityOf(widgetLink), 480000, 'The cluster has NOT been terminated!').then(() => {
+            console.log(name + ' cluster has been removed!');
+            return browser.wait(EC.stalenessOf(widgetLink), 480000, 'The cluster widget has NOT been removed!').then(() => {
+                console.log(name + ' widget has been removed!');
+                return widgetLink.isPresent().then((presented) => {
+                    return !presented;
+                }, error => {
+                    console.log(name + ' cluster has been terminated');
+                    return true;
+                });
             }, error => {
-                console.log('Cluster has been terminated');
-                return true;
+                this.refreshClustersPage();
+                console.log(name + ' widget has NOT been removed in 480 seconds!');
+
+                return widgetLink.isPresent().then((presented) => {
+                    return !presented;
+                }, error => {
+                    console.log(name + ' cluster has been terminated');
+                    return true;
+                });
             });
         }, error => {
             this.refreshClustersPage();
+            console.log(name + ' cluster has NOT been removed in 480 seconds!');
 
             return widgetLink.isPresent().then((presented) => {
                 return !presented;
             }, error => {
-                console.log('Cluster has been terminated');
+                console.log(name + ' cluster has been terminated');
                 return true;
             });
         });
