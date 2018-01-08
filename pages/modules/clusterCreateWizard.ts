@@ -173,15 +173,34 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
                 });
             } else {
                 const nextButton = element(by.cssContainingText('button', 'Next'));
+                const recipePageCondition = EC.urlContains('/clusters/create/recipes');
+                const fileSystemPageCondition = EC.urlContains('/clusters/create/file-system');
 
                 return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
                     return nextButton.click().then(() => {
-                        return browser.wait(EC.urlContains('/clusters/create/recipes'), 5000, 'Recipes page is NOT visible').then(() => {
+                        return browser.wait(EC.or(recipePageCondition, fileSystemPageCondition), 5000, 'Next page is NOT visible').then(() => {
                             return true;
                         });
                     });
                 });
             }
+        });
+    }
+
+    navigateFromFileSystem() {
+        const EC = protractor.ExpectedConditions;
+        const fileSystemActionContainer = $("app-file-system div[class='action-container']");
+
+        fileSystemActionContainer.isDisplayed().then(() => {
+            const nextButton = fileSystemActionContainer.element(by.cssContainingText('button', 'Next'));
+
+            return browser.wait(EC.elementToBeClickable(nextButton), 5000, 'Next button is NOT clickable').then(() => {
+                return nextButton.click().then(() => {
+                    return browser.wait(EC.urlContains('/clusters/create/recipes'), 5000, 'Recipe page is NOT visible').then(() => {
+                        return true;
+                    });
+                });
+            });
         });
     }
 
@@ -406,6 +425,7 @@ export class ClusterCreateWizardPageObject extends ClustersPageObject {
         this.setClusterName(clusterName);
         this.setMasterAsAmbariServer();
 
+        this.navigateFromFileSystem();
         this.navigateFromRecipes();
         this.navigateFromNetwork();
 
