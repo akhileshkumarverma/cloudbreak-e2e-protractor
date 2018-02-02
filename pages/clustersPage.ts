@@ -39,8 +39,8 @@ export class ClustersPageObject extends BasePageObject {
         const widgetLink = $("a[data-stack-name=\'" + name + "\']");
         const terminateButton = element(by.cssContainingText('app-cluster-details button', 'TERMINATE'));
 
-        browser.wait(EC.visibilityOf(widgetLink), 10000, 'Cluster widget is NOT visible').then(() => {
-            return browser.wait(EC.elementToBeClickable(widgetLink), 5000, 'Cluster widget is NOT clickable').then(() => {
+        browser.wait(EC.visibilityOf(widgetLink), 20000, 'Cluster widget is NOT visible').then(() => {
+            return browser.wait(EC.elementToBeClickable(widgetLink), 10000, 'Cluster widget is NOT clickable').then(() => {
                 return widgetLink.isDisplayed().then(() => {
                     return widgetLink.click();
                 }, error => {

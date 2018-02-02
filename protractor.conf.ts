@@ -1,5 +1,8 @@
 import {browser, Config} from "protractor";
 
+// https://github.com/allure-framework/allure-jasmine/issues/21
+declare const allure: any;
+
 export let config: Config = {
     params: {
         nameTag: process.env.TARGET_CBD_VERSION.replace(/\./g,'')
@@ -204,15 +207,19 @@ export let config: Config = {
         }));
         // It generates the Jasmine Allure Reports https://www.npmjs.com/package/jasmine-allure-reporter
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/15836
-        // const AllureReporter = require('jasmine-allure-reporter');
-        // jasmine.getEnv().addReporter(new AllureReporter());
-        // jasmine.getEnv().afterEach(done => {
-        //     browser.takeScreenshot().then(function(png) {
-        //         allure.createAttachment('Screenshot', function () {
-        //             return new Buffer(png, 'base64')
-        //         }, 'image/png')();
-        //         done();
-        //     })
-        // });
+        const AllureReporter = require('jasmine-allure-reporter');
+        jasmine.getEnv().addReporter(new AllureReporter({
+            allureReport: {
+                resultsDir: 'allure-results'
+            }
+        }));
+        jasmine.getEnv().afterEach(done => {
+            browser.takeScreenshot().then(function(png) {
+                allure.createAttachment('Screenshot', function () {
+                    return new Buffer(png, 'base64')
+                }, 'image/png')();
+                done();
+            })
+        });
     }
 };
